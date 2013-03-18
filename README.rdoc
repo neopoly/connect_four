@@ -44,7 +44,7 @@ playero> 4
   git clone git@github.com:YOURNAME/connect_four.git
   cd connect_four
   # mit rvm:
-  # ruby -v         # -> 1.9.3
+  # ruby -v         # -> 2.0.0
   # rvm gemset name # => connect_four
   bundle
   rake
@@ -53,16 +53,16 @@ playero> 4
 
 === Ruby
 
-  ruby-1.9-3-p125
+  ruby-2.0.0p0
 
 === Ruby version manager (rvm)
 
-  rvm install ruby-1.9.3
-  rvm use 1.9.3
-  ruby -v # => 1.9.3
+  rvm install ruby-2.0.0
+  rvm use 2.0.0
+  ruby -v # => 2.0.0
 
 === Gems
 
   bundler # Gemfile
   rake    # Rakefile
-  test-unit # -> minitest
+  minitest
