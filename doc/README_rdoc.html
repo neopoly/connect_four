@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>README - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+<div id="table-of-contents">
+  <nav class="section">
+    <h3 class="section-header">Table of Contents</h3>
+    <ul>
+      <li><a href="#label-Connect+four">Connect four</a>
+      <li><a href="#label-Game+play">Game play</a>
+      <li><a href="#label-Test+driven+development+%28TDD%29+with+minitest">Test driven development (TDD) with minitest</a>
+      <li><a href="#label-Setup">Setup</a>
+      <li><a href="#label-Environnment">Environnment</a>
+      <li><a href="#label-Ruby">Ruby</a>
+      <li><a href="#label-Ruby+version+manager+%28rvm%29">Ruby version manager (rvm)</a>
+      <li><a href="#label-Gems">Gems</a>
+    </ul>
+  </nav>
+</div>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./doc/ConnectFour_html.html">ConnectFour.html</a>
+  
+    <li class="file"><a href="./doc/ConnectFourSpec_html.html">ConnectFourSpec.html</a>
+  
+    <li class="file"><a href="./doc/ConnectFourTest_html.html">ConnectFourTest.html</a>
+  
+    <li class="file"><a href="./doc/Gemfile_html.html">Gemfile.html</a>
+  
+    <li class="file"><a href="./doc/Gemfile_lock_html.html">Gemfile_lock.html</a>
+  
+    <li class="file"><a href="./doc/README_rdoc_html.html">README_rdoc.html</a>
+  
+    <li class="file"><a href="./doc/Rakefile_html.html">Rakefile.html</a>
+  
+    <li class="file"><a href="./doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="./doc/doc/created_rid_html.html">created_rid.html</a>
+  
+    <li class="file"><a href="./doc/index_html.html">index.html</a>
+  
+    <li class="file"><a href="./doc/js/darkfish_js.html">darkfish.js</a>
+  
+    <li class="file"><a href="./doc/js/jquery_js.html">jquery.js</a>
+  
+    <li class="file"><a href="./doc/js/navigation_js.html">navigation.js</a>
+  
+    <li class="file"><a href="./doc/js/search_js.html">search.js</a>
+  
+    <li class="file"><a href="./doc/js/search_index_js.html">search_index.js</a>
+  
+    <li class="file"><a href="./doc/js/searcher_js.html">searcher.js</a>
+  
+    <li class="file"><a href="./doc/rdoc_css.html">rdoc.css</a>
+  
+    <li class="file"><a href="./doc/table_of_contents_html.html">table_of_contents.html</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ConnectFour.html">ConnectFour</a>
+  
+    <li><a href="./ConnectFourSpec.html">ConnectFourSpec</a>
+  
+    <li><a href="./ConnectFourTest.html">ConnectFourTest</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-Connect+four">Connect four<span><a href="#label-Connect+four">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<p>Console based “Vier gewinnt”.</p>
+
+<h2 id="label-Game+play">Game play<span><a href="#label-Game+play">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>$ connect_four</p>
+
+<p>playerx&gt; 2</p>
+
+<pre>12345678
+........
+........
+........
+........
+........
+........
+..xoox..
+.xxoox x</pre>
+
+<p>playero&gt; 4</p>
+
+<pre>12345678
+........
+........
+........
+........
+........
+...o....
+..xoox..
+.xxoox x</pre>
+
+<h2 id="label-Test+driven+development+%28TDD%29+with+minitest">Test driven development (TDD) with minitest<span><a href="#label-Test+driven+development+%28TDD%29+with+minitest">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<pre>rake test</pre>
+
+<h2 id="label-Setup">Setup<span><a href="#label-Setup">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<pre>Fork from https://github.com/neopoly/connect_four
+
+ git clone git@github.com:YOURNAME/connect_four.git
+ cd connect_four
+ # mit rvm:
+ # ruby -v         # -&gt; 2.0.0
+ bundle
+ rake</pre>
+
+<h2 id="label-Environnment">Environnment<span><a href="#label-Environnment">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<h3 id="label-Ruby">Ruby<span><a href="#label-Ruby">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<pre>ruby-2.0.0p0</pre>
+
+<h3 id="label-Ruby+version+manager+%28rvm%29">Ruby version manager (rvm)<span><a href="#label-Ruby+version+manager+%28rvm%29">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">rvm</span> <span class="ruby-identifier">install</span> <span class="ruby-identifier">ruby</span><span class="ruby-operator">-</span><span class="ruby-value">2.0</span><span class="ruby-value">.0</span>
+<span class="ruby-identifier">rvm</span> <span class="ruby-identifier">use</span> <span class="ruby-value">2.0</span><span class="ruby-value">.0</span>
+<span class="ruby-identifier">ruby</span> <span class="ruby-operator">-</span><span class="ruby-identifier">v</span> <span class="ruby-comment"># =&gt; 2.0.0</span>
+</pre>
+
+<h3 id="label-Gems">Gems<span><a href="#label-Gems">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<pre>bundler # Gemfile
+rake    # Rakefile
+minitest</pre>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
