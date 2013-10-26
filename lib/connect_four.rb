@@ -37,13 +37,17 @@ class ConnectFour
 	end
 	
 	def play
-		drop_to_column = (@player.name + " drop disc into column [1-7]: ").prompt
-		if (self.in_range? drop_to_column)
-			self.play_turn drop_to_column.to_i - 1
+		drop_disc_to_column = (@player.name + " drop disc into column [1-7]: ").prompt.to_s.chomp.to_i
+		if (self.in_range? drop_disc_to_column)
+			self.play_turn drop_disc_to_column.to_i - 1
 		else
 			self.info_range_error
 		end
 		
+		self.next_turn
+	end
+	
+	def next_turn
 		self.play
 	end
 	
@@ -70,7 +74,7 @@ class ConnectFour
 	
 	def prompt_replay
  		is_replay = "Do you want to play again? Type [y] or [n]: ".prompt
- 		if is_replay.to_s === "y\n".to_s
+ 		if is_replay.to_s.chomp === "y"
  			self.play_again
  		else
  			self.quit
@@ -116,11 +120,14 @@ class Grid
 		@number_of_discs_to_connect = number_of_discs_to_connect
 		@tiles = Array.new(@number_of_columns) { Array.new(@number_of_rows) }
 		@discs = Array.new
+		@column_labels = ''
 		self.build
 	end
 	
 	def build
+		@column_labels = ''
 		for column in 0...@number_of_columns
+			@column_labels +=  (column + 1).to_s
 			for row in 0...@number_of_rows
 				@tiles[column][row] = Tile.new column, row
 			end
@@ -146,7 +153,7 @@ class Grid
  			self.draw
  			return :toggle_player
  		else
- 			puts "Column " + col.to_s + " is full. Please chose another one. "
+ 			puts "Column " + (col.to_i+1).to_s + " is full. Please chose another one. "
  			puts player.name + " play again!"
  		end
  		return :next_turn
@@ -160,13 +167,12 @@ class Grid
 	end
 	
 	def matches_pattern? player, result
-		result.include? player.color.to_s * @number_of_discs_to_connect
-		puts result
+		result.to_s.include? (player.color.to_s * @number_of_discs_to_connect).to_s
 	end
 	
 	def finds_vertical_connections? col, player
 		result = @discs[col].join
-		is_vertical = self.matches_pattern? player, result
+		self.matches_pattern? player, result
 	end
 	
 	def finds_horizontal_connections? row, player
@@ -174,18 +180,18 @@ class Grid
 		@tiles.each do |column|	
 			result += column[row].color.to_s
 		end
-		is_horizontal = self.matches_pattern? player, result
+		self.matches_pattern? player, result
 	end
 	
 	def finds_diagonal_connections? is_anti, col, row, player
 		anti = is_anti ? 1 : -1
 		result = ''
-		for i in -3..3
+		for i in -(@number_of_discs_to_connect-1)..(@number_of_discs_to_connect-1)
 			if @tiles[col + i] and @tiles[col + i][row + i * anti] 
 				result += @tiles[col + i][row + i * anti].color.to_s
 			end
 		end
-		is_diagonal = self.matches_pattern? player, result
+		self.matches_pattern? player, result
 	end
 		
 	def reset
@@ -195,9 +201,10 @@ class Grid
 	end
 
 	def draw
-		#system "clear"
+		system "clear"
 		puts ''
-		puts '1234567'		#change to dynamic value
+
+		puts @column_labels
 		for row_number in 0...@number_of_rows
 			result = ''
 			for col_number in 0...@number_of_columns
@@ -219,7 +226,7 @@ class Tile
 	end
 	
 	def assign_to player
-		@color = player.color.colorize(4)
+		@color = player.color
 	end
 end
 
