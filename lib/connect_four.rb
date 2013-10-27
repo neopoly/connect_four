@@ -19,15 +19,15 @@ end
 
 #CONNECT FOUR CLASSES
 class ConnectFour
-	attr_accessor :player, :playero, :playerx, :grid
+	attr_accessor :player, :playero, :playerx, :board
 
 	def initialize number_of_columns, number_of_rows, number_of_discs_to_connect
 		@player = @playero = Player.new('o', 31, 41)
 		@playerx = Player.new('x', 33, 43)
 		
 		self.show_rules
-		@grid = Grid.new number_of_columns, number_of_rows, number_of_discs_to_connect
-		@grid.draw_grid
+		@board = Board.new number_of_columns, number_of_rows, number_of_discs_to_connect
+		@board.draw_board
 	end
 	
 	def show_rules
@@ -37,9 +37,10 @@ class ConnectFour
 	end
 	
 	def play
-		player_drops_disc_to_column = (@player.name + " drop disc into column [1-7]: ").prompt.to_s.chomp.to_i
-		if (self.checks_if_column_is_in_grid? player_drops_disc_to_column)
-			self.play_turn player_drops_disc_to_column.to_i - 1
+		target_column = (@player.name + " drop disc into column [1-7]: ").prompt.to_s.chomp.to_i
+		
+		if (self.is_in_range? target_column)
+			self.play_turn target_column.to_i - 1
 		else
 			self.info_range_error
 		end
@@ -51,21 +52,22 @@ class ConnectFour
 		self.play
 	end
 	
-	def play_turn player_drops_disc_to_column
-		player_play_state = @player.play player_drops_disc_to_column, @grid
-		if player_play_state === :replay
+	def play_turn column
+		player_action = @player.drops_disc_to_column_in_board column, @board
+		
+		if player_action === :player_has_won
  			if self.ask_player_if_he_wants_to_play_again
  				self.play_again
  			else
  				self.quit
  			end
-		elsif player_play_state === :toggle_player
+		elsif player_action === :player_has_played
 			self.toggle_player
 		end
 	end
 
-	def checks_if_column_is_in_grid? column
-		column.to_i >= 1 and column.to_i <= @grid.number_of_columns	
+	def is_in_range? column
+		column.to_i >= 1 and column.to_i <= @board.number_of_columns	
 	end
 	
 	def info_range_error
@@ -89,8 +91,8 @@ class ConnectFour
 	
   	def play_again
 		@player = @playero
-		@grid.reset
-		@grid.draw_grid
+		@board.reset_tilemap
+		@board.draw_board
   		self.play
   	end
   	
@@ -112,28 +114,27 @@ class Player
 		puts ''
 	end
 	
-	def play column, grid	
-		grid.drop_disc column, self
+	def drops_disc_to_column_in_board column, board	
+		board.drop_disc_to column, self
 	end
 end
 
-class Grid
+class Board
 	attr_accessor :number_of_columns, :number_of_rows, :number_of_discs_to_connect, :tiles, :discs
 	
 	def initialize number_of_columns, number_of_rows, number_of_discs_to_connect
 		@number_of_columns = number_of_columns
 		@number_of_rows = number_of_rows
 		@number_of_discs_to_connect = number_of_discs_to_connect
-		@tiles = Array.new(@number_of_columns) { Array.new(@number_of_rows) }
+		@tilemap = Array.new(@number_of_columns) { Array.new(@number_of_rows) }
 		@discs = Array.new
-		@column_labels = ''
-		self.build
+		self.build_tilemap
 	end
 	
-	def build
+	def build_tilemap
 		for column in 0...@number_of_columns
 			for row in 0...@number_of_rows
-				@tiles[column][row] = Tile.new column, row
+				@tilemap[column][row] = Tile.new column, row
 			end
 		end
 	end
@@ -144,34 +145,38 @@ class Grid
 		end
 	end
 	
-	def connect_disc_with_grid column, player
-		row = @discs[column].length
- 		@discs[column][row] = player.color
- 		@tiles[column][row].assign_to player
- 		return row
+	def insert_disc_to column, player
+		insert_row = @discs[column].length
+ 		@discs[column][insert_row] = player.color
+ 		@tilemap[column][insert_row].assign_to player
+ 		return insert_row
 	end
 	
-	def drop_disc column, player      #todo: refactor
+	def column_is_full? column
+		not @discs[column].length < @tilemap[column].length
+	end
+	
+	def drop_disc_to column, player
 		self.provide_column column
 			
- 		if @discs[column].length < @tiles[column].length
- 			row = self.connect_disc_with_grid column, player
- 			
- 			if self.is_connected? column, row, player
- 				self.draw_grid
+ 		if not self.column_is_full? column
+ 			insert_row = self.insert_disc_to column, player
+ 			self.draw_board
+ 			 			
+ 			if self.is_connected? column, insert_row, player
  				player.wins
- 				return :replay
+ 				return :player_has_won
+ 			else
+ 				return :player_has_played
  			end
  			
- 			self.draw_grid
- 			return :toggle_player
  		else
-			self.informs_player_about_full_column player,column
+			self.inform_player_about_full_column player, column
+			return :player_repeats_turn
  		end
- 		return :next_turn
 	end
 	
-	def informs_player_about_full_column player,column
+	def inform_player_about_full_column player,column
 		puts "Column " + (column.to_i+1).to_s + " is full. Please chose another one. "
  		puts player.name + " play again!"
 	end
@@ -183,61 +188,73 @@ class Grid
 		self.finds_diagonal_connections? true, col, row, player
 	end
 	
-	def matches_pattern? player, result
-		result.to_s.include? (player.color.to_s * @number_of_discs_to_connect).to_s
+	def matches_connection_in_search_result? player, search_result
+		search_result.to_s.include? (player.color.to_s * @number_of_discs_to_connect).to_s
 	end
 	
 	def finds_vertical_connections? column, player
-		result = @discs[column].join
-		self.matches_pattern? player, result
+		search_result = @discs[column].join
+		self.matches_connection_in_search_result? player, search_result
 	end
 	
 	def finds_horizontal_connections? row, player
-		result = ''
-		@tiles.each do |column|	
-			result += column[row].color.to_s
+		search_result = ''
+		@tilemap.each do |column|	
+			search_result += column[row].color.to_s
 		end
-		self.matches_pattern? player, result
+		self.matches_connection_in_search_result? player, search_result
 	end
 	
-	def finds_diagonal_connections? is_anti, column, row, player
-		anti = is_anti ? 1 : -1
-		result = ''
-		for i in -(@number_of_discs_to_connect-1)..(@number_of_discs_to_connect-1)
-			if @tiles[column + i] and @tiles[column + i][row + i * anti] 
-				result += @tiles[column + i][row + i * anti].color.to_s
+	def finds_diagonal_connections? is_antidiagonal, column, row, player
+		diagonal_direction = is_antidiagonal ? 1 : -1
+		search_result = ''
+		for position in self.get_diagonal_search_range
+			if self.checks_for_diagonal_tile_at_position column, row, diagonal_direction, position
+				search_result += self.get_diagonal_tile_at_position column, row, diagonal_direction, position
 			end
 		end
-		self.matches_pattern? player, result
-	end
-		
-	def reset
-		@tiles = Array.new(@number_of_columns) { Array.new(@number_of_rows) }
-		@discs = Array.new
-		self.build		
+		self.matches_connection_in_search_result? player, search_result
 	end
 
-	def draw_grid
+	def get_diagonal_search_range
+		-(@number_of_discs_to_connect-1)..(@number_of_discs_to_connect-1)
+	end
+
+	def	checks_for_diagonal_tile_at_position column, row, diagonal_direction, position
+		@tilemap[column + position] and @tilemap[column + position][row + position * diagonal_direction] 
+	end
+	
+	def get_diagonal_tile_at_position column, row, diagonal_direction, position
+		@tilemap[column + position][row + position * diagonal_direction].color.to_s
+	end
+		
+	def reset_tilemap
+		@tilemap = Array.new(@number_of_columns) { Array.new(@number_of_rows) }
+		@discs = Array.new
+		self.build_tilemap	
+	end
+
+	def draw_board
 		system "clear"
 		puts ''
 		for row_number in 0...@number_of_rows
-			result = ''
+			console_output = ''
 			for column_number in 0...@number_of_columns
-				result += @tiles[column_number].reverse[row_number].color.to_s
+				console_output += @tilemap[column_number].reverse[row_number].color.to_s
 			end
-			puts result
+			puts console_output
 		end
 		puts ''
 	end
 end
 
 class Tile
-	attr_accessor :col,:row, :color
+	attr_accessor :column,:row, :color
 	
-	def initialize col,row
-		@col = col
+	def initialize column,row
+		@column = column
 		@row = row
-		@color = (col + 1).to_s.colorize(44).colorize(34)
+		@color = (column + 1).to_s.colorize(44).colorize(34)
 	end
 	
 	def assign_to player
