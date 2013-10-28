@@ -49,7 +49,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/connect_four.rb
+    <li>lib/player.rb
   </ul>
 </nav>
 
@@ -75,7 +75,7 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-play">#play</a>
+    <li ><a href="#method-i-drops_disc_to_column_in_board">#drops_disc_to_column_in_board</a>
     
     <li ><a href="#method-i-wins">#wins</a>
     
@@ -98,6 +98,10 @@
   
     <li class="file"><a href="./Rakefile.html">Rakefile</a>
   
+    <li class="file"><a href="./doc/Board_html.html">Board.html</a>
+  
+    <li class="file"><a href="./doc/BoardTest_html.html">BoardTest.html</a>
+  
     <li class="file"><a href="./doc/ConnectFour_html.html">ConnectFour.html</a>
   
     <li class="file"><a href="./doc/ConnectFourSpec_html.html">ConnectFourSpec.html</a>
@@ -108,47 +112,23 @@
   
     <li class="file"><a href="./doc/Gemfile_lock_html.html">Gemfile_lock.html</a>
   
+    <li class="file"><a href="./doc/Player_html.html">Player.html</a>
+  
+    <li class="file"><a href="./doc/PlayerTest_html.html">PlayerTest.html</a>
+  
     <li class="file"><a href="./doc/README_rdoc_html.html">README_rdoc.html</a>
   
     <li class="file"><a href="./doc/Rakefile_html.html">Rakefile.html</a>
   
+    <li class="file"><a href="./doc/String_html.html">String.html</a>
+  
+    <li class="file"><a href="./doc/Tile_html.html">Tile.html</a>
+  
+    <li class="file"><a href="./doc/TileTest_html.html">TileTest.html</a>
+  
     <li class="file"><a href="./doc/created_rid.html">created.rid</a>
   
-    <li class="file"><a href="./doc/doc/ConnectFourSpec_html_html.html">ConnectFourSpec_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/ConnectFourTest_html_html.html">ConnectFourTest_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/ConnectFour_html_html.html">ConnectFour_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/Gemfile_html_html.html">Gemfile_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/Gemfile_lock_html_html.html">Gemfile_lock_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/README_rdoc_html_html.html">README_rdoc_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/Rakefile_html_html.html">Rakefile_html.html</a>
-  
     <li class="file"><a href="./doc/doc/created_rid_html.html">created_rid.html</a>
-  
-    <li class="file"><a href="./doc/doc/doc/created_rid_html_html.html">created_rid_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/index_html_html.html">index_html.html</a>
-  
-    <li class="file"><a href="./doc/doc/js/darkfish_js_html.html">darkfish_js.html</a>
-  
-    <li class="file"><a href="./doc/doc/js/jquery_js_html.html">jquery_js.html</a>
-  
-    <li class="file"><a href="./doc/doc/js/navigation_js_html.html">navigation_js.html</a>
-  
-    <li class="file"><a href="./doc/doc/js/search_index_js_html.html">search_index_js.html</a>
-  
-    <li class="file"><a href="./doc/doc/js/search_js_html.html">search_js.html</a>
-  
-    <li class="file"><a href="./doc/doc/js/searcher_js_html.html">searcher_js.html</a>
-  
-    <li class="file"><a href="./doc/doc/rdoc_css_html.html">rdoc_css.html</a>
-  
-    <li class="file"><a href="./doc/doc/table_of_contents_html_html.html">table_of_contents_html.html</a>
   
     <li class="file"><a href="./doc/index_html.html">index.html</a>
   
@@ -168,36 +148,6 @@
   
     <li class="file"><a href="./doc/table_of_contents_html.html">table_of_contents.html</a>
   
-    <li class="file"><a href="./lib/doc/ConnectFour_html.html">ConnectFour.html</a>
-  
-    <li class="file"><a href="./lib/doc/Grid_html.html">Grid.html</a>
-  
-    <li class="file"><a href="./lib/doc/Player_html.html">Player.html</a>
-  
-    <li class="file"><a href="./lib/doc/String_html.html">String.html</a>
-  
-    <li class="file"><a href="./lib/doc/created_rid.html">created.rid</a>
-  
-    <li class="file"><a href="./lib/doc/doc/created_rid_html.html">created_rid.html</a>
-  
-    <li class="file"><a href="./lib/doc/index_html.html">index.html</a>
-  
-    <li class="file"><a href="./lib/doc/js/darkfish_js.html">darkfish.js</a>
-  
-    <li class="file"><a href="./lib/doc/js/jquery_js.html">jquery.js</a>
-  
-    <li class="file"><a href="./lib/doc/js/navigation_js.html">navigation.js</a>
-  
-    <li class="file"><a href="./lib/doc/js/search_js.html">search.js</a>
-  
-    <li class="file"><a href="./lib/doc/js/search_index_js.html">search_index.js</a>
-  
-    <li class="file"><a href="./lib/doc/js/searcher_js.html">searcher.js</a>
-  
-    <li class="file"><a href="./lib/doc/rdoc_css.html">rdoc.css</a>
-  
-    <li class="file"><a href="./lib/doc/table_of_contents_html.html">table_of_contents.html</a>
-  
   </ul>
 </nav>
 
@@ -206,19 +156,25 @@
 
   <ul class="link-list">
   
+    <li><a href="./Board.html">Board</a>
+  
+    <li><a href="./BoardTest.html">BoardTest</a>
+  
     <li><a href="./ConnectFour.html">ConnectFour</a>
   
     <li><a href="./ConnectFourSpec.html">ConnectFourSpec</a>
   
     <li><a href="./ConnectFourTest.html">ConnectFourTest</a>
   
-    <li><a href="./Grid.html">Grid</a>
-  
     <li><a href="./Player.html">Player</a>
+  
+    <li><a href="./PlayerTest.html">PlayerTest</a>
   
     <li><a href="./String.html">String</a>
   
     <li><a href="./Tile.html">Tile</a>
+  
+    <li><a href="./TileTest.html">TileTest</a>
   
   </ul>
 </nav>
@@ -303,7 +259,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/connect_four.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/player.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">color</span>, <span class="ruby-identifier">foreground_colorcode</span>, <span class="ruby-identifier">background_colorcode</span>
         <span class="ruby-ivar">@color</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">background_colorcode</span>).<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">foreground_colorcode</span>)
         <span class="ruby-ivar">@name</span> = <span class="ruby-string">&#39;Player &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">background_colorcode</span>).<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">foreground_colorcode</span>)
@@ -324,11 +280,11 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-play" class="method-detail ">
+      <div id="method-i-drops_disc_to_column_in_board" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">play</span><span
-            class="method-args">(column, grid)</span>
+          <span class="method-name">drops_disc_to_column_in_board</span><span
+            class="method-args">(column, board)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -342,19 +298,19 @@
           
 
           
-          <div class="method-source-code" id="play-source">
-            <pre><span class="ruby-comment"># File lib/connect_four.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">play</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">grid</span>  
-        <span class="ruby-identifier">grid</span>.<span class="ruby-identifier">drop_disc</span> <span class="ruby-identifier">column</span>, <span class="ruby-keyword">self</span>
+          <div class="method-source-code" id="drops_disc_to_column_in_board-source">
+            <pre><span class="ruby-comment"># File lib/player.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">drops_disc_to_column_in_board</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">board</span>        
+        <span class="ruby-identifier">board</span>.<span class="ruby-identifier">drop_disc_to</span> <span class="ruby-identifier">column</span>, <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- play-source -->
+          </div><!-- drops_disc_to_column_in_board-source -->
           
         </div>
 
         
 
         
-      </div><!-- play-method -->
+      </div><!-- drops_disc_to_column_in_board-method -->
 
     
       <div id="method-i-wins" class="method-detail ">
@@ -376,7 +332,7 @@
 
           
           <div class="method-source-code" id="wins-source">
-            <pre><span class="ruby-comment"># File lib/connect_four.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/player.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">wins</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@name</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; wins this game!&#39;</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&#39;</span>

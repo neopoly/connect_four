@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Board - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/board.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-build_tilemap">#build_tilemap</a>
+    
+    <li ><a href="#method-i-can_play_in_column-3F">#can_play_in_column?</a>
+    
+    <li ><a href="#method-i-check_if_player_wins">#check_if_player_wins</a>
+    
+    <li ><a href="#method-i-checks_for_diagonal_tile_at_position">#checks_for_diagonal_tile_at_position</a>
+    
+    <li ><a href="#method-i-column_is_full-3F">#column_is_full?</a>
+    
+    <li ><a href="#method-i-draw_board">#draw_board</a>
+    
+    <li ><a href="#method-i-drop_disc_to">#drop_disc_to</a>
+    
+    <li ><a href="#method-i-finds_diagonal_connections-3F">#finds_diagonal_connections?</a>
+    
+    <li ><a href="#method-i-finds_horizontal_connections-3F">#finds_horizontal_connections?</a>
+    
+    <li ><a href="#method-i-finds_vertical_connections-3F">#finds_vertical_connections?</a>
+    
+    <li ><a href="#method-i-get_diagonal_search_range">#get_diagonal_search_range</a>
+    
+    <li ><a href="#method-i-get_diagonal_tile_at_position">#get_diagonal_tile_at_position</a>
+    
+    <li ><a href="#method-i-get_highest_number_of_discs_to_connect">#get_highest_number_of_discs_to_connect</a>
+    
+    <li ><a href="#method-i-info_player_about_full_column">#info_player_about_full_column</a>
+    
+    <li ><a href="#method-i-insert_disc_to">#insert_disc_to</a>
+    
+    <li ><a href="#method-i-is_connected-3F">#is_connected?</a>
+    
+    <li ><a href="#method-i-matches_connection_in_search_result-3F">#matches_connection_in_search_result?</a>
+    
+    <li ><a href="#method-i-provide_column_for_discs">#provide_column_for_discs</a>
+    
+    <li ><a href="#method-i-reset_tilemap">#reset_tilemap</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./doc/Board_html.html">Board.html</a>
+  
+    <li class="file"><a href="./doc/BoardTest_html.html">BoardTest.html</a>
+  
+    <li class="file"><a href="./doc/ConnectFour_html.html">ConnectFour.html</a>
+  
+    <li class="file"><a href="./doc/ConnectFourSpec_html.html">ConnectFourSpec.html</a>
+  
+    <li class="file"><a href="./doc/ConnectFourTest_html.html">ConnectFourTest.html</a>
+  
+    <li class="file"><a href="./doc/Gemfile_html.html">Gemfile.html</a>
+  
+    <li class="file"><a href="./doc/Gemfile_lock_html.html">Gemfile_lock.html</a>
+  
+    <li class="file"><a href="./doc/Player_html.html">Player.html</a>
+  
+    <li class="file"><a href="./doc/PlayerTest_html.html">PlayerTest.html</a>
+  
+    <li class="file"><a href="./doc/README_rdoc_html.html">README_rdoc.html</a>
+  
+    <li class="file"><a href="./doc/Rakefile_html.html">Rakefile.html</a>
+  
+    <li class="file"><a href="./doc/String_html.html">String.html</a>
+  
+    <li class="file"><a href="./doc/Tile_html.html">Tile.html</a>
+  
+    <li class="file"><a href="./doc/TileTest_html.html">TileTest.html</a>
+  
+    <li class="file"><a href="./doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="./doc/doc/created_rid_html.html">created_rid.html</a>
+  
+    <li class="file"><a href="./doc/index_html.html">index.html</a>
+  
+    <li class="file"><a href="./doc/js/darkfish_js.html">darkfish.js</a>
+  
+    <li class="file"><a href="./doc/js/jquery_js.html">jquery.js</a>
+  
+    <li class="file"><a href="./doc/js/navigation_js.html">navigation.js</a>
+  
+    <li class="file"><a href="./doc/js/search_js.html">search.js</a>
+  
+    <li class="file"><a href="./doc/js/search_index_js.html">search_index.js</a>
+  
+    <li class="file"><a href="./doc/js/searcher_js.html">searcher.js</a>
+  
+    <li class="file"><a href="./doc/rdoc_css.html">rdoc.css</a>
+  
+    <li class="file"><a href="./doc/table_of_contents_html.html">table_of_contents.html</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Board.html">Board</a>
+  
+    <li><a href="./BoardTest.html">BoardTest</a>
+  
+    <li><a href="./ConnectFour.html">ConnectFour</a>
+  
+    <li><a href="./ConnectFourSpec.html">ConnectFourSpec</a>
+  
+    <li><a href="./ConnectFourTest.html">ConnectFourTest</a>
+  
+    <li><a href="./Player.html">Player</a>
+  
+    <li><a href="./PlayerTest.html">PlayerTest</a>
+  
+    <li><a href="./String.html">String</a>
+  
+    <li><a href="./Tile.html">Tile</a>
+  
+    <li><a href="./TileTest.html">TileTest</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Board</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-discs" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">discs</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-number_of_columns" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">number_of_columns</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-number_of_discs_to_connect" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">number_of_discs_to_connect</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-number_of_rows" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">number_of_rows</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-tiles" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">tiles</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(number_of_columns, number_of_rows, number_of_discs_to_connect)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">number_of_columns</span>, <span class="ruby-identifier">number_of_rows</span>, <span class="ruby-identifier">number_of_discs_to_connect</span>
+        <span class="ruby-ivar">@number_of_columns</span> = <span class="ruby-identifier">number_of_columns</span>
+        <span class="ruby-ivar">@number_of_rows</span> = <span class="ruby-identifier">number_of_rows</span>
+        <span class="ruby-ivar">@number_of_discs_to_connect</span> = <span class="ruby-identifier">get_highest_number_of_discs_to_connect</span> <span class="ruby-identifier">number_of_discs_to_connect</span>
+        <span class="ruby-ivar">@tilemap</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@number_of_columns</span>) { <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@number_of_rows</span>) }
+        <span class="ruby-ivar">@discs</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">build_tilemap</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-build_tilemap" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_tilemap</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="build_tilemap-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_tilemap</span>
+        <span class="ruby-keyword">for</span> <span class="ruby-identifier">column</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-ivar">@number_of_columns</span>
+                <span class="ruby-keyword">for</span> <span class="ruby-identifier">row</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-ivar">@number_of_rows</span>
+                        <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column</span>][<span class="ruby-identifier">row</span>] = <span class="ruby-constant">Tile</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build_tilemap-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build_tilemap-method -->
+
+    
+      <div id="method-i-can_play_in_column-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">can_play_in_column?</span><span
+            class="method-args">(column, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="can_play_in_column-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">can_play_in_column?</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">column_is_full?</span> <span class="ruby-identifier">column</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info_player_about_full_column</span> <span class="ruby-identifier">player</span>, <span class="ruby-identifier">column</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- can_play_in_column-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- can_play_in_column-3F-method -->
+
+    
+      <div id="method-i-check_if_player_wins" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_if_player_wins</span><span
+            class="method-args">(column, row, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_if_player_wins-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_if_player_wins</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_connected?</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span>
+                <span class="ruby-identifier">player</span>.<span class="ruby-identifier">wins</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-value">:player_has_won</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-value">:player_has_played</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- check_if_player_wins-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- check_if_player_wins-method -->
+
+    
+      <div id="method-i-checks_for_diagonal_tile_at_position" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">checks_for_diagonal_tile_at_position</span><span
+            class="method-args">(column, row, diagonal_direction, position)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="checks_for_diagonal_tile_at_position-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">checks_for_diagonal_tile_at_position</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">diagonal_direction</span>, <span class="ruby-identifier">position</span>
+        <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">position</span>] <span class="ruby-keyword">and</span> <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">position</span>][<span class="ruby-identifier">row</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">diagonal_direction</span>] 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- checks_for_diagonal_tile_at_position-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- checks_for_diagonal_tile_at_position-method -->
+
+    
+      <div id="method-i-column_is_full-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">column_is_full?</span><span
+            class="method-args">(column)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="column_is_full-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">column_is_full?</span> <span class="ruby-identifier">column</span>
+        <span class="ruby-keyword">not</span> <span class="ruby-ivar">@discs</span>[<span class="ruby-identifier">column</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column</span>].<span class="ruby-identifier">length</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- column_is_full-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- column_is_full-3F-method -->
+
+    
+      <div id="method-i-draw_board" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">draw_board</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="draw_board-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">draw_board</span>
+        <span class="ruby-identifier">system</span> <span class="ruby-string">&quot;clear&quot;</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&#39;</span>
+        <span class="ruby-keyword">for</span> <span class="ruby-identifier">row_number</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-ivar">@number_of_rows</span>
+                <span class="ruby-identifier">console_output</span> = <span class="ruby-string">&#39;&#39;</span>
+                <span class="ruby-keyword">for</span> <span class="ruby-identifier">column_number</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-ivar">@number_of_columns</span>
+                        <span class="ruby-identifier">console_output</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column_number</span>].<span class="ruby-identifier">reverse</span>[<span class="ruby-identifier">row_number</span>].<span class="ruby-identifier">color</span>.<span class="ruby-identifier">to_s</span>
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-identifier">console_output</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- draw_board-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- draw_board-method -->
+
+    
+      <div id="method-i-drop_disc_to" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">drop_disc_to</span><span
+            class="method-args">(column, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="drop_disc_to-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">drop_disc_to</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">provide_column_for_discs</span> <span class="ruby-identifier">column</span>
+                
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">can_play_in_column</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">player</span>
+                <span class="ruby-identifier">insert_row</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">insert_disc_to</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">player</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">draw_board</span>                     
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">check_if_player_wins</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">insert_row</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-value">:player_repeats_turn</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- drop_disc_to-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- drop_disc_to-method -->
+
+    
+      <div id="method-i-finds_diagonal_connections-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">finds_diagonal_connections?</span><span
+            class="method-args">(is_antidiagonal, column, row, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="finds_diagonal_connections-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">finds_diagonal_connections?</span> <span class="ruby-identifier">is_antidiagonal</span>, <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-identifier">diagonal_direction</span> = <span class="ruby-identifier">is_antidiagonal</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">-1</span>
+        <span class="ruby-identifier">search_result</span> = <span class="ruby-string">&#39;&#39;</span>
+        <span class="ruby-keyword">for</span> <span class="ruby-identifier">position</span> <span class="ruby-keyword">in</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_diagonal_search_range</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">checks_for_diagonal_tile_at_position</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">diagonal_direction</span>, <span class="ruby-identifier">position</span>
+                        <span class="ruby-identifier">search_result</span> <span class="ruby-operator">+=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_diagonal_tile_at_position</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">diagonal_direction</span>, <span class="ruby-identifier">position</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">matches_connection_in_search_result?</span> <span class="ruby-identifier">player</span>, <span class="ruby-identifier">search_result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- finds_diagonal_connections-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- finds_diagonal_connections-3F-method -->
+
+    
+      <div id="method-i-finds_horizontal_connections-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">finds_horizontal_connections?</span><span
+            class="method-args">(row, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="finds_horizontal_connections-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">finds_horizontal_connections?</span> <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-identifier">search_result</span> = <span class="ruby-string">&#39;&#39;</span>
+        <span class="ruby-ivar">@tilemap</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">column</span><span class="ruby-operator">|</span>     
+                <span class="ruby-identifier">search_result</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">column</span>[<span class="ruby-identifier">row</span>].<span class="ruby-identifier">color</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">matches_connection_in_search_result?</span> <span class="ruby-identifier">player</span>, <span class="ruby-identifier">search_result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- finds_horizontal_connections-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- finds_horizontal_connections-3F-method -->
+
+    
+      <div id="method-i-finds_vertical_connections-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">finds_vertical_connections?</span><span
+            class="method-args">(column, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="finds_vertical_connections-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">finds_vertical_connections?</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-identifier">search_result</span> = <span class="ruby-ivar">@discs</span>[<span class="ruby-identifier">column</span>].<span class="ruby-identifier">join</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">matches_connection_in_search_result?</span> <span class="ruby-identifier">player</span>, <span class="ruby-identifier">search_result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- finds_vertical_connections-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- finds_vertical_connections-3F-method -->
+
+    
+      <div id="method-i-get_diagonal_search_range" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_diagonal_search_range</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_diagonal_search_range-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_diagonal_search_range</span>
+        <span class="ruby-operator">-</span>(<span class="ruby-ivar">@number_of_discs_to_connect</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)<span class="ruby-operator">..</span>(<span class="ruby-ivar">@number_of_discs_to_connect</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_diagonal_search_range-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_diagonal_search_range-method -->
+
+    
+      <div id="method-i-get_diagonal_tile_at_position" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_diagonal_tile_at_position</span><span
+            class="method-args">(column, row, diagonal_direction, position)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_diagonal_tile_at_position-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_diagonal_tile_at_position</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">diagonal_direction</span>, <span class="ruby-identifier">position</span>
+        <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">position</span>][<span class="ruby-identifier">row</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">diagonal_direction</span>].<span class="ruby-identifier">color</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_diagonal_tile_at_position-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_diagonal_tile_at_position-method -->
+
+    
+      <div id="method-i-get_highest_number_of_discs_to_connect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_highest_number_of_discs_to_connect</span><span
+            class="method-args">(number_of_discs)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_highest_number_of_discs_to_connect-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_highest_number_of_discs_to_connect</span> <span class="ruby-identifier">number_of_discs</span>
+         [<span class="ruby-identifier">number_of_discs</span>, [<span class="ruby-identifier">number_of_rows</span>, <span class="ruby-identifier">number_of_columns</span>].<span class="ruby-identifier">min</span>].<span class="ruby-identifier">min</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_highest_number_of_discs_to_connect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_highest_number_of_discs_to_connect-method -->
+
+    
+      <div id="method-i-info_player_about_full_column" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">info_player_about_full_column</span><span
+            class="method-args">(player,column)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="info_player_about_full_column-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">info_player_about_full_column</span> <span class="ruby-identifier">player</span>,<span class="ruby-identifier">column</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Column &quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">column</span>.<span class="ruby-identifier">to_i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot; is full. Please chose another one. &quot;</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot; play again!&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- info_player_about_full_column-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- info_player_about_full_column-method -->
+
+    
+      <div id="method-i-insert_disc_to" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">insert_disc_to</span><span
+            class="method-args">(column, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="insert_disc_to-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">insert_disc_to</span> <span class="ruby-identifier">column</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-identifier">insert_row</span> = <span class="ruby-ivar">@discs</span>[<span class="ruby-identifier">column</span>].<span class="ruby-identifier">length</span>
+        <span class="ruby-ivar">@discs</span>[<span class="ruby-identifier">column</span>][<span class="ruby-identifier">insert_row</span>] = <span class="ruby-identifier">player</span>.<span class="ruby-identifier">color</span>
+        <span class="ruby-ivar">@tilemap</span>[<span class="ruby-identifier">column</span>][<span class="ruby-identifier">insert_row</span>].<span class="ruby-identifier">assign_to</span> <span class="ruby-identifier">player</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">insert_row</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- insert_disc_to-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- insert_disc_to-method -->
+
+    
+      <div id="method-i-is_connected-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_connected?</span><span
+            class="method-args">(col, row, player)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_connected-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_connected?</span> <span class="ruby-identifier">col</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finds_horizontal_connections?</span> <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span> <span class="ruby-keyword">or</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finds_vertical_connections?</span> <span class="ruby-identifier">col</span>, <span class="ruby-identifier">player</span> <span class="ruby-keyword">or</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finds_diagonal_connections?</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">col</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span> <span class="ruby-keyword">or</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finds_diagonal_connections?</span> <span class="ruby-keyword">true</span>, <span class="ruby-identifier">col</span>, <span class="ruby-identifier">row</span>, <span class="ruby-identifier">player</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- is_connected-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- is_connected-3F-method -->
+
+    
+      <div id="method-i-matches_connection_in_search_result-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matches_connection_in_search_result?</span><span
+            class="method-args">(player, search_result)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="matches_connection_in_search_result-3F-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matches_connection_in_search_result?</span> <span class="ruby-identifier">player</span>, <span class="ruby-identifier">search_result</span>
+        <span class="ruby-identifier">search_result</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">include?</span> (<span class="ruby-identifier">player</span>.<span class="ruby-identifier">color</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@number_of_discs_to_connect</span>).<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- matches_connection_in_search_result-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- matches_connection_in_search_result-3F-method -->
+
+    
+      <div id="method-i-provide_column_for_discs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">provide_column_for_discs</span><span
+            class="method-args">(column)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="provide_column_for_discs-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">provide_column_for_discs</span> <span class="ruby-identifier">column</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@discs</span>[<span class="ruby-identifier">column</span>]
+                <span class="ruby-ivar">@discs</span>[<span class="ruby-identifier">column</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- provide_column_for_discs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- provide_column_for_discs-method -->
+
+    
+      <div id="method-i-reset_tilemap" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset_tilemap</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reset_tilemap-source">
+            <pre><span class="ruby-comment"># File lib/board.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset_tilemap</span>
+        <span class="ruby-ivar">@tilemap</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@number_of_columns</span>) { <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@number_of_rows</span>) }
+        <span class="ruby-ivar">@discs</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">build_tilemap</span>    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reset_tilemap-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reset_tilemap-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
