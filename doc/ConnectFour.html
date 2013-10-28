@@ -85,11 +85,11 @@
     
     <li ><a href="#method-i-is_in_range-3F">#is_in_range?</a>
     
-    <li ><a href="#method-i-next_turn">#next_turn</a>
-    
     <li ><a href="#method-i-play">#play</a>
     
     <li ><a href="#method-i-play_again">#play_again</a>
+    
+    <li ><a href="#method-i-play_next_turn">#play_next_turn</a>
     
     <li ><a href="#method-i-play_turn">#play_turn</a>
     
@@ -148,7 +148,55 @@
   
     <li class="file"><a href="./doc/created_rid.html">created.rid</a>
   
+    <li class="file"><a href="./doc/doc/BoardTest_html_html.html">BoardTest_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/Board_html_html.html">Board_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/ConnectFourSpec_html_html.html">ConnectFourSpec_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/ConnectFourTest_html_html.html">ConnectFourTest_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/ConnectFour_html_html.html">ConnectFour_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/Gemfile_html_html.html">Gemfile_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/Gemfile_lock_html_html.html">Gemfile_lock_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/PlayerTest_html_html.html">PlayerTest_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/Player_html_html.html">Player_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/README_rdoc_html_html.html">README_rdoc_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/Rakefile_html_html.html">Rakefile_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/String_html_html.html">String_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/TileTest_html_html.html">TileTest_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/Tile_html_html.html">Tile_html.html</a>
+  
     <li class="file"><a href="./doc/doc/created_rid_html.html">created_rid.html</a>
+  
+    <li class="file"><a href="./doc/doc/doc/created_rid_html_html.html">created_rid_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/index_html_html.html">index_html.html</a>
+  
+    <li class="file"><a href="./doc/doc/js/darkfish_js_html.html">darkfish_js.html</a>
+  
+    <li class="file"><a href="./doc/doc/js/jquery_js_html.html">jquery_js.html</a>
+  
+    <li class="file"><a href="./doc/doc/js/navigation_js_html.html">navigation_js.html</a>
+  
+    <li class="file"><a href="./doc/doc/js/search_index_js_html.html">search_index_js.html</a>
+  
+    <li class="file"><a href="./doc/doc/js/search_js_html.html">search_js.html</a>
+  
+    <li class="file"><a href="./doc/doc/js/searcher_js_html.html">searcher_js.html</a>
+  
+    <li class="file"><a href="./doc/doc/rdoc_css_html.html">rdoc_css.html</a>
+  
+    <li class="file"><a href="./doc/doc/table_of_contents_html_html.html">table_of_contents_html.html</a>
   
     <li class="file"><a href="./doc/index_html.html">index.html</a>
   
@@ -509,39 +557,6 @@
       </div><!-- is_in_range-3F-method -->
 
     
-      <div id="method-i-next_turn" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">next_turn</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="next_turn-source">
-            <pre><span class="ruby-comment"># File lib/connect_four.rb, line 93</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">next_turn</span>
-        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">play</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- next_turn-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- next_turn-method -->
-
-    
       <div id="method-i-play" class="method-detail ">
         
         <div class="method-heading">
@@ -564,7 +579,7 @@
             <pre><span class="ruby-comment"># File lib/connect_four.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">play</span>
         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">play_turn</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ask_player_to_drop_disc_in_a_column</span>               
-        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">next_turn</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">play_next_turn</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- play-source -->
           
@@ -610,6 +625,39 @@
 
         
       </div><!-- play_again-method -->
+
+    
+      <div id="method-i-play_next_turn" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">play_next_turn</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="play_next_turn-source">
+            <pre><span class="ruby-comment"># File lib/connect_four.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_next_turn</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">play</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- play_next_turn-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- play_next_turn-method -->
 
     
       <div id="method-i-play_turn" class="method-detail ">
