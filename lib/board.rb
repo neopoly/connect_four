@@ -1,5 +1,5 @@
 class Board
-	attr_accessor :number_of_columns, :number_of_rows, :number_of_discs_to_connect, :tiles, :discs
+	attr_accessor :number_of_columns, :number_of_rows, :number_of_discs_to_connect, :tilemap, :discs
 	
 	def initialize number_of_columns, number_of_rows, number_of_discs_to_connect
 		@number_of_columns = number_of_columns
@@ -25,7 +25,7 @@ class Board
 	def drop_disc_to column, player
 		self.provide_column_for_discs column
 			
- 		if self.can_play_in_column column, player
+ 		if self.can_play_in_column? column, player
  			insert_row = self.insert_disc_to column, player
  			self.draw_board 			
  			return self.check_if_player_wins column, insert_row, player

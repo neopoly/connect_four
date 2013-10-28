@@ -24,7 +24,7 @@ class ConnectFour
 	
 	def play
 		self.play_turn self.ask_player_to_drop_disc_in_a_column		
-		self.next_turn
+		self.play_next_turn
 	end
 
 	def play_turn column
@@ -90,7 +90,7 @@ class ConnectFour
  		exit
 	end
 
-	def next_turn
+	def play_next_turn
 		self.play
 	end
 end
