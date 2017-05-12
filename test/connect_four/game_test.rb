@@ -7,5 +7,11 @@ class ConnectFour::GameTest < ConnectFourSpec
     it "should respond to board" do
       game.must_respond_to :board
     end
+
+    describe "#display_board" do
+      it "should display the board on the terminal" do
+        proc { game.display_board }.must_output game.board.stringified
+      end
+    end
   end
 end

@@ -5,5 +5,9 @@ module ConnectFour
     def initialize
       @board = Board.new
     end
+
+    def display_board
+      puts @board.stringified
+    end
   end
 end
