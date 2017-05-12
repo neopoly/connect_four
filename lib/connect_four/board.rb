@@ -26,5 +26,15 @@ module ConnectFour
       return false
     end
 
+    def vertical_quartet? row, column
+      start_row = row-3 < 0 ? 0 : row-3
+      (start_row..row).each do |row|
+        if @fields[row][column-1] != BLANK && @fields[row, 4].map {|r| r[column-1]}.uniq.size == 1
+          return true
+        end
+      end
+      return false
+    end
+
   end
 end

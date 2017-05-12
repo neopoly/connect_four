@@ -59,5 +59,28 @@ class ConnectFour::BoardTest < ConnectFourSpec
         it("should return false") { board.horizontal_quartet?(4,4).must_equal false }
       end
     end
+
+    describe "#vertical_quartet?" do
+      describe "when there is 4 consecutive symbols before and including the field given" do
+        before { (0..3).each { |row| board.fields[row][3] = "x" } }
+        it("should return true") { board.vertical_quartet?(3,4).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols after and including the field given" do
+        before { (3..6).each { |row| board.fields[row][3] = "x" } }
+        it("should return true") { board.vertical_quartet?(3,4).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols in the next column" do
+        before { (2..5).each { |row| board.fields[row][4] = "x" } }
+        it("should return true") { board.vertical_quartet?(3,4).must_equal false }
+      end
+      describe "when there is 4 consecutive symbols outside the field given" do
+        before { (4..7).each { |row| board.fields[row][3] = "x" } }
+        it("should return false (anyway)") { board.vertical_quartet?(3,4).must_equal false }
+      end
+      describe "when there is 3 consecutive symbols including the field given" do
+        before { (3..5).each { |row| board.fields[row][3] = "x" } }
+        it("should return false") { board.vertical_quartet?(4,4).must_equal false }
+      end
+    end
   end
 end
