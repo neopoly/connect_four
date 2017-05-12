@@ -71,7 +71,7 @@ class ConnectFour::BoardTest < ConnectFourSpec
       end
       describe "when there is 4 consecutive symbols in the next column" do
         before { (2..5).each { |row| board.fields[row][4] = "x" } }
-        it("should return true") { board.vertical_quartet?(3,4).must_equal false }
+        it("should return false") { board.vertical_quartet?(3,4).must_equal false }
       end
       describe "when there is 4 consecutive symbols outside the field given" do
         before { (4..7).each { |row| board.fields[row][3] = "x" } }
