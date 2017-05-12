@@ -17,6 +17,10 @@ module ConnectFour
       return row
     end
 
+    def stringified
+      "#{(1..COLUMNS).to_a.join(' ')}#{"\n"}#{@fields.map {|row| row.join(' ')}.join("\n")}#{"\n\n"}"
+    end
+
     def horizontal_quartet? row, column
       start_column = column-4 < 0 ? 0 : column - 4
       (start_column..column-1).each do |col|

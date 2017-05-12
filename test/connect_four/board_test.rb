@@ -12,6 +12,12 @@ class ConnectFour::BoardTest < ConnectFourSpec
       it("should only have '-'s as content") { board.fields.uniq.first.uniq.first.must_equal "-" }
     end
 
+    describe "#stringified" do
+      it "should return a string version of the board" do
+        board.stringified.must_equal initial_board_string.chomp
+      end
+    end
+
     describe "#put_stone" do
       before { board.put_stone('x', 3) }
       it("should have that stone stored at the bottom of selected column") { board.fields[7][2].must_equal 'x' }
