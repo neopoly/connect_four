@@ -29,9 +29,13 @@ class ConnectFour::BoardTest < ConnectFourSpec
         board.fields[6][2].must_equal 'x'
       end
 
-      it("shouldn't let you put more than 8 stones in a column") do
+      it("should return the final row of the stone") { board.put_stone('x', 3).must_equal 6 }
+
+      it("should return nil if you try to put more than 8 stones in a column") do
         7.times { board.put_stone('x', 3) }
-        proc { board.put_stone('x', 3) }.must_output "This stack is packed\n"
+        board.put_stone('x', 3).must_be_nil
+      end
+    end
       end
     end
   end

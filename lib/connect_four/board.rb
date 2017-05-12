@@ -12,7 +12,8 @@ module ConnectFour
     def put_stone symbol, col
       row = ROWS-1
       row -= 1 until @fields[row].nil? || @fields[row][col-1] == "-"
-      @fields[row].nil? ? puts("This stack is packed") : @fields[row][col-1] = symbol
+      @fields[row].nil? ? return : @fields[row][col-1] = symbol
+      return row
     end
 
   end
