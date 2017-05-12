@@ -9,5 +9,9 @@ module ConnectFour
     def display_board
       puts @board.stringified
     end
+
+    def prompt_for_input symbol
+      print "player #{symbol} >".chomp
+    end
   end
 end

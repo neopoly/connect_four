@@ -13,5 +13,11 @@ class ConnectFour::GameTest < ConnectFourSpec
         proc { game.display_board }.must_output game.board.stringified
       end
     end
+
+    describe "#prompt_for_input" do
+      it "should output player x > for x" do
+        proc { game.prompt_for_input "x" }.must_output "player x >"
+      end
+    end
   end
 end
