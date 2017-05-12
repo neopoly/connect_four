@@ -36,6 +36,27 @@ class ConnectFour::BoardTest < ConnectFourSpec
         board.put_stone('x', 3).must_be_nil
       end
     end
+
+    describe "#horizontal_quartet?" do
+      describe "when there is 4 consecutive symbols before and including the field given" do
+        before { (0..3).each { |col| board.fields[4][col] = "x" } }
+        it("should return true") { board.horizontal_quartet?(4,4).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols after and including the field given" do
+        before { (3..6).each { |col| board.fields[4][col] = "x" } }
+        it("should return true") { board.horizontal_quartet?(4,4).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols in the row below" do
+        before { (3..6).each { |col| board.fields[5][col] = "x" } }
+        it("should return true") { board.horizontal_quartet?(4,4).must_equal false }
+      end
+      describe "when there is 4 consecutive symbols after the field given" do
+        before { (4..7).each { |col| board.fields[4][col] = "x" } }
+        it("should return false (anyway)") { board.horizontal_quartet?(4,4).must_equal false }
+      end
+      describe "when there is 3 consecutive symbols including the field given" do
+        before { (3..5).each { |col| board.fields[4][col] = "x" } }
+        it("should return false") { board.horizontal_quartet?(4,4).must_equal false }
       end
     end
   end

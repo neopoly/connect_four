@@ -17,5 +17,14 @@ module ConnectFour
       return row
     end
 
+    def horizontal_quartet? row, column
+      (column-4..column-1).each do |col|
+        if @fields[row][col] != BLANK && @fields[row][col, 4].uniq.size == 1
+          return true
+        end
+      end
+      return false
+    end
+
   end
 end
