@@ -82,5 +82,43 @@ class ConnectFour::BoardTest < ConnectFourSpec
         it("should return false") { board.vertical_quartet?(4,4).must_equal false }
       end
     end
+
+    describe "#ascending_quartet?" do
+      describe "when there is 4 consecutive symbols after and including the field given" do
+        before { (0..3).each { |i| board.fields[6-i][0+i] = "x" } }
+        it("should return true") { board.ascending_quartet?(6,1).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols before and including the field given" do
+        before { (0..3).each { |i| board.fields[2+i][5-i] = "x" } }
+        it("should return true") { board.ascending_quartet?(2,6).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols somewhere else" do
+        before { (2..5).each { |row| board.fields[row][4] = "x" } }
+        it("should return false") { board.ascending_quartet?(3,4).must_equal false }
+      end
+      describe "when there is 3 consecutive symbols after and including the field given" do
+        before { (0..2).each { |i| board.fields[6-i][2+i] = "x" } }
+        it("should return false") { board.ascending_quartet?(6,3).must_equal false }
+      end
+    end
+
+    describe "#descending_quartet?" do
+      describe "when there is 4 consecutive symbols after and including the field given" do
+        before { (0..3).each { |i| board.fields[1+i][0+i] = "x" } }
+        it("should return true") { board.descending_quartet?(1,1).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols before and including the field given" do
+        before { (0..3).each { |i| board.fields[5-i][5-i] = "x" } }
+        it("should return true") { board.descending_quartet?(5,6).must_equal true }
+      end
+      describe "when there is 4 consecutive symbols somewhere else" do
+        before { (2..5).each { |row| board.fields[row][4] = "x" } }
+        it("should return false") { board.descending_quartet?(3,4).must_equal false }
+      end
+      describe "when there is 3 consecutive symbols after and including the field given" do
+        before { (0..2).each { |i| board.fields[2+i][2+i] = "x" } }
+        it("should return false") { board.descending_quartet?(2,3).must_equal false }
+      end
+    end
   end
 end

@@ -37,5 +37,30 @@ module ConnectFour
       return false
     end
 
+    def ascending_quartet? given_row, column
+      start_row = given_row+3 < ROWS ? given_row+3 : ROWS-1
+      start_col = column-4 < 0 ? 0 : column-4
+      (start_col..column-1).each do |col|
+        (start_row.downto(given_row)).each do |row|
+          if @fields[row][col] != BLANK && (0..3).map {|i| @fields[row-i][col+i]}.uniq.size == 1
+            return true
+          end
+        end
+      end
+      return false
+    end
+
+    def descending_quartet? given_row, column
+      startrow = given_row-3 < ROWS ? given_row-3 : ROWS-1
+      start_col = column-4 < 0 ? 0 : column-4
+      (start_col..column-1).each do |col|
+        (startrow..given_row).each do |row|
+          if @fields[row][col] != '-' && (0..3).map {|i| @fields[row+i][col+i]}.uniq.size == 1
+            return true
+          end
+        end
+      end
+      return false
+    end
   end
 end
