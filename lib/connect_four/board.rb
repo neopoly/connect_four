@@ -24,7 +24,7 @@ module ConnectFour
     def horizontal_quartet? row, column
       start_column = column-4 < 0 ? 0 : column - 4
       (start_column..column-1).each do |col|
-        if @fields[row][col] != BLANK && @fields[row][col, 4].uniq.size == 1
+        if @fields[row][col] != BLANK && @fields[row][col, 4].size == 4 && @fields[row][col, 4].uniq.size == 1
           return true
         end
       end
@@ -34,7 +34,8 @@ module ConnectFour
     def vertical_quartet? given_row, column
       start_row = given_row-3 < 0 ? 0 : given_row-3
       (start_row..given_row).each do |row|
-        if @fields[row][column-1] != BLANK && @fields[row, 4].map {|r| r[column-1]}.uniq.size == 1
+        fields_to_check = @fields[row, 4].map {|r| r[column-1]}
+        if fields_to_check.uniq.first != BLANK && fields_to_check.size == 4 && fields_to_check.uniq.size == 1
           return true
         end
       end

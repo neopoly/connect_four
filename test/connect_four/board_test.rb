@@ -64,6 +64,10 @@ class ConnectFour::BoardTest < ConnectFourSpec
         before { (3..5).each { |col| board.fields[4][col] = "x" } }
         it("should return false") { board.horizontal_quartet?(4,4).must_equal false }
       end
+      describe "when just one symbol on the outside" do
+        before { board.fields[7][7] = "x" }
+        it("should return false") { board.horizontal_quartet?(7,8).must_equal false }
+      end
     end
 
     describe "#vertical_quartet?" do
@@ -86,6 +90,14 @@ class ConnectFour::BoardTest < ConnectFourSpec
       describe "when there is 3 consecutive symbols including the field given" do
         before { (3..5).each { |row| board.fields[row][3] = "x" } }
         it("should return false") { board.vertical_quartet?(4,4).must_equal false }
+      end
+      describe "when a stone is in the bottom row" do
+        before { board.fields[7][1] = "x" }
+        it("should return false") { board.vertical_quartet?(7,2).must_equal false }
+      end
+      describe "when just one symbol on the outside" do
+        before { board.fields[0][7] = "x" }
+        it("should return false") { board.horizontal_quartet?(0,8).must_equal false }
       end
     end
 
@@ -124,6 +136,10 @@ class ConnectFour::BoardTest < ConnectFourSpec
       describe "when there is 3 consecutive symbols after and including the field given" do
         before { (0..2).each { |i| board.fields[2+i][2+i] = "x" } }
         it("should return false") { board.descending_quartet?(2,3).must_equal false }
+      end
+      describe "when there is a stone in the bottom row" do
+        before { board.fields[7][3] = "x" }
+        it("should return false") { board.descending_quartet?(7,3).must_equal false }
       end
     end
   end
