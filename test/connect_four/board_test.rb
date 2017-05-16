@@ -44,102 +44,178 @@ class ConnectFour::BoardTest < ConnectFourSpec
     end
 
     describe "#horizontal_quartet?" do
-      describe "when there is 4 consecutive symbols before and including the field given" do
-        before { (0..3).each { |col| board.fields[4][col] = "x" } }
-        it("should return true") { board.horizontal_quartet?(4,4).must_equal true }
+      it "returns true when 3 fields to the left are the same as the given" do
+        setup_fields [[4,0],[4,1],[4,2],[4,3]], 'x'
+        board.horizontal_quartet?(4,3).must_equal true
       end
-      describe "when there is 4 consecutive symbols after and including the field given" do
-        before { (3..6).each { |col| board.fields[4][col] = "x" } }
-        it("should return true") { board.horizontal_quartet?(4,4).must_equal true }
+      it "returns true when 3 fields to the right are the same as the given" do
+        setup_fields [[4,0],[4,1],[4,2],[4,3]], 'x'
+        board.horizontal_quartet?(4,0).must_equal true
       end
-      describe "when there is 4 consecutive symbols in the row below" do
-        before { (3..6).each { |col| board.fields[5][col] = "x" } }
-        it("should return true") { board.horizontal_quartet?(4,4).must_equal false }
+      it "returns true when 2 fields to the left and 1 to the right are the same as the given" do
+        setup_fields [[4,0],[4,1],[4,2],[4,3]], 'x'
+        board.horizontal_quartet?(4,2).must_equal true
       end
-      describe "when there is 4 consecutive symbols after the field given" do
-        before { (4..7).each { |col| board.fields[4][col] = "x" } }
-        it("should return false (anyway)") { board.horizontal_quartet?(4,4).must_equal false }
+      it "returns false when 2 fields to the right are the same as the given" do
+        setup_fields [[4,0],[4,1],[4,2]], 'x'
+        board.horizontal_quartet?(4,0).must_equal false
       end
-      describe "when there is 3 consecutive symbols including the field given" do
-        before { (3..5).each { |col| board.fields[4][col] = "x" } }
-        it("should return false") { board.horizontal_quartet?(4,4).must_equal false }
+      it "returns false when 2 fields to the left are the same as the given" do
+        setup_fields [[4,0],[4,1],[4,2]], 'x'
+        board.horizontal_quartet?(4,2).must_equal false
       end
-      describe "when just one symbol on the outside" do
-        before { board.fields[7][7] = "x" }
-        it("should return false") { board.horizontal_quartet?(7,8).must_equal false }
+      it "returns false when 1 fields to the left and 1 to the right are the same as the given" do
+        setup_fields [[4,0],[4,1],[4,2]], 'x'
+        board.horizontal_quartet?(4,1).must_equal false
+      end
+      it "returns false when 1 fields on the very right to the right is set" do
+        setup_fields [[7,7]], 'x'
+        board.horizontal_quartet?(7,7).must_equal false
       end
     end
 
     describe "#vertical_quartet?" do
-      describe "when there is 4 consecutive symbols before and including the field given" do
-        before { (0..3).each { |row| board.fields[row][3] = "x" } }
-        it("should return true") { board.vertical_quartet?(3,4).must_equal true }
+      it "returns true when 3 fields below are the same as the given" do
+        setup_fields [[6,3],[5,3],[4,3],[3,3]], 'x'
+        board.vertical_quartet?(3,3).must_equal true
       end
-      describe "when there is 4 consecutive symbols after and including the field given" do
-        before { (3..6).each { |row| board.fields[row][3] = "x" } }
-        it("should return true") { board.vertical_quartet?(3,4).must_equal true }
+      it "returns true when 3 fields below are the same as the given starting on the bottom row" do
+        setup_fields [[7,3],[6,3],[5,3],[4,3]], 'x'
+        board.vertical_quartet?(4,3).must_equal true
       end
-      describe "when there is 4 consecutive symbols in the next column" do
-        before { (2..5).each { |row| board.fields[row][4] = "x" } }
-        it("should return false") { board.vertical_quartet?(3,4).must_equal false }
+      it "returns true when 3 fields below are the same as the given ending on the top row" do
+        setup_fields [[3,3],[2,3],[1,3],[0,3]], 'x'
+        board.vertical_quartet?(0,3).must_equal true
       end
-      describe "when there is 4 consecutive symbols outside the field given" do
-        before { (4..7).each { |row| board.fields[row][3] = "x" } }
-        it("should return false (anyway)") { board.vertical_quartet?(3,4).must_equal false }
+      it "returns false when 2 fields below are the same as the given" do
+        setup_fields [[3,3],[2,3],[1,3]], 'x'
+        board.vertical_quartet?(1,3).must_equal false
       end
-      describe "when there is 3 consecutive symbols including the field given" do
-        before { (3..5).each { |row| board.fields[row][3] = "x" } }
-        it("should return false") { board.vertical_quartet?(4,4).must_equal false }
+      it "returns false when 4 fields in the next column are the same" do
+        setup_fields [[4,3],[3,3],[2,3],[1,3]], 'x'
+        board.vertical_quartet?(1,4).must_equal false
       end
-      describe "when a stone is in the bottom row" do
-        before { board.fields[7][1] = "x" }
-        it("should return false") { board.vertical_quartet?(7,2).must_equal false }
+      it "returns false when the top left field is set" do
+        setup_fields [[0,0]], 'x'
+        board.vertical_quartet?(0,0).must_equal false
       end
-      describe "when just one symbol on the outside" do
-        before { board.fields[0][7] = "x" }
-        it("should return false") { board.horizontal_quartet?(0,8).must_equal false }
+      it "returns false when the bottom right field is set" do
+        setup_fields [[7,7]], 'x'
+        board.vertical_quartet?(7,7).must_equal false
       end
     end
 
     describe "#ascending_quartet?" do
-      describe "when there is 4 consecutive symbols after and including the field given" do
-        before { (0..3).each { |i| board.fields[6-i][0+i] = "x" } }
-        it("should return true") { board.ascending_quartet?(6,1).must_equal true }
+      it "returns true when 3 fields to the top right are the same" do
+        setup_fields [[6,2],[5,3],[4,4],[3,5]], 'x'
+        board.ascending_quartet?(6,2).must_equal true
       end
-      describe "when there is 4 consecutive symbols before and including the field given" do
-        before { (0..3).each { |i| board.fields[2+i][5-i] = "x" } }
-        it("should return true") { board.ascending_quartet?(2,6).must_equal true }
+
+      it "returns true when 3 fields to the bottom left are the same" do
+        setup_fields [[6,2],[5,3],[4,4],[3,5]], 'x'
+        board.ascending_quartet?(3,5).must_equal true
       end
-      describe "when there is 4 consecutive symbols somewhere else" do
-        before { (2..5).each { |row| board.fields[row][4] = "x" } }
-        it("should return false") { board.ascending_quartet?(3,4).must_equal false }
+
+      it "returns true when 1 field to the top right and 2 fields to the bottom left are the same" do
+        setup_fields [[6,2],[5,3],[4,4],[3,5]], 'x'
+        board.ascending_quartet?(4,4).must_equal true
       end
-      describe "when there is 3 consecutive symbols after and including the field given" do
-        before { (0..2).each { |i| board.fields[6-i][2+i] = "x" } }
-        it("should return false") { board.ascending_quartet?(6,3).must_equal false }
+
+      it "returns false when 2 fields to the top right are the same" do
+        setup_fields [[6,2],[5,3],[4,4]], 'x'
+        board.ascending_quartet?(6,2).must_equal false
+      end
+
+      it "returns false when 2 fields to the bottom left are the same" do
+        setup_fields [[5,3],[4,4],[3,5]], 'x'
+        board.ascending_quartet?(3,5).must_equal false
+      end
+
+      it "returns false when 1 field to the top right and 1 field to the bottom left are the same" do
+        setup_fields [[5,3],[4,4],[3,5]], 'x'
+        board.ascending_quartet?(4,4).must_equal false
+      end
+
+      it "returns true when the 4 equal fields start in the bottom left corner" do
+        setup_fields [[7,0],[6,1],[5,2],[4,3]], 'x'
+        board.ascending_quartet?(7,0).must_equal true
+      end
+
+      it "returns true when the 4 equal fields end in the top right corner" do
+        setup_fields [[3,4],[2,5],[1,6],[0,7]], 'x'
+        board.ascending_quartet?(0,7).must_equal true
+      end
+
+      it "returns false when there is only one field set in the top right corner" do
+        setup_fields [[0,7]], 'x'
+        board.ascending_quartet?(0,7).must_equal false
+      end
+
+      it "returns false when there is only one field set in the top left corner" do
+        setup_fields [[0,0]], 'x'
+        board.ascending_quartet?(0,0).must_equal false
+      end
+
+      it "returns false when there is only one field set in the bottom right corner" do
+        setup_fields [[7,7]], 'x'
+        board.ascending_quartet?(7,7).must_equal false
       end
     end
 
     describe "#descending_quartet?" do
-      describe "when there is 4 consecutive symbols after and including the field given" do
-        before { (0..3).each { |i| board.fields[1+i][0+i] = "x" } }
-        it("should return true") { board.descending_quartet?(1,1).must_equal true }
+      it "returns true when 3 fields to the bottom right are the same" do
+        setup_fields [[2,2],[3,3],[4,4],[5,5]], 'x'
+        board.descending_quartet?(2,2).must_equal true
       end
-      describe "when there is 4 consecutive symbols before and including the field given" do
-        before { (0..3).each { |i| board.fields[5-i][5-i] = "x" } }
-        it("should return true") { board.descending_quartet?(5,6).must_equal true }
+
+      it "returns true when 3 fields to the top left are the same" do
+        setup_fields [[2,2],[3,3],[4,4],[5,5]], 'x'
+        board.descending_quartet?(5,5).must_equal true
       end
-      describe "when there is 4 consecutive symbols somewhere else" do
-        before { (2..5).each { |row| board.fields[row][4] = "x" } }
-        it("should return false") { board.descending_quartet?(3,4).must_equal false }
+
+      it "returns true when 1 field to the top left and 2 fields to the bottom right are the same" do
+        setup_fields [[2,2],[3,3],[4,4],[5,5]], 'x'
+        board.descending_quartet?(4,4).must_equal true
       end
-      describe "when there is 3 consecutive symbols after and including the field given" do
-        before { (0..2).each { |i| board.fields[2+i][2+i] = "x" } }
-        it("should return false") { board.descending_quartet?(2,3).must_equal false }
+
+      it "returns false when 2 fields to the top right are the same" do
+        setup_fields [[2,2],[3,3],[4,4]], 'x'
+        board.descending_quartet?(2,2).must_equal false
       end
-      describe "when there is a stone in the bottom row" do
-        before { board.fields[7][3] = "x" }
-        it("should return false") { board.descending_quartet?(7,3).must_equal false }
+
+      it "returns false when 2 fields to the bottom left are the same" do
+        setup_fields [[3,3],[4,4],[5,5]], 'x'
+        board.descending_quartet?(5,5).must_equal false
+      end
+
+      it "returns false when 1 field to the top left and 1 field to the bottom right are the same" do
+        setup_fields [[3,3],[4,4],[5,5]], 'x'
+        board.descending_quartet?(4,4).must_equal false
+      end
+
+      it "returns true when the 4 equal fields start in the top left corner" do
+        setup_fields [[0,0],[1,1],[2,2],[3,3]], 'x'
+        board.descending_quartet?(0,0).must_equal true
+      end
+
+      it "returns true when the 4 equal fields end in the bottom right corner" do
+        setup_fields [[4,4],[5,5],[6,6],[7,7]], 'x'
+        board.descending_quartet?(7,7).must_equal true
+      end
+
+      it "returns false when there is only one field set in the top right corner" do
+        setup_fields [[0,7]], 'x'
+        board.descending_quartet?(0,7).must_equal false
+      end
+
+      it "returns false when there is only one field set in the top left corner" do
+        setup_fields [[0,0]], 'x'
+        board.descending_quartet?(0,0).must_equal false
+      end
+
+      it "returns false when there is only one field set in the bottom right corner" do
+        setup_fields [[7,7]], 'x'
+        board.descending_quartet?(7,7).must_equal false
       end
     end
   end

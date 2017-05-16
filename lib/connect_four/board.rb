@@ -21,51 +21,34 @@ module ConnectFour
       "#{(1..COLUMNS).to_a.join(' ')}#{"\n"}#{@fields.map {|row| row.join(' ')}.join("\n")}#{"\n\n"}"
     end
 
+    def quartet? row, column
+      horizontal_quartet?(row, column) || vertical_quartet?(row, column) || ascending_quartet?(row, column) || descending_quartet?(row, column)
+    end
+
     def horizontal_quartet? row, column
-      start_column = column-4 < 0 ? 0 : column - 4
-      (start_column..column-1).each do |col|
-        if @fields[row][col] != BLANK && @fields[row][col, 4].size == 4 && @fields[row][col, 4].uniq.size == 1
-          return true
-        end
-      end
-      return false
+      count = 1
+      (1..3).to_a.each { |i| @fields[row][column + i] == @fields[row][column] ? count +=1 : break }
+      (1..3).to_a.each { |i| @fields[row][column - i] == @fields[row][column] ? count +=1 : break }
+      count >= 4 && @fields[row][column] != BLANK
     end
 
-    def vertical_quartet? given_row, column
-      start_row = given_row-3 < 0 ? 0 : given_row-3
-      (start_row..given_row).each do |row|
-        fields_to_check = @fields[row, 4].map {|r| r[column-1]}
-        if fields_to_check.uniq.first != BLANK && fields_to_check.size == 4 && fields_to_check.uniq.size == 1
-          return true
-        end
-      end
-      return false
+    def vertical_quartet? row, column
+      array = (0..3).to_a.collect { |i| (row + i) < ROWS ? @fields[row+i][column] : nil}
+      array.uniq.size == 1 && array.size >= 4 && array.uniq.first != BLANK
     end
 
-    def ascending_quartet? given_row, column
-      start_row = given_row+3 < ROWS ? given_row+3 : ROWS-1
-      start_col = column-4 < 0 ? 0 : column-4
-      (start_col..column-1).each do |col|
-        (start_row.downto(given_row)).each do |row|
-          if @fields[row][col] != BLANK && (0..3).map {|i| @fields[row-i][col+i]}.uniq.size == 1
-            return true
-          end
-        end
-      end
-      return false
+    def ascending_quartet? row, column
+      count = 1
+      (1..3).to_a.each { |i| @fields[row + i] && @fields[row + i][column - i] == @fields[row][column] ? count +=1 : break }
+      (1..3).to_a.each { |i| @fields[row - i] && @fields[row - i][column + i] == @fields[row][column] ? count +=1 : break }
+      count >= 4 && @fields[row][column] != BLANK
     end
 
-    def descending_quartet? given_row, column
-      startrow = given_row-3 < ROWS ? given_row-3 : ROWS-1
-      start_col = column-4 < 0 ? 0 : column-4
-      (start_col..column-1).each do |col|
-        (startrow..given_row).each do |row|
-          if @fields[row][col] != '-' && (0..3).map {|i| @fields[row+i][col+i]}.uniq.size == 1
-            return true
-          end
-        end
-      end
-      return false
+    def descending_quartet? row, column
+      count = 1
+      (1..3).to_a.each { |i| @fields[row + i] && @fields[row + i][column + i] == @fields[row][column] ? count +=1 : break }
+      (1..3).to_a.each { |i| @fields[row - i] && @fields[row - i][column - i] == @fields[row][column] ? count +=1 : break }
+      count >= 4 && @fields[row][column] != BLANK
     end
   end
 end
