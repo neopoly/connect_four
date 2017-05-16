@@ -20,22 +20,22 @@ class ConnectFour::BoardTest < ConnectFourSpec
 
     describe "#put_stone" do
       before { board.put_stone('x', 3) }
-      it("should have that stone stored at the bottom of selected column") { board.fields[7][2].must_equal 'x' }
+      it("should have that stone stored at the bottom of selected column") { board.fields[7][3].must_equal 'x' }
 
       it "should have all other fields unaffected" do
         board.fields.each_with_index do |row, y|
           row.each_with_index do |field, x|
-            field.must_equal '-' unless y == 7 && x == 2
+            field.must_equal '-' unless y == 7 && x == 3
           end
         end
       end
 
       it("should store a second stone in the same column on top of the first") do
         board.put_stone('x', 3)
-        board.fields[6][2].must_equal 'x'
+        board.fields[6][3].must_equal 'x'
       end
 
-      it("should return the final row of the stone") { board.put_stone('x', 3).must_equal 6 }
+      it("should return the final row and column of the stone") { board.put_stone('x', 3).must_equal [6,3] }
 
       it("should return nil if you try to put more than 8 stones in a column") do
         7.times { board.put_stone('x', 3) }

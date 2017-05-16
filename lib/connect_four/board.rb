@@ -12,9 +12,9 @@ module ConnectFour
 
     def put_stone symbol, column
       row = ROWS-1
-      row -= 1 until @fields[row].nil? || @fields[row][column-1] == BLANK
-      @fields[row].nil? ? return : @fields[row][column-1] = symbol
-      return row
+      row -= 1 until @fields[row].nil? || @fields[row][column] == BLANK
+      @fields[row].nil? ? return : @fields[row][column] = symbol
+      return [row, column]
     end
 
     def stringified
