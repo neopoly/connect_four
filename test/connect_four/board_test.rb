@@ -5,24 +5,24 @@ class ConnectFour::BoardTest < ConnectFourSpec
     let(:board) { ConnectFour::Board.new }
 
     describe "intitially" do
-      it("should have 8 rows") { board.fields.length.must_equal 8 }
-      it("should have all rows the same") { board.fields.uniq.size.must_equal 1 }
-      it("should have 8 columns for each row") { board.fields.uniq.first.length.must_equal 8 }
-      it("should heave the same content for each field") { board.fields.uniq.first.uniq.size.must_equal 1}
-      it("should only have '-'s as content") { board.fields.uniq.first.uniq.first.must_equal "-" }
+      it("has 8 rows") { board.fields.length.must_equal 8 }
+      it("has all rows the same") { board.fields.uniq.size.must_equal 1 }
+      it("has 8 columns for each row") { board.fields.uniq.first.length.must_equal 8 }
+      it("has the same content for each field") { board.fields.uniq.first.uniq.size.must_equal 1}
+      it("has only '-'s as content") { board.fields.uniq.first.uniq.first.must_equal "-" }
     end
 
     describe "#stringified" do
-      it "should return a string version of the board" do
+      it "returns a string version of the board" do
         board.stringified.must_equal initial_board_string.chomp
       end
     end
 
     describe "#put_stone" do
       before { board.put_stone('x', 3) }
-      it("should have that stone stored at the bottom of selected column") { board.fields[7][3].must_equal 'x' }
+      it("has the stone stored at the bottom of selected column") { board.fields[7][3].must_equal 'x' }
 
-      it "should have all other fields unaffected" do
+      it "has all other fields unaffected" do
         board.fields.each_with_index do |row, y|
           row.each_with_index do |field, x|
             field.must_equal '-' unless y == 7 && x == 3
@@ -30,14 +30,14 @@ class ConnectFour::BoardTest < ConnectFourSpec
         end
       end
 
-      it("should store a second stone in the same column on top of the first") do
+      it("stores a second stone in the same column on top of the first") do
         board.put_stone('x', 3)
         board.fields[6][3].must_equal 'x'
       end
 
-      it("should return the final row and column of the stone") { board.put_stone('x', 3).must_equal [6,3] }
+      it("returns the final row and column of the stone") { board.put_stone('x', 3).must_equal [6,3] }
 
-      it("should return nil if you try to put more than 8 stones in a column") do
+      it("returns nil if you try to put more than 8 stones in a column") do
         7.times { board.put_stone('x', 3) }
         board.put_stone('x', 3).must_be_nil
       end
