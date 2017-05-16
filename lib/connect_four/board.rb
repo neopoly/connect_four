@@ -14,7 +14,7 @@ module ConnectFour
       row = ROWS-1
       row -= 1 until @fields[row].nil? || @fields[row][column] == BLANK
       @fields[row].nil? ? return : @fields[row][column] = symbol
-      return [row, column]
+      [row, column]
     end
 
     def stringified
