@@ -27,27 +27,27 @@ module ConnectFour
 
     def horizontal_quartet? row, column
       count = 1
-      (1..3).to_a.each { |i| @fields[row][column + i] == @fields[row][column] ? count +=1 : break }
-      (1..3).to_a.each { |i| @fields[row][column - i] == @fields[row][column] ? count +=1 : break }
+      1.upto(3) { |i| @fields[row][column + i] == @fields[row][column] ? count += 1 : break }
+      1.upto(3) { |i| @fields[row][column - i] == @fields[row][column] ? count += 1 : break }
       count >= 4 && @fields[row][column] != BLANK
     end
 
     def vertical_quartet? row, column
-      array = (0..3).to_a.collect { |i| (row + i) < ROWS ? @fields[row+i][column] : nil}
+      array = 4.times.collect { |i| (row + i) < ROWS ? @fields[row+i][column] : nil}
       array.uniq.size == 1 && array.size >= 4 && array.uniq.first != BLANK
     end
 
     def ascending_quartet? row, column
       count = 1
-      (1..3).to_a.each { |i| @fields[row + i] && @fields[row + i][column - i] == @fields[row][column] ? count +=1 : break }
-      (1..3).to_a.each { |i| @fields[row - i] && @fields[row - i][column + i] == @fields[row][column] ? count +=1 : break }
+      1.upto(3) { |i| @fields[row + i] && @fields[row + i][column - i] == @fields[row][column] ? count += 1 : break }
+      1.upto(3) { |i| @fields[row - i] && @fields[row - i][column + i] == @fields[row][column] ? count += 1 : break }
       count >= 4 && @fields[row][column] != BLANK
     end
 
     def descending_quartet? row, column
       count = 1
-      (1..3).to_a.each { |i| @fields[row + i] && @fields[row + i][column + i] == @fields[row][column] ? count +=1 : break }
-      (1..3).to_a.each { |i| @fields[row - i] && @fields[row - i][column - i] == @fields[row][column] ? count +=1 : break }
+      1.upto(3) { |i| @fields[row + i] && @fields[row + i][column + i] == @fields[row][column] ? count += 1 : break }
+      1.upto(3) { |i| @fields[row - i] && @fields[row - i][column - i] == @fields[row][column] ? count += 1 : break }
       count >= 4 && @fields[row][column] != BLANK
     end
   end
