@@ -1,5 +1,5 @@
-require_relative 'connect_four/board'
-require_relative 'connect_four/game'
+require './connect_four/board'
+require './connect_four/game'
 
 module ConnectFour
 end
