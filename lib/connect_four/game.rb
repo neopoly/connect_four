@@ -13,5 +13,10 @@ module ConnectFour
     def prompt_for_input symbol
       print "player #{symbol} >".chomp
     end
+
+    def there_is_a_winner? row, column
+      @board.quartet? row, column
+    end
+
   end
 end

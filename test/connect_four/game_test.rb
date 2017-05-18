@@ -24,5 +24,19 @@ class ConnectFour::GameTest < ConnectFourSpec
     end
 
     end
+    describe "#there_is_a_winner?" do
+      it "is false initially" do
+        game.there_is_a_winner?(2,2).must_equal false
+      end
+      it "is true if the just entered stone makes a quartet" do
+        setup_fields [[4,0],[4,1],[4,2],[4,3]], 'x'
+        game.there_is_a_winner?(4, 2).must_equal true
+      end
+      it "is false if the just entered stone doesn't make a quartet" do
+        setup_fields [[4,0],[4,2],[4,3]], 'x'
+        game.there_is_a_winner?(4, 2).must_equal false
+      end
+    end
+
   end
 end
