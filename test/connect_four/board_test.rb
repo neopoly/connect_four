@@ -14,7 +14,7 @@ class ConnectFour::BoardTest < ConnectFourSpec
 
     describe "#stringified" do
       it "returns a string version of the board" do
-        board.stringified.must_equal initial_board_string.chomp
+        board.stringified.must_equal initial_board_string
       end
     end
 
