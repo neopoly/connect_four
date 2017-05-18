@@ -60,6 +60,16 @@ class ConnectFour::GameTest < ConnectFourSpec
     end
 
     describe "#start" do
+      describe "with muted output and no winner" do
+        before do
+          def game.there_is_a_winner? x,y;false;end
+          def game.puts x;; end
+          def game.print x;; end
+        end
+        it "finishes running after a maximum of 64 plays (8x8)" do
+          game.start().must_equal 64
+        end
+      end
       describe "with muted output and a winner" do
         before do
           def game.there_is_a_winner? x,y;true;end
