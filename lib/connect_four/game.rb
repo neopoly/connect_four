@@ -24,5 +24,11 @@ module ConnectFour
       @board.quartet? row, column
     end
 
+    def play symbol
+      display_board
+      prompt_for_input symbol
+      @board.put_stone(symbol, get_input)
+    end
+
   end
 end

@@ -5,6 +5,7 @@ module ConnectFour
     BLANK = '-'
     COLUMNS = 8
     ROWS = 8
+    NUMBER_OF_FIELDS = COLUMNS * ROWS
     VALID_COLUMNS = (1..COLUMNS).to_a.map { |e| e.to_s }
 
     def initialize

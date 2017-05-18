@@ -42,5 +42,22 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
     end
 
+    describe "#play" do
+      it "displays the board and prompt for input" do
+        proc { game.play 'x' }.must_output board_and_prompt_string
+      end
+
+      describe "with muted output output" do
+        before do
+          def game.puts x;; end
+          def game.print x;; end
+        end
+        it "returns the row and column of the played stone as an array" do
+          game.play('o').must_equal [7,2]
+        end
+      end
+
+    end
+
   end
 end
