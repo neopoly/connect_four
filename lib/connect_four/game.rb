@@ -30,5 +30,16 @@ module ConnectFour
       @board.put_stone(symbol, get_input)
     end
 
+    def start
+      ConnectFour::Board::NUMBER_OF_FIELDS.times do |i|
+        row, column = play symbol = (i += 1).even? ? "o" : "x"
+        if there_is_a_winner? row, column
+          display_board
+          puts "THE WINNER IS player #{symbol}"
+          break
+        end
+      end
+
+    end
   end
 end

@@ -59,5 +59,18 @@ class ConnectFour::GameTest < ConnectFourSpec
 
     end
 
+    describe "#start" do
+      describe "with muted output and a winner" do
+        before do
+          def game.there_is_a_winner? x,y;true;end
+          def game.puts x;; end
+          def game.print x;; end
+        end
+        it "finishes running" do
+          game.start().must_be_nil
+        end
+      end
+    end
+
   end
 end
