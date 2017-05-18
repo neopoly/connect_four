@@ -5,6 +5,7 @@ class ConnectFour::GameTest < ConnectFourSpec
     let(:game) { ConnectFour::Game.new }
     let(:board) { game.board }
 
+    before { def game.gets; "3\n"; end } # stub user input
 
     it("responds to board"){ game.must_respond_to :board }
 
@@ -23,7 +24,10 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
     end
 
+    describe "#get_input" do
+      it("returns the valid input as array column (input value - 1)"){ game.get_input().must_equal 2 }
     end
+
     describe "#there_is_a_winner?" do
       it "is false initially" do
         game.there_is_a_winner?(2,2).must_equal false
