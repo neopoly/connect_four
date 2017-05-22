@@ -27,7 +27,9 @@ module ConnectFour
     def play symbol
       display_board
       prompt_for_input symbol
-      @board.put_stone(symbol, get_input)
+      coords = nil
+      coords = @board.put_stone(symbol, get_input) while coords.nil?
+      coords
     end
 
     def start
