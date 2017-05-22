@@ -63,23 +63,40 @@ class ConnectFour::GameTest < ConnectFourSpec
       describe "with muted output and no winner" do
         before do
           def game.there_is_a_winner? x,y;false;end
-          def game.puts x;; end
-          def game.print x;; end
+          def game.puts string;; end
+          def game.print string;; end
+          def game.play symnbol; @count ||= 0 ; @count += 1;end
         end
         it "finishes running after a maximum of 64 plays (8x8)" do
           game.start().must_equal 64
         end
+        it "runs a maximum of 64 plays (8x8)" do
+          game.start()
+          game.play('x').must_equal 65 #expect one more because play is called again here
+        end
+
       end
       describe "with muted output and a winner" do
         before do
           def game.there_is_a_winner? x,y;true;end
-          def game.puts x;; end
-          def game.print x;; end
+          def game.puts string;; end
+          def game.print string;; end
         end
         it "finishes running" do
           game.start().must_be_nil
         end
       end
+      describe "when running through with no winner" do
+        before do
+          def game.there_is_a_winner? x,y;false;end
+          def game.play symbol; @x ||= 0; @o ||= 0 ; symbol == 'x' ? @x += 1 : @o += 1;[@x,@o]; end
+        end
+        it "plays player x and o equally often" do
+          game.start()
+          game.play('x').must_equal [33,32]
+        end
+      end
+
     end
 
   end
