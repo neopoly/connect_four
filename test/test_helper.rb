@@ -24,14 +24,14 @@ def mute(obj)
   [:print, :puts, :p].each {|arg| obj.define_singleton_method(arg) {|string| nil}}
 end
 
-def give_input(obj, input)
+def give_input input, obj = game
   obj.define_singleton_method(:gets) {input}
 end
 
-def with_winner obj
+def with_winner obj = game
   obj.define_singleton_method(:there_is_a_winner?) { |*x| true }
 end
 
-def without_winner obj
+def without_winner obj = game
   obj.define_singleton_method(:there_is_a_winner?) { |*x| false }
 end

@@ -5,7 +5,7 @@ class ConnectFour::GameTest < ConnectFourSpec
     let(:game) { ConnectFour::Game.new }
     let(:board) { game.board }
 
-    before { give_input game, '3' } # stub user input
+    before { give_input '3' } # stub user input
 
     it('responds to board'){ game.must_respond_to :board }
 
@@ -66,7 +66,7 @@ class ConnectFour::GameTest < ConnectFourSpec
     describe '#start' do
       describe 'with muted output and no winner' do
         before do
-          without_winner game
+          without_winner
           def game.play symbol; @count ||= 0 ; @count += 1;end
           mute game
         end
@@ -81,7 +81,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
       describe 'with muted output and a winner' do
         before do
-          with_winner game
+          with_winner
           mute game
         end
         it 'finishes running' do
@@ -90,7 +90,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
       describe 'when running through with no winner' do
         before do
-          without_winner game
+          without_winner
           def game.play symbol; @x ||= 0; @o ||= 0 ; symbol == 'x' ? @x += 1 : @o += 1;[@x,@o]; end
         end
         it 'plays player x and o equally often' do
