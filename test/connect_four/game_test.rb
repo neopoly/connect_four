@@ -5,7 +5,7 @@ class ConnectFour::GameTest < ConnectFourSpec
     let(:game) { ConnectFour::Game.new }
     let(:board) { game.board }
 
-    before { def game.gets; "3\n"; end } # stub user input
+    before { give_input game, '3' } # stub user input
 
     it("responds to board"){ game.must_respond_to :board }
 
@@ -48,11 +48,8 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
 
       describe "with muted output output" do
-        before do
-          def game.puts x;; end
-          def game.print x;; end
-        end
         it "returns the row and column of the played stone as an array" do
+        before { mute game }
           game.play('o').must_equal [7,2]
         end
       end
@@ -63,9 +60,8 @@ class ConnectFour::GameTest < ConnectFourSpec
       describe "with muted output and no winner" do
         before do
           def game.there_is_a_winner? x,y;false;end
-          def game.puts string;; end
-          def game.print string;; end
           def game.play symnbol; @count ||= 0 ; @count += 1;end
+          mute game
         end
         it "finishes running after a maximum of 64 plays (8x8)" do
           game.start().must_equal 64
@@ -79,8 +75,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       describe "with muted output and a winner" do
         before do
           def game.there_is_a_winner? x,y;true;end
-          def game.puts string;; end
-          def game.print string;; end
+          mute game
         end
         it "finishes running" do
           game.start().must_be_nil
