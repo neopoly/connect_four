@@ -10,21 +10,21 @@ module ConnectFour
       puts @board.stringified
     end
 
-    def prompt_for_input symbol
+    def prompt_for_input(symbol)
       print "player #{symbol} >".chomp
     end
 
     def get_input
-      value = ""
+      value = ''
       value = gets until ConnectFour::Board::VALID_COLUMNS.include?(value.chomp)
       value.to_i - 1
     end
 
-    def there_is_a_winner? row, column
+    def there_is_a_winner?(row, column)
       @board.quartet? row, column
     end
 
-    def play symbol
+    def play(symbol)
       display_board
       prompt_for_input symbol
       coords = nil
@@ -34,7 +34,7 @@ module ConnectFour
 
     def start
       ConnectFour::Board::NUMBER_OF_FIELDS.times do |i|
-        row, column = play symbol = (i += 1).even? ? "o" : "x"
+        row, column = play symbol = (i += 1).even? ? 'o' : 'x'
         if there_is_a_winner? row, column
           display_board
           puts "THE WINNER IS player #{symbol}"
