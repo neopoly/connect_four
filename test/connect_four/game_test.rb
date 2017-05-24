@@ -52,6 +52,13 @@ class ConnectFour::GameTest < ConnectFourSpec
         it 'returns the row and column of the played stone as an array' do
           game.play('o').must_equal [7,2]
         end
+        describe 'when a completed row is selected' do
+          before do
+            setup_fields [[7,2],[6,2],[5,2],[4,2],[3,2],[2,2],[1,2],[0,2]], 'x', board
+          end
+          it 'should not return' do
+          end
+        end
       end
 
     end
@@ -59,7 +66,7 @@ class ConnectFour::GameTest < ConnectFourSpec
     describe '#start' do
       describe 'with muted output and no winner' do
         before do
-          def game.there_is_a_winner? x,y;false;end
+          without_winner game
           def game.play symnbol; @count ||= 0 ; @count += 1;end
           mute game
         end
@@ -74,7 +81,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
       describe 'with muted output and a winner' do
         before do
-          def game.there_is_a_winner? x,y;true;end
+          with_winner game
           mute game
         end
         it 'finishes running' do
@@ -83,7 +90,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
       describe 'when running through with no winner' do
         before do
-          def game.there_is_a_winner? x,y;false;end
+          without_winner game
           def game.play symbol; @x ||= 0; @o ||= 0 ; symbol == 'x' ? @x += 1 : @o += 1;[@x,@o]; end
         end
         it 'plays player x and o equally often' do

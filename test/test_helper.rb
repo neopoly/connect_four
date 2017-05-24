@@ -27,3 +27,11 @@ end
 def give_input(obj, input)
   obj.define_singleton_method(:gets) {input}
 end
+
+def with_winner obj
+  obj.define_singleton_method(:there_is_a_winner?) { |*x| true }
+end
+
+def without_winner obj
+  obj.define_singleton_method(:there_is_a_winner?) { |*x| false }
+end
