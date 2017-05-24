@@ -20,7 +20,7 @@ def setup_fields(array_of_coordinates, symbol, _board = board)
   array_of_coordinates.each {|coordinates| _board.fields[coordinates.first][coordinates.last] = symbol}
 end
 
-def mute(obj)
+def mute(obj = game)
   [:print, :puts, :p].each {|arg| obj.define_singleton_method(arg) {|string| nil}}
 end
 

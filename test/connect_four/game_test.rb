@@ -48,7 +48,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
 
       describe 'with muted output' do
-        before { mute game }
+        before { mute }
         it 'returns the row and column of the played stone as an array' do
           game.play('o').must_equal [7,2]
         end
@@ -66,9 +66,9 @@ class ConnectFour::GameTest < ConnectFourSpec
     describe '#start' do
       describe 'with muted output and no winner' do
         before do
+          mute
           without_winner
           def game.play symbol; @count ||= 0 ; @count += 1;end
-          mute game
         end
         it 'finishes running after a maximum of 64 plays (8x8)' do
           game.start.must_equal 64
@@ -81,8 +81,8 @@ class ConnectFour::GameTest < ConnectFourSpec
       end
       describe 'with muted output and a winner' do
         before do
+          mute
           with_winner
-          mute game
         end
         it 'finishes running' do
           game.start.must_be_nil
