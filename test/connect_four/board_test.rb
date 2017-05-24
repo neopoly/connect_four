@@ -4,7 +4,7 @@ class ConnectFour::BoardTest < ConnectFourSpec
   describe ConnectFour::Board do
     let(:board) { ConnectFour::Board.new }
 
-    describe 'intitially' do
+    describe 'initially' do
       it('has 8 rows') { board.fields.length.must_equal 8 }
       it('has all rows the same') { board.fields.uniq.size.must_equal 1 }
       it('has 8 columns for each row') { board.fields.uniq.first.length.must_equal 8 }

@@ -67,7 +67,7 @@ class ConnectFour::GameTest < ConnectFourSpec
       describe 'with muted output and no winner' do
         before do
           without_winner game
-          def game.play symnbol; @count ||= 0 ; @count += 1;end
+          def game.play symbol; @count ||= 0 ; @count += 1;end
           mute game
         end
         it 'finishes running after a maximum of 64 plays (8x8)' do
