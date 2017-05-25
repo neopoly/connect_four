@@ -12,8 +12,8 @@ class Board
   end
 
   def win_condition_met?
-    (fields.row_count - 1).downto 0 do |y|
-      0.upto(fields.column_count - 1) do |x|
+    (fields.row_count - 1).downto 0 do |x|
+      0.upto(fields.column_count - 1) do |y|
         if winning_line_at? x, y
           return true
         end
@@ -39,11 +39,11 @@ class Board
     1.upto(@win_condition_length - 1) do |i|
       test_row = row + i * row_step
       test_col = col + i * col_step
+      #puts "from: #{col},#{row}, check: #{test_col},#{test_row}"
       if @fields[test_row, test_col] != start_val
         return false
       end
     end
-
     true
   end
 

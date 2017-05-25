@@ -17,6 +17,7 @@ class BoardTest < ConnectFourTestHelper
 
     test_board = Board.new(8, 8, 4)
 
+    #diagonal
     test_board.fields = Matrix[%w[. . . . . . . .],
                                %w[. . . . . . . .],
                                %w[. . . . . . . .],
@@ -32,10 +33,59 @@ class BoardTest < ConnectFourTestHelper
                                %w[. . . . . . . .],
                                %w[. . . . . . . .],
                                %w[. . . . . . . .],
+                               %w[. . x . o . . .],
+                               %w[. . o x x o . .],
+                               %w[. . x o x o . .],
+                               %w[. x o x o x o .]]
+
+    assert test_board.win_condition_met?
+
+
+    #vertical
+    test_board.fields = Matrix[%w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . x . .],
+                               %w[. . o . . x . .],
+                               %w[. . o . . x . .],
+                               %w[. . o . . x . .]]
+
+    assert test_board.win_condition_met?
+
+    #horizontal
+    test_board.fields = Matrix[%w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . o o o . . .],
+                               %w[. . x x x x . .]]
+
+    assert test_board.win_condition_met?
+
+    #negative sparse
+    test_board.fields = Matrix[%w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[. . . . . . . .],
                                %w[. . . . o . . .],
                                %w[. . o x x o . .],
                                %w[. . x o x o . .],
                                %w[. x o x o x o .]]
+
+    assert !test_board.win_condition_met?
+
+    #negative test full
+    test_board.fields = Matrix[%w[. . . . . . . .],
+                               %w[. . . . . . . .],
+                               %w[x x o x o x o o],
+                               %w[o o o x o x x x],
+                               %w[x x x o x o o o],
+                               %w[x o o x o x o x],
+                               %w[o x o x o x o x],
+                               %w[x o x o x o x o]]
 
     assert !test_board.win_condition_met?
   end
