@@ -1,6 +1,6 @@
 = Connect four
 
-{<img src="https://travis-ci.org/neopoly/connect_four.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/neopoly/connect_four]
+{<img src="https://travis-ci.org/mark-a/connect_four.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/mark-a/connect_four]
 
 Console based "Vier gewinnt".
 
