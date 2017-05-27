@@ -2,12 +2,12 @@ require 'matrix'
 
 class Board
 
-  EMPTY_FIELD = '.'
+  EMPTY_FIELD = '.'.freeze
   attr_accessor :fields
 
   def initialize(num_rows, num_cols, winning_length)
     # initialize board as '.'  filled matrix
-    @fields = Matrix.build(num_rows, num_cols) { EMPTY_FIELD }
+    @fields = Matrix.build(num_rows, num_cols) {EMPTY_FIELD}
     @win_condition_length = winning_length
   end
 
@@ -40,13 +40,13 @@ class Board
   end
 
   def winning_line_at?(row, col)
-    is_begin_of_line?(row, col, 0, 1) ||
-      is_begin_of_line?(row, col, 1, 0) ||
-      is_begin_of_line?(row, col, 1, 1) ||
-      is_begin_of_line?(row, col, -1, 1)
+    begin_of_line?(row, col, 0, 1) ||
+      begin_of_line?(row, col, 1, 0) ||
+      begin_of_line?(row, col, 1, 1) ||
+      begin_of_line?(row, col, -1, 1)
   end
 
-  def is_begin_of_line?(row, col, row_step, col_step)
+  def begin_of_line?(row, col, row_step, col_step)
     start_val = @fields[row, col]
     return false if start_val == EMPTY_FIELD
 
@@ -62,7 +62,7 @@ class Board
   def to_s
     string_value = ""
     @fields.row_vectors().each do |r|
-      string_value << r.to_a.join("") << "\n"
+      string_value << r.to_a.join('') << "\n"
     end
     string_value
   end
