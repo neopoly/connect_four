@@ -11,14 +11,16 @@ class Board
     @win_condition_length = winning_length
   end
 
-  def insert_char_at(character,column_number)
+  def insert_char_at(character, column_number)
+    if column_number < 1 || column_number > @fields.column_count
+      raise 'Invalid column number'
+    end
     x = column_number - 1
     y = find_drop_point x
     if y < 0
-      raise "Column full"
+      raise 'Column full'
     end
     @fields.send(:[]=, y, x, character)
-
   end
 
   def find_drop_point(x)
