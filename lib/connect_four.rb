@@ -1,18 +1,15 @@
 require_relative "game/board"
 require_relative "game/connect_four_game"
 
-module ConnectFour
+class ConnectFour
   def self.main
-
     Kernel.trap('INT') do
       Kernel.exit(0)
     end
 
     puts 'Would you like to play a game? input: y/n'
-    @exit_requested = false
-
-    input = gets.chomp.to_s.strip
-    @exit_requested = true if input =~ /n/i
+    input = read_input_until_include %w[y Y n N]
+    @exit_requested = input =~ /n/i
 
     until @exit_requested
       @current_game = ConnectFourGame.new
@@ -21,21 +18,34 @@ module ConnectFour
     end
   end
 
+  def self.display_player_text
+    player_text = @current_game.player_1_move? ? 'playerx' : 'playero'
+    player_text << ' make a move! input: 1-8'
+    puts player_text
+  end
+
   def self.game_loop
     until @current_game.finished?
       puts @current_game.board.to_s
-      player_text = @current_game.player_1_move? ? 'playerx' : 'playero'
-      player_text << ' make a move! input: 1-8'
-      puts player_text
-      input = 0
-      until (1..8).to_a.include? input
-        input = gets.chomp.to_s.to_i
-      end
-      @current_game.make_move input
+      display_player_text
+      input = read_input_until_include ((1..8).to_a.map &:to_s)
+      @current_game.make_move input.to_i
     end
     puts 'Would you like to play another game? input: y/n'
-    input = gets.chomp.to_s.strip
+    input = read_input_until_include %w[y Y n N]
     @exit_requested = true if input =~ /n/i
+  end
+
+  def self.read_input_until_include(array)
+    input = nil
+    until array.include? input
+      input = read_input()
+    end
+    input
+  end
+
+  def self.read_input
+    gets.chomp.to_s.strip
   end
 
 end
