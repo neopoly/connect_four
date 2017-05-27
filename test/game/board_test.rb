@@ -77,6 +77,7 @@ class BoardTest < ConnectFourTestHelper
                                 %w[. x o x o x o .]]
 
     assert !@test_board.win_condition_met?
+    assert !@test_board.full?
 
     # negative test full
     @test_board.fields = Matrix[%w[o o x o x o x x],
@@ -89,6 +90,7 @@ class BoardTest < ConnectFourTestHelper
                                 %w[x o x o x o x o]]
 
     assert !@test_board.win_condition_met?
+    assert @test_board.full?
   end
 
   def test_insert
@@ -117,8 +119,6 @@ class BoardTest < ConnectFourTestHelper
     end
 
     assert_match(/Full/i, error.message)
-
-
   end
 
 end

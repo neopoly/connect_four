@@ -27,19 +27,22 @@ class ConnectFourGame
 
   end
 
+  def in_move_state?
+    %w[player_1_move player_2_move].include? self.state
+  end
+
   def make_move(column_number, *args)
+    raise 'Game in wrong state' unless in_move_state?
     symbol = self.player_1_move? ? SYMBOL_PLAYER_1 : SYMBOL_PLAYER_2
     @board.insert_char_at symbol, column_number
     super(*args)
+    self.win if @board.win_condition_met?
+    self.no_more_moves if board.full?
   end
 
   def initialize
     @board = Board.new 8, 8, 4
     super()
-  end
-
-  def done?
-    @board.win_condition_met?
   end
 
 end

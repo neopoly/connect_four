@@ -22,7 +22,7 @@ module ConnectFour
   end
 
   def self.game_loop
-    until @current_game.done?
+    until @current_game.finished?
       puts @current_game.board.to_s
       player_text = @current_game.player_1_move? ? 'playerx' : 'playero'
       player_text << ' make a move! input: 1-8'

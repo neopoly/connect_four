@@ -67,4 +67,8 @@ class Board
     string_value
   end
 
+  def full?
+    # if the top line includes no empty fields the board must be full
+    !@fields.row(0).include? EMPTY_FIELD
+  end
 end
