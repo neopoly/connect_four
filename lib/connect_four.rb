@@ -29,7 +29,11 @@ class ConnectFour
       puts @current_game.board.to_s
       display_player_text
       input = read_input_until_include ((1..8).to_a.map &:to_s)
-      @current_game.make_move input.to_i
+      begin
+        @current_game.make_move input.to_i
+      rescue
+        puts 'Invalid move'
+      end
     end
     puts 'Would you like to play another game? input: y/n'
     input = read_input_until_include %w[y Y n N]
@@ -38,9 +42,7 @@ class ConnectFour
 
   def self.read_input_until_include(array)
     input = nil
-    until array.include? input
-      input = read_input()
-    end
+    input = read_input until array.include? input
     input
   end
 
