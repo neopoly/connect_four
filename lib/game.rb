@@ -1,4 +1,4 @@
-require './board'
+require 'board'
 
 class Game
   def initialize
@@ -11,12 +11,20 @@ class Game
     @game_over = false
   end
 
-  def make_move_player1(x)
-    @board.make_move(x, "x")
+  def make_move_player1(column)
+    @board.make_move(column, "x")
   end
 
-  def make_move_player2(x)
-    @board.make_move(x, "o")
+  def make_move_player2(column)
+    @board.make_move(column, "o")
+  end
+  
+  def did_player1_win?(column)
+    @board.are_four_connected?(column, "x")
+  end
+
+  def did_player2_win?(column)
+    @board.are_four_connected?(column, "o")
   end
 
   def get_move_pos
