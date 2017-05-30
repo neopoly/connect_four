@@ -26,6 +26,7 @@ class Game
       puts("Your last input was invalid. Please only enter numbers between 1 and 8.")
       move_pos = gets.chomp.to_i
     end
+    return move_pos
   end
 
   def play
