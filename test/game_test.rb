@@ -78,4 +78,23 @@ class GameTest < ConnectFourSpec
     game.make_move_player2(1)
     assert_equal false, game.did_player2_win?(1)
   end   
+
+  def test_get_move_returns_valid_integer
+    valid_integers = [1, 2, 3, 4, 5, 6, 7, 8]
+    sample_inputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    with_stdin do |user_input|
+      user_input.puts "#{valid_integers.sample}"
+      game = Game.new
+      assert_includes valid_integers, game.get_move_pos("Player 1")
+    end
+  end
+
+  def with_stdin
+    stdin = $stdin             # remember $stdin
+    $stdin, write = IO.pipe    # create pipe assigning its "read end" to $stdin
+    yield write                # pass pipe's "write end" to block
+  ensure
+    write.close                # close pipe
+    $stdin = stdin             # restore $stdin
+  end
 end
