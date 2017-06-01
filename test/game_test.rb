@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stringio'
 
 class GameTest < ConnectFourSpec
   def test_make_move_player1_returns_a_value
@@ -79,22 +80,134 @@ class GameTest < ConnectFourSpec
     assert_equal false, game.did_player2_win?(1)
   end   
 
-  def test_get_move_returns_valid_integer
-    valid_integers = [1, 2, 3, 4, 5, 6, 7, 8]
-    sample_inputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    with_stdin do |user_input|
-      user_input.puts "#{valid_integers.sample}"
-      game = Game.new
-      assert_includes valid_integers, game.get_move_pos("Player 1")
-    end
+  def test_get_move_only_accepts_valid_input
+    valid_inputs = [1, 2, 3, 4, 5, 6, 7, 8]
+    invalid_inputs = ["a", "b", "c", "d", "e", "f", "g", "h", 9, 10, 11, 12, 13, 14, 15, 16]
+    input = StringIO.new
+    output = StringIO.new
+
+    input.puts "#{invalid_inputs.sample}" 
+    input.puts "#{valid_inputs.sample}"
+    input.rewind   
+
+    game = Game.new(input, output)
+    assert_includes valid_inputs, game.get_move_pos("Player 1")
   end
 
-  def with_stdin
-    stdin = $stdin             # remember $stdin
-    $stdin, write = IO.pipe    # create pipe assigning its "read end" to $stdin
-    yield write                # pass pipe's "write end" to block
-  ensure
-    write.close                # close pipe
-    $stdin = stdin             # restore $stdin
+  def test_play_returns_1_if_player1_wins
+    input = StringIO.new
+    output = StringIO.new
+
+    input.puts "1"
+    input.puts "1"
+    input.puts "2"
+    input.puts "2"
+    input.puts "3"
+    input.puts "3"
+    input.puts "4"
+    input.puts "4"
+    input.rewind
+
+    game = Game.new(input, output)
+    assert_equal 1, game.play
+  end 
+  
+  def test_play_returns_2_if_player2_wins
+    input = StringIO.new
+    output = StringIO.new
+
+    input.puts "1"
+    input.puts "2"
+    input.puts "2"
+    input.puts "3"
+    input.puts "3"
+    input.puts "4"
+    input.puts "4"
+    input.puts "5"
+    input.rewind
+
+    game = Game.new(input, output)
+    assert_equal 2, game.play
+  end
+  
+  def test_play_returns_0_if_draw
+    input = StringIO.new
+    output = StringIO.new
+
+    input.puts "1"
+    input.puts "3"
+    input.puts "2"
+    input.puts "4"
+    input.puts "5"
+    input.puts "7"
+    input.puts "6"
+    input.puts "8"
+    
+    input.puts "3"
+    input.puts "1"
+    input.puts "4"
+    input.puts "2"
+    input.puts "7"
+    input.puts "5"
+    input.puts "8"
+    input.puts "6"
+    
+    input.puts "1"
+    input.puts "3"
+    input.puts "2"
+    input.puts "4"
+    input.puts "5"
+    input.puts "7"
+    input.puts "6"
+    input.puts "8"
+
+    input.puts "3"
+    input.puts "1"
+    input.puts "4"
+    input.puts "2"
+    input.puts "7"
+    input.puts "5"
+    input.puts "8"
+    input.puts "6"
+
+    input.puts "1"
+    input.puts "3"
+    input.puts "2"
+    input.puts "4"
+    input.puts "5"
+    input.puts "7"
+    input.puts "6"
+    input.puts "8"
+    
+    input.puts "3"
+    input.puts "1"
+    input.puts "4"
+    input.puts "2"
+    input.puts "7"
+    input.puts "5"
+    input.puts "8"
+    input.puts "6"
+    
+    input.puts "1"
+    input.puts "3"
+    input.puts "2"
+    input.puts "4"
+    input.puts "5"
+    input.puts "7"
+    input.puts "6"
+    input.puts "8"
+
+    input.puts "3"
+    input.puts "1"
+    input.puts "4"
+    input.puts "2"
+    input.puts "7"
+    input.puts "5"
+    input.puts "8"
+    input.puts "6"
+    input.rewind
+
+    game = Game.new(input, output)
+    assert_equal 0, game.play
   end
 end

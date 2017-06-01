@@ -25,7 +25,7 @@ class Board
   
   def are_four_connected?(column, token)
     raise "Token is invalid." unless token == "x" || token == "o"
-    raise "Token not in expected position." unless @board[column-1].rindex(".")+1 == @board[column-1].index(token)
+    raise "Token not in expected position." unless @board[column-1].index(token) == 0 || (@board[column-1].include?(".") && @board[column-1].rindex(".")+1 == @board[column-1].index(token))
 
     counter = 0
     x_pos = column-1
@@ -95,11 +95,13 @@ class Board
   end
 
   def print_board
+    board_string = ""
     for y in 0..7
       for x in 0..7
-        print "#{@board[x][y]}"
+        board_string += "#{@board[x][y]} "
       end
-      print "\n"
+      board_string += "\n"
     end
+    return board_string
   end  
 end

@@ -1,13 +1,8 @@
 require 'board'
 
 class Game
-  def initialize
-    @board, @moves = Board.new, 0
-  end
-
-  def reset_game
-    @board.reset_board
-    @moves = 0
+  def initialize(input = STDIN, output = STDOUT)
+    @board, @moves, @input, @output = Board.new, 0, input, output
   end
 
   def make_move_player1(column)
@@ -27,14 +22,14 @@ class Game
   end
   
   def get_input
-    gets.chomp.to_i
+    @input.gets.chomp.to_i
   end 
 
   def get_move_pos(player)
-    puts("#{player}, please enter the number of the column you wish to insert your piece into.")
+    @output.puts("#{player}, please enter the number of the column you wish to insert your piece into.")
     move_pos = get_input
     while move_pos < 1 || move_pos > 8 do
-      puts("Your last input was invalid. Please only enter numbers between 1 and 8.")
+      @output.puts("Your last input was invalid. Please only enter numbers between 1 and 8.")
       move_pos = get_input
     end
     return move_pos
@@ -48,11 +43,11 @@ class Game
         column_num = get_move_pos("Player 1")
         player1_moved = make_move_player1(column_num)
       end
-      puts("The board:")
-      @board.print_board
+      @output.puts("The board:")
+      @output.puts"#{@board.print_board}"
       @moves += 1
       if did_player1_win?(column_num)
-        puts("Player 1 won.")
+        @output.puts("Player 1 won.")
         return 1
       end
        
@@ -62,15 +57,15 @@ class Game
         column_num = get_move_pos("Player 2")
         player2_moved = make_move_player2(column_num)
       end
-      puts("The board:")
-      @board.print_board
+      @output.puts("The board:")
+      @output.puts "#{@board.print_board}"
       @moves += 1
       if did_player2_win?(column_num)
-        puts("Player 2 won.")
+        @output.puts("Player 2 won.")
         return 2
       end
     end
-    puts("Neither player won.")
+    @output.puts("Neither player won.")
     return 0
   end
 end
