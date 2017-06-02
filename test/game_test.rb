@@ -78,7 +78,7 @@ class GameTest < ConnectFourSpec
     game = Game.new
     game.make_move_player2(1)
     assert_equal false, game.did_player2_win?(1)
-  end   
+  end  
 
   def test_get_move_only_accepts_valid_input
     valid_inputs = [1, 2, 3, 4, 5, 6, 7, 8]

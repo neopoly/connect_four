@@ -70,7 +70,8 @@ player o> 4
 
 Fork from https://github.com/neopoly/connect_four
 
-  git clone git@github.com:YOURNAME/connect_four.git
+  git clone git@github.com:YOURNAME/connect_four.git or or git clone https://github.com/YOURNAME/connect_four.git
+  cd connect_four
   cd connect_four
   # mit rvm:
   # ruby -v         # -> 2.4.1
