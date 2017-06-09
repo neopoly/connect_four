@@ -6,20 +6,24 @@ describe "checks if a normal game runs through" do
   before do
     class ConnectFour
       @test_inputs = %w[y 1 2 3 4 1 2 3 4 1 2 3 4 1 n]
+      @output_buffer = ""
 
       def self.read_input
         if @test_inputs.size > 0
           val = @test_inputs.shift
-          puts val
+          write_output val
           return val
         else
           raise 'TestCase pulls more values than expected'
         end
       end
+      def self.write_output(text)
+        @output_buffer << text
+      end
     end
   end
 
   it "should play the game" do
-    game = ConnectFour.main
+    ConnectFour.main
   end
 end

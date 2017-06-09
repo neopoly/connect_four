@@ -7,7 +7,7 @@ class ConnectFour
       Kernel.exit(0)
     end
 
-    puts 'Would you like to play a game? input: y/n'
+    write_output 'Would you like to play a game? input: y/n'
     input = read_input_until_include %w[y Y n N]
     @exit_requested = input =~ /n/i
 
@@ -21,21 +21,21 @@ class ConnectFour
   def self.display_player_text
     player_text = @current_game.player_1_move? ? 'playerx' : 'playero'
     player_text << ' make a move! input: 1-8'
-    puts player_text
+    write_output player_text
   end
 
   def self.game_loop
     until @current_game.finished?
-      puts @current_game.board.to_s
+      write_output @current_game.board.to_s
       display_player_text
-      input = read_input_until_include ((1..8).to_a.map &:to_s)
+      input = read_input_until_include (1..8).to_a.map(&:to_s)
       begin
         @current_game.make_move input.to_i
       rescue
-        puts 'Invalid move'
+        write_output 'Invalid move'
       end
     end
-    puts 'Would you like to play another game? input: y/n'
+    write_output 'Would you like to play another game? input: y/n'
     input = read_input_until_include %w[y Y n N]
     @exit_requested = true if input =~ /n/i
   end
@@ -48,6 +48,10 @@ class ConnectFour
 
   def self.read_input
     gets.chomp.to_s.strip
+  end
+
+  def self.write_output(text)
+    puts text
   end
 
 end

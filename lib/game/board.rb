@@ -1,13 +1,12 @@
-require 'matrix'
+require_relative 'mutable_matrix'
 
 class Board
 
   EMPTY_FIELD = '.'.freeze
-  attr_accessor :fields
 
   def initialize(num_rows, num_cols, winning_length)
     # initialize board as '.'  filled matrix
-    @fields = Matrix.build(num_rows, num_cols) {EMPTY_FIELD}
+    @fields = MutableMatrix.build(num_rows, num_cols) {EMPTY_FIELD}
     @win_condition_length = winning_length
   end
 
@@ -30,8 +29,8 @@ class Board
   end
 
   def win_condition_met?
-    (fields.row_count - 1).downto 0 do |x|
-      0.upto(fields.column_count - 1) do |y|
+    (@fields.row_count - 1).downto 0 do |x|
+      0.upto(@fields.column_count - 1) do |y|
         return true if winning_line_at? x, y
       end
     end
@@ -71,4 +70,9 @@ class Board
     # if the top line includes no empty fields the board must be full
     !@fields.row(0).include? EMPTY_FIELD
   end
+
+  def fill(field_array)
+    @fields = MutableMatrix.rows field_array,false
+  end
+
 end

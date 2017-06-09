@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'game/board'
-require 'matrix'
 
 class BoardTest < ConnectFourTestHelper
 
@@ -19,7 +18,7 @@ class BoardTest < ConnectFourTestHelper
 
   def test_solver
     #diagonal
-    @test_board.fields = Matrix[%w[. . . . . . . .],
+    @test_board.fill [%w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
@@ -30,7 +29,7 @@ class BoardTest < ConnectFourTestHelper
 
     assert @test_board.win_condition_met?
 
-    @test_board.fields = Matrix[%w[. . . . . . . .],
+    @test_board.fill [%w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
@@ -43,7 +42,7 @@ class BoardTest < ConnectFourTestHelper
 
 
     # vertical
-    @test_board.fields = Matrix[%w[. . . . . . . .],
+    @test_board.fill [%w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
@@ -55,7 +54,7 @@ class BoardTest < ConnectFourTestHelper
     assert @test_board.win_condition_met?
 
     # horizontal
-    @test_board.fields = Matrix[%w[. . . . . . . .],
+    @test_board.fill [%w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
@@ -67,7 +66,7 @@ class BoardTest < ConnectFourTestHelper
     assert @test_board.win_condition_met?
 
     # negative sparse
-    @test_board.fields = Matrix[%w[. . . . . . . .],
+    @test_board.fill [%w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
                                 %w[. . . . . . . .],
@@ -80,7 +79,7 @@ class BoardTest < ConnectFourTestHelper
     assert !@test_board.full?
 
     # negative test full
-    @test_board.fields = Matrix[%w[o o x o x o x x],
+    @test_board.fill [%w[o o x o x o x x],
                                 %w[o o x o x o x x],
                                 %w[x x o x o x o o],
                                 %w[o o o x o x x x],
