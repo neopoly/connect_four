@@ -15,7 +15,7 @@ class Board
     x = column_number - 1
     y = find_drop_point x
     raise 'Column full' if y < 0
-    @fields.send(:[]=, y, x, character)
+    @fields[y, x] = character
   end
 
   def find_drop_point(x)
