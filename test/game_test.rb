@@ -4,7 +4,7 @@ require 'stringio'
 class GameTest < ConnectFourSpec
   def test_make_move_player1_returns_a_value
     game = Game.new
-    assert game.make_move_player1(1) != nil
+    refute_nil game.make_move_player1(1)
   end
 
   def test_make_move_player1_returns_a_boolean
@@ -14,7 +14,7 @@ class GameTest < ConnectFourSpec
 
   def test_make_move_player2_returns_a_value
     game = Game.new
-    assert game.make_move_player2(1) != nil
+    refute_nil game.make_move_player2(1)
   end
 
   def test_make_move_player2_returns_a_boolean

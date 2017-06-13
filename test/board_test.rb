@@ -1,16 +1,6 @@
 require 'test_helper'
 
 class BoardTest < ConnectFourSpec
-  def test_is_valid_move_returns_a_value
-    game_board = Board.new
-    assert game_board.is_valid_move?(1) != nil
-  end
-
-  def test_is_valid_move_returns_a_boolean
-    game_board = Board.new
-    assert game_board.is_valid_move?(1).is_a?(TrueClass) || game_board.is_valid_move?(1).is_a?(FalseClass) 
-  end
-
   def test_is_valid_move_returns_false_if_invalid
     game_board = Board.new
     game_board.make_move(1, "x")
@@ -21,36 +11,44 @@ class BoardTest < ConnectFourSpec
     game_board.make_move(1, "x")
     game_board.make_move(1, "x")
     game_board.make_move(1, "x")
-    assert_equal false, game_board.is_valid_move?(1)
+    assert_equal false, game_board.valid_move?(1)
   end
 
   def test_is_valid_move_returns_true_if_valid
     game_board = Board.new
-    assert_equal true, game_board.is_valid_move?(1)
+    assert_equal true, game_board.valid_move?(1)
   end
 
   def test_raises_error_when_input_invalid
     assert_raises "Wrong input." do
       game_board = Board.new
-      game_board.is_valid_move?("x")
+      game_board.valid_move?("x")
     end
   end
 
   def test_raises_error_when_out_of_bounds
     assert_raises "Wrong input." do
       game_board = Board.new
-      game_board.is_valid_move?(9)
+      game_board.valid_move?(9)
     end
   end
 
-  def test_make_move_returns_a_value
+  def test_make_move_returns_true_if_moved
     game_board = Board.new
-    assert game_board.make_move(1, "x") != nil
+    assert_equal true, game_board.make_move(1, "x") 
   end
 
-  def test_make_move_returns_a_boolean
+  def test_make_move_returns_false_if_not_moved
     game_board = Board.new
-    assert game_board.make_move(1, "x").is_a?(TrueClass) || board.make_move(1, "x").is_a?(FalseClass) 
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")    
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    assert_equal false, game_board.make_move(1, "x")
   end
 
   def test_make_move_raises_error_when_token_not_valid
