@@ -36,19 +36,24 @@ class Game
   def get_move_pos(player)
     @output.puts("#{player}, please enter the number of the column you wish to insert your piece into.")
     move_pos = get_input
-    while move_pos < 1 || move_pos > 8 do
-      @output.puts("Your last input was invalid. Please only enter numbers between 1 and 8.")
-      move_pos = get_input
+    return move_pos
+  end
+
+  def get_valid_move_pos(player)
+    move_pos = get_move_pos(player)
+    if move_pos < 1 || move_pos > 8 
+      @output.puts("Your last input was invalid. Please only enter numbers between 1 and 8.") 
+      move_pos = get_valid_move_pos(player)
     end
     return move_pos
   end
 
   def play
     while @moves < 64 do
-      column_num = get_move_pos("Player 1")
+      column_num = get_valid_move_pos("Player 1")
       player1_moved = make_move_player1(column_num)
       while !player1_moved do
-        column_num = get_move_pos("Player 1")
+        column_num = get_valid_move_pos("Player 1")
         player1_moved = make_move_player1(column_num)
       end
       @output.puts("The board:")
@@ -59,10 +64,10 @@ class Game
         return 1
       end
        
-      column_num = get_move_pos("Player 2")
+      column_num = get_valid_move_pos("Player 2")
       player2_moved = make_move_player2(column_num)
       while !player2_moved do
-        column_num = get_move_pos("Player 2")
+        column_num = get_valid_move_pos("Player 2")
         player2_moved = make_move_player2(column_num)
       end
       @output.puts("The board:")

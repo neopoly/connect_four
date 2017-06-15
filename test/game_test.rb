@@ -84,7 +84,7 @@ class GameTest < ConnectFourSpec
     assert_equal false, game.did_player2_win?(1)
   end  
 
-  def test_get_move_only_accepts_valid_input
+  def test_get_valid_move_only_accepts_valid_input
     valid_inputs = [1, 2, 3, 4, 5, 6, 7, 8]
     invalid_inputs = ["a", "b", "c", "d", "e", "f", "g", "h", 9, 10, 11, 12, 13, 14, 15, 16]
     input = StringIO.new
@@ -95,7 +95,7 @@ class GameTest < ConnectFourSpec
     input.rewind   
 
     game = Game.new(input, output)
-    assert_includes valid_inputs, game.get_move_pos("Player 1")
+    assert_includes valid_inputs, game.get_valid_move_pos("Player 1")
   end
 
   def test_play_returns_1_if_player1_wins
