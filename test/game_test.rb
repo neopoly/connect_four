@@ -23,24 +23,27 @@ class GameTest < ConnectFourSpec
   end
 
   def test_move_player1_raises_error_when_out_of_bounds
-    assert_raises "Wrong input." do
+    e = assert_raises RuntimeError do
       game = Game.new
       game.make_move_player1(9)
     end
+    assert_equal "Wrong input.", e.message
   end
 
   def test_move_player2_raises_error_when_out_of_bounds
-    assert_raises "Wrong input." do
+    e = assert_raises RuntimeError do
       game = Game.new
       game.make_move_player2(9)
     end
+    assert_equal "Wrong input.", e.message
   end
   
   def test_did_player1_win_raises_error_when_token_not_last
-    assert_raises "Token not in expected position" do
+    e = assert_raises RuntimeError do
       game = Game.new
       game.did_player1_win?(1)
     end
+    assert_equal "Token not in expected position.", e.message
   end
 
   def test_did_player1_win_returns_true_when_four_connected
@@ -59,10 +62,11 @@ class GameTest < ConnectFourSpec
   end
   
   def test_did_player2_win_raises_error_when_token_not_last
-    assert_raises "Token not in expected position" do
+    e = assert_raises RuntimeError do
       game = Game.new
       game.did_player2_win?(1)
     end
+    assert_equal "Token not in expected position.", e.message
   end
 
   def test_did_player2_win_returns_true_when_four_connected

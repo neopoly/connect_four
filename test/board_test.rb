@@ -20,17 +20,19 @@ class BoardTest < ConnectFourSpec
   end
 
   def test_raises_error_when_input_invalid
-    assert_raises "Wrong input." do
+    e = assert_raises RuntimeError do
       game_board = Board.new
       game_board.valid_move?("x")
     end
+    assert_equal "Wrong input.", e.message
   end
 
   def test_raises_error_when_out_of_bounds
-    assert_raises "Wrong input." do
+    e = assert_raises RuntimeError do
       game_board = Board.new
       game_board.valid_move?(9)
     end
+    assert_equal "Wrong input.", e.message
   end
 
   def test_make_move_returns_true_if_moved
@@ -52,47 +54,83 @@ class BoardTest < ConnectFourSpec
   end
 
   def test_make_move_raises_error_when_token_not_valid
-    assert_raises "Token is invalid." do
+    e = assert_raises RuntimeError do
       game_board = Board.new
       game_board.make_move(1, 34)
     end
+    assert_equal "Token is invalid.", e.message
   end
 
-  def test_are_four_connected_raises_error_when_token_not_valid
-    assert_raises "Token is invalid." do
+  def test_connected_horizontally_raises_error_when_token_not_valid
+    e = assert_raises RuntimeError do
       game_board = Board.new
-      game_board.are_four_connected?(1, "p")
+      game_board.connected_horizontally?(1, "p")
     end
+    assert_equal "Token is invalid.", e.message
   end
 
-  def test_are_four_connected_raises_error_when_token_not_last
-    assert_raises "Token not in expected position." do
+  def test_connected_horizontally_raises_error_when_token_not_last
+    e = assert_raises RuntimeError do
       game_board = Board.new
-      game_board.are_four_connected?(1, "x")
+      game_board.connected_horizontally?(1, "x")
     end
+    assert_equal "Token not in expected position.", e.message
+  end
+
+  def test_connected_vertically_raises_error_when_token_not_valid
+    e = assert_raises RuntimeError do
+      game_board = Board.new
+      game_board.connected_vertically?(1, "p")
+    end
+    assert_equal "Token is invalid.", e.message
+  end
+
+  def test_connected_vertically_raises_error_when_token_not_last
+    e = assert_raises RuntimeError do
+      game_board = Board.new
+      game_board.connected_vertically?(1, "x")
+    end
+    assert_equal "Token not in expected position.", e.message
+  end
+
+  def test_connected_diagonally_desc_raises_error_when_token_not_valid
+    e = assert_raises RuntimeError do
+      game_board = Board.new
+      game_board.connected_diagonally_desc?(1, "p")
+    end
+    assert_equal "Token is invalid.", e.message
+  end
+
+  def test_connected_diagonally_desc_raises_error_when_token_not_last
+    e = assert_raises RuntimeError do
+      game_board = Board.new
+      game_board.connected_diagonally_desc?(1, "x")
+    end
+    assert_equal "Token not in expected position.", e.message
+  end
+
+  def test_connected_diagonally_asc_raises_error_when_token_not_valid
+    e = assert_raises RuntimeError do
+      game_board = Board.new
+      game_board.connected_diagonally_asc?(1, "p")
+    end
+    assert_equal "Token is invalid.", e.message
+  end
+
+  def test_connected_diagonally_asc_raises_error_when_token_not_last
+    e = assert_raises RuntimeError do
+      game_board = Board.new
+      game_board.connected_diagonally_asc?(1, "x")
+    end
+    assert_equal "Token not in expected position.", e.message
   end
 
   def test_connected_horizontally_returns_true_if_connected
     game_board = Board.new
     game_board.make_move(1, "x")
-    game_board.make_move(1, "x")
-    game_board.make_move(1, "x")
-    game_board.make_move(1, "x")
     game_board.make_move(2, "x")
     game_board.make_move(3, "x")
     game_board.make_move(4, "x")
-    game_board.make_move(2, "o")
-    game_board.make_move(2, "x")
-    game_board.make_move(3, "x")
-    game_board.make_move(5, "o")
-    game_board.make_move(5, "x")
-    game_board.make_move(6, "o")
-    game_board.make_move(6, "o")
-    game_board.make_move(6, "x")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "x")
     assert_equal true, game_board.connected_horizontally?(4, "x")
   end
 
@@ -102,21 +140,6 @@ class BoardTest < ConnectFourSpec
     game_board.make_move(1, "x")
     game_board.make_move(1, "x")
     game_board.make_move(1, "x")
-    game_board.make_move(2, "x")
-    game_board.make_move(3, "x")
-    game_board.make_move(4, "x")
-    game_board.make_move(2, "o")
-    game_board.make_move(2, "x")
-    game_board.make_move(3, "x")
-    game_board.make_move(5, "o")
-    game_board.make_move(5, "x")
-    game_board.make_move(6, "o")
-    game_board.make_move(6, "o")
-    game_board.make_move(6, "x")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "x")
     assert_equal true, game_board.connected_vertically?(1, "x")
   end
 
@@ -132,30 +155,12 @@ class BoardTest < ConnectFourSpec
     game_board.make_move(2, "o")
     game_board.make_move(2, "x")
     game_board.make_move(3, "x")
-    game_board.make_move(5, "o")
-    game_board.make_move(5, "x")
-    game_board.make_move(6, "o")
-    game_board.make_move(6, "o")
-    game_board.make_move(6, "x")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "o")
-    game_board.make_move(7, "x")
     assert_equal true, game_board.connected_diagonally_desc?(2, "x")
   end
 
   def test_connected_diagonally_asc_returns_true_if_connected
     game_board = Board.new
-    game_board.make_move(1, "x")
-    game_board.make_move(1, "x")
-    game_board.make_move(1, "x")
-    game_board.make_move(1, "x")
-    game_board.make_move(2, "x")
-    game_board.make_move(3, "x")
     game_board.make_move(4, "x")
-    game_board.make_move(2, "o")
-    game_board.make_move(2, "x")
-    game_board.make_move(3, "x")
     game_board.make_move(5, "o")
     game_board.make_move(5, "x")
     game_board.make_move(6, "o")
