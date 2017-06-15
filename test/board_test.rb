@@ -72,7 +72,7 @@ class BoardTest < ConnectFourSpec
     end
   end
 
-  def test_are_four_connected_returns_true_if_connected
+  def test_connected_horizontally_returns_true_if_connected
     game_board = Board.new
     game_board.make_move(1, "x")
     game_board.make_move(1, "x")
@@ -93,15 +93,102 @@ class BoardTest < ConnectFourSpec
     game_board.make_move(7, "o")
     game_board.make_move(7, "o")
     game_board.make_move(7, "x")
-    assert_equal true, game_board.are_four_connected?(1, "x")
-    assert_equal true, game_board.are_four_connected?(2, "x")
-    assert_equal true, game_board.are_four_connected?(4, "x")
-    assert_equal true, game_board.are_four_connected?(7, "x")
+    assert_equal true, game_board.connected_horizontally?(4, "x")
   end
 
-  def test_are_four_connected_returns_false_if_not_connected
+  def test_connected_vertically_returns_true_if_connected
     game_board = Board.new
     game_board.make_move(1, "x")
-    assert_equal false, game_board.are_four_connected?(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(2, "x")
+    game_board.make_move(3, "x")
+    game_board.make_move(4, "x")
+    game_board.make_move(2, "o")
+    game_board.make_move(2, "x")
+    game_board.make_move(3, "x")
+    game_board.make_move(5, "o")
+    game_board.make_move(5, "x")
+    game_board.make_move(6, "o")
+    game_board.make_move(6, "o")
+    game_board.make_move(6, "x")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "x")
+    assert_equal true, game_board.connected_vertically?(1, "x")
+  end
+
+  def test_connected_diagonally_desc_returns_true_if_connected
+    game_board = Board.new
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(2, "x")
+    game_board.make_move(3, "x")
+    game_board.make_move(4, "x")
+    game_board.make_move(2, "o")
+    game_board.make_move(2, "x")
+    game_board.make_move(3, "x")
+    game_board.make_move(5, "o")
+    game_board.make_move(5, "x")
+    game_board.make_move(6, "o")
+    game_board.make_move(6, "o")
+    game_board.make_move(6, "x")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "x")
+    assert_equal true, game_board.connected_diagonally_desc?(2, "x")
+  end
+
+  def test_connected_diagonally_asc_returns_true_if_connected
+    game_board = Board.new
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(1, "x")
+    game_board.make_move(2, "x")
+    game_board.make_move(3, "x")
+    game_board.make_move(4, "x")
+    game_board.make_move(2, "o")
+    game_board.make_move(2, "x")
+    game_board.make_move(3, "x")
+    game_board.make_move(5, "o")
+    game_board.make_move(5, "x")
+    game_board.make_move(6, "o")
+    game_board.make_move(6, "o")
+    game_board.make_move(6, "x")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "o")
+    game_board.make_move(7, "x")
+    assert_equal true, game_board.connected_diagonally_asc?(7, "x")
+  end
+
+  def test_are_four_connected_horizontally_returns_false_if_not_connected
+    game_board = Board.new
+    game_board.make_move(1, "x")
+    assert_equal false, game_board.connected_horizontally?(1, "x")
+  end
+
+  def test_are_four_connected_vertically_returns_false_if_not_connected
+    game_board = Board.new
+    game_board.make_move(1, "x")
+    assert_equal false, game_board.connected_vertically?(1, "x")
+  end
+
+  def test_are_four_connected_diagonally_desc_returns_false_if_not_connected
+    game_board = Board.new
+    game_board.make_move(1, "x")
+    assert_equal false, game_board.connected_diagonally_desc?(1, "x")
+  end
+
+  def test_are_four_connected_diagonally_asc_returns_false_if_not_connected
+    game_board = Board.new
+    game_board.make_move(1, "x")
+    assert_equal false, game_board.connected_diagonally_asc?(1, "x")
   end
 end

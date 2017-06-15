@@ -48,7 +48,7 @@ class Board
     x_pos = column-1
     y_pos = @board[column-1].index(token)
 
-    for x in 0..7
+    for y in 0..7
       if(@board[x_pos][y] == token)
         counter += 1
         if(counter > 3)
@@ -113,7 +113,7 @@ class Board
   end
 
   def print_board
-    board_ = ""
+    board_string = ""
     for y in 0..7
       for x in 0..7
         board_string += "#{@board[x][y]} "

@@ -14,7 +14,7 @@ class Game
   end
   
   def did_player1_win?(column)
-    if @board.connected_horizontally?(column, "x") || @board.connected_vertically?(column, "x") || @board.connected_diagonally_desc(column, "x") || @board.connected_diagonally_asc(column, "x")
+    if @board.connected_horizontally?(column, "x") || @board.connected_vertically?(column, "x") || @board.connected_diagonally_desc?(column, "x") || @board.connected_diagonally_asc?(column, "x")
       return true
     else
       return false
@@ -22,7 +22,7 @@ class Game
   end
 
   def did_player2_win?(column)
-    if @board.connected_horizontally?(column, "o") || @board.connected_vertically?(column, "o") || @board.connected_diagonally_desc(column, "o") || @board.connected_diagonally_asc(column, "o")
+    if @board.connected_horizontally?(column, "o") || @board.connected_vertically?(column, "o") || @board.connected_diagonally_desc?(column, "o") || @board.connected_diagonally_asc?(column, "o")
       return true
     else
       return false
