@@ -41,9 +41,9 @@ class Game
 
   def get_valid_move_pos(player)
     move_pos = get_move_pos(player)
-    if move_pos < 1 || move_pos > 8 
+    while move_pos < 1 || move_pos > 8 do
       @output.puts("Your last input was invalid. Please only enter numbers between 1 and 8.") 
-      move_pos = get_valid_move_pos(player)
+      move_pos = get_move_pos(player)
     end
     return move_pos
   end
