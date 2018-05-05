@@ -94,14 +94,12 @@ class ConnectFourTest < ConnectFourSpec
     for col in (0..7).step(4)
       for row in 0..7
         if ConnectFour.check_turn == 1
-          # p 1
           ConnectFour.put_mark('x', col)
           ConnectFour.put_mark('x', col+1)
           ConnectFour.put_mark('o', col+2)
           ConnectFour.put_mark('o', col+3)
           ConnectFour.switch_turn
         else
-          # p 2
           ConnectFour.put_mark('o', col)
           ConnectFour.put_mark('o', col+1)
           ConnectFour.put_mark('x', col+2)
