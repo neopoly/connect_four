@@ -7,23 +7,31 @@ module ConnectFour
     @dim = dim
     @player = player
     @board = []
+    @mark_pos = [-1,-1]   #row,col
+
     @dim.times do
-      @board.push(Array.new(8,'.'))
+      @board.push(Array.new(@dim,'.'))
     end
     @board
   end
 
   def self.put_mark(mark, col)
+
+    if @board[@dim-1][col] == '.'
+      @board[@dim-1][col] = mark
+      @mark_pos = [@dim-1, col]
+      self.switch_turn
+      return @board
+    end
+
     for row in 0..@dim-1
       if @board[row][col] != '.'
         @board[row-1][col] = mark
+        @mark_pos = [row-1, col]
         self.switch_turn
         return @board
       end
     end
-    @board[@dim-1][col] = mark
-    self.switch_turn
-    @board
   end
 
   def self.switch_turn
@@ -39,5 +47,20 @@ module ConnectFour
 
   def self.check_turn
     @player
+  end
+
+  def self.connect_row?
+  end
+
+  def self.connect_col?
+  end
+
+  def self.connect_diag?
+  end
+
+  def self.full_board?
+  end
+
+  def self.game_over?
   end
 end

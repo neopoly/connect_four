@@ -111,9 +111,9 @@ class ConnectFourTest < ConnectFourSpec
       end
     end
 
-    assert_not ConnectFour.connect_row?
-    assert_not ConnectFour.connect_col?
-    assert_not ConnectFour.connect_diag?
+    assert (not ConnectFour.connect_row?)
+    assert (not ConnectFour.connect_col?)
+    assert (not ConnectFour.connect_diag?)
     assert ConnectFour.full_board?
     assert ConnectFour.game_over?
 
