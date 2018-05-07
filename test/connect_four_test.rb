@@ -30,7 +30,8 @@ class ConnectFourTest < ConnectFourSpec
              ["x", ".", ".", ".", ".", ".", ".", "."]]
     col = 0
     ConnectFour.init_board
-    assert_equal board, ConnectFour.put_mark('x',col)
+    assert ConnectFour.put_mark('x',col)
+    assert_equal board, ConnectFour.current_board
 
     board = [[".", ".", ".", ".", ".", ".", ".", "."],
              [".", ".", ".", ".", ".", ".", ".", "."],
@@ -40,7 +41,8 @@ class ConnectFourTest < ConnectFourSpec
              [".", ".", ".", ".", ".", ".", ".", "."],
              ["o", ".", ".", ".", ".", ".", ".", "."],
              ["x", ".", ".", ".", ".", ".", ".", "."]]
-    assert_equal board, ConnectFour.put_mark('o',col)
+    assert ConnectFour.put_mark('o',col)
+    assert_equal board, ConnectFour.current_board
   end
 
   # Test for switching players and check the turn
@@ -48,6 +50,7 @@ class ConnectFourTest < ConnectFourSpec
     ConnectFour.init_board
     assert_equal 1, ConnectFour.check_turn
     ConnectFour.put_mark('x', 0)
+    ConnectFour.switch_turn
     assert_equal 2, ConnectFour.check_turn
   end
 

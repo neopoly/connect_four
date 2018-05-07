@@ -15,21 +15,30 @@ module ConnectFour
     @board
   end
 
+  def self.current_board
+    @board
+  end
+
   def self.put_mark(mark, col)
+
+    # the col is full
+    if @board[0][col] != '.'
+      return false
+    end
 
     if @board[@dim-1][col] == '.'
       @board[@dim-1][col] = mark
       @mark_pos = [@dim-1, col]
-      self.switch_turn
-      return @board
+      # self.switch_turn
+      return true
     end
 
     for row in 0..@dim-1
       if @board[row][col] != '.'
         @board[row-1][col] = mark
         @mark_pos = [row-1, col]
-        self.switch_turn
-        return @board
+        # self.switch_turn
+        return true
       end
     end
   end
