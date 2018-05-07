@@ -3,6 +3,80 @@ module ConnectFour
     "hello world"
   end
 
+  def self.start_game(dim=8, player=1)
+    self.init_board(dim, player)
+    # self.print_board
+    while not game_over?
+      col = self.get_input(@player)
+      is_put = false
+      # player x
+      if @player == 1
+        is_put = self.put_mark('x', col)
+      # player o
+      else
+        is_put = self.put_mark('o', col)
+      end
+
+      if is_put
+        self.print_board
+
+        case self.check_winner
+        when -1
+          self.switch_turn
+        when 0
+          p "Draw. The game is over. "
+        when 1
+          p "Player 1 wins. The game is over. "
+        when 2
+          p "Player 2 wins. The game is over. "
+        end
+
+      else
+        p 'something wrong when putting mark'
+      end
+    end
+
+  end
+
+  def self.get_input(player)
+    # player x
+    if player == 1
+      print "player x> "
+    # player o
+    else
+      print "player o> "
+    end
+    col = gets.chomp
+    if col == ""
+      p "please enter number between 1 - 8"
+      self.get_input(player)
+    end
+    col = col.to_i
+    if col > 8 or col < 1
+      p "please enter number between 1 - 8"
+      self.get_input(player)
+    else
+      col = col.to_i - 1
+    end
+    rescue
+      p "please enter number between 1 - 8"
+      self.get_input(player)
+  end
+
+  def self.print_board
+    for col in 0..@dim-1
+      print col+1
+    end
+    print"\n"
+    for row in 0..@dim-1
+      for col in 0..@dim-1
+        print @board[row][col]
+      end
+      print "\n"
+    end
+    true
+  end
+
   def self.init_board(dim=8, player=1)
     @dim = dim
     @player = player
@@ -71,6 +145,10 @@ module ConnectFour
     end
   end
 
+  def self.game_over?
+    self.connect_row? or self.connect_col? or self.connect_diag? or self.full_board?
+  end
+
   def self.connect_row?
     # check in the same row but different col
     row = @mark_pos[0]
@@ -101,7 +179,7 @@ module ConnectFour
     up = down = row = @mark_pos[0]  # row of mark_pos
 
     if @board[row][col] == '.' or @board[row][col] == nil
-      p 'Mark should be put before checking connect'
+      # p 'Mark should be put before checking connect'
       return false
     end
 
@@ -127,7 +205,7 @@ module ConnectFour
     col = @mark_pos[1]
 
     if @board[row][col] == '.' or @board[row][col] == nil
-      p 'Mark should be put before checking connect'
+      # p 'Mark should be put before checking connect'
       return false
     end
 
@@ -175,9 +253,5 @@ module ConnectFour
       end
     end
     return true
-  end
-
-  def self.game_over?
-    self.connect_row? or self.connect_col? or self.connect_diag? or self.full_board?
   end
 end
