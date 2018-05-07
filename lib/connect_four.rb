@@ -20,7 +20,6 @@ module ConnectFour
   end
 
   def self.put_mark(mark, col)
-
     # the col is full
     if @board[0][col] != '.'
       return false
@@ -56,6 +55,20 @@ module ConnectFour
 
   def self.check_turn
     @player
+  end
+
+  def self.check_winner
+    if self.game_over?
+      if self.full_board?
+        # Draw
+        return 0
+      else
+        return @player
+      end
+    # not yet ned
+    else
+      return -1
+    end
   end
 
   def self.connect_row?
@@ -156,7 +169,7 @@ module ConnectFour
   def self.full_board?
     for row in 0..@dim-1
       for col in 0..@dim-1
-        if @board == "."
+        if @board[row][col] == "."
           return false
         end
       end

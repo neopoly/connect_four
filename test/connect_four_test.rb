@@ -61,6 +61,7 @@ class ConnectFourTest < ConnectFourSpec
     ConnectFour.put_mark('x', 1)
     ConnectFour.put_mark('x', 2)
     ConnectFour.put_mark('x', 3)
+    assert (not ConnectFour.full_board?)
     assert ConnectFour.connect_row?
     assert ConnectFour.game_over?
   end
@@ -117,7 +118,29 @@ class ConnectFourTest < ConnectFourSpec
     assert (not ConnectFour.connect_diag?)
     assert ConnectFour.full_board?
     assert ConnectFour.game_over?
-
   end
 
+  # check winner
+  def test_check_winner
+    ConnectFour.init_board
+    6.times do
+      # player 1
+      if ConnectFour.check_turn == 1
+        if ConnectFour.put_mark('x', 0)
+          ConnectFour.switch_turn
+        end
+      # player 2
+      elsif ConnectFour.check_turn == 2
+        if ConnectFour.put_mark('o', 1)
+          ConnectFour.switch_turn
+        end
+      end
+    end
+
+    if ConnectFour.put_mark('x', 0)
+      assert ConnectFour.game_over?
+      assert ConnectFour.check_winner == 1
+    end
+
+  end
 end
