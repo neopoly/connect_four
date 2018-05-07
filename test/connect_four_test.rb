@@ -17,6 +17,14 @@ class ConnectFourTest < ConnectFourSpec
              [".", ".", ".", ".", ".", ".", ".", "."]]
 
     assert_equal board, ConnectFour.init_board
+
+    board = [[".", ".", ".", ".", "."],
+             [".", ".", ".", ".", "."],
+             [".", ".", ".", ".", "."],
+             [".", ".", ".", ".", "."],
+             [".", ".", ".", ".", "."]]
+
+    assert_equal board, ConnectFour.init_board(dim=5)
   end
 
   def test_put_mark
@@ -52,6 +60,10 @@ class ConnectFourTest < ConnectFourSpec
     ConnectFour.put_mark('x', 0)
     ConnectFour.switch_turn
     assert_equal 2, ConnectFour.check_turn
+
+    ConnectFour.init_board(dim=8, player=2)
+    assert_equal 2, ConnectFour.check_turn
+
   end
 
   # Test for game over and connection

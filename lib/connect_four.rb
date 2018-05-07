@@ -24,18 +24,18 @@ module ConnectFour
         when -1
           self.switch_turn
         when 0
-          p "Draw. The game is over. "
+          p "Draw. The game is over."
         when 1
-          p "Player 1 wins. The game is over. "
+          p "Player 1 wins. The game is over."
         when 2
-          p "Player 2 wins. The game is over. "
+          p "Player 2 wins. The game is over."
         end
 
-      else
-        p 'something wrong when putting mark'
+      # else
+        # p 'Something wrong when putting mark'
       end
     end
-
+    true
   end
 
   def self.get_input(player)
@@ -46,24 +46,28 @@ module ConnectFour
     else
       print "player o> "
     end
+
     col = gets.chomp
     if col == ""
-      p "please enter number between 1 - 8"
+      p "Please enter number between 1 - #{@dim}"
       self.get_input(player)
     end
+
     col = col.to_i
-    if col > 8 or col < 1
-      p "please enter number between 1 - 8"
+    if col > @dim or col < 1
+      p "Please enter number between 1 - #{@dim}"
       self.get_input(player)
     else
       col = col.to_i - 1
+      return col
     end
     rescue
-      p "please enter number between 1 - 8"
+      p "Please enter number between 1 - #{@dim}"
       self.get_input(player)
   end
 
   def self.print_board
+    print"\n"
     for col in 0..@dim-1
       print col+1
     end
@@ -74,6 +78,7 @@ module ConnectFour
       end
       print "\n"
     end
+    print"\n"
     true
   end
 
@@ -96,6 +101,7 @@ module ConnectFour
   def self.put_mark(mark, col)
     # the col is full
     if @board[0][col] != '.'
+      p 'This column is full or out of range. Pleaes put mark in other columns.'
       return false
     end
 
