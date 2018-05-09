@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stringio'
 
 class ConnectFourTest < ConnectFourSpec
 
@@ -204,4 +205,23 @@ class ConnectFourTest < ConnectFourSpec
     assert game.game_over?
     assert game.check_winner == 1
   end
+
+  def test_input_normal
+    game = ConnectFour::Game.new
+    $stdin = StringIO.new("1\n")
+    assert_equal 0, game.get_input
+  end
+
+  def test_input_out_of_range
+    game = ConnectFour::Game.new
+    $stdin = StringIO.new("10\n")
+    assert (not game.get_input)
+  end
+
+  def test_input_not_int
+    game = ConnectFour::Game.new
+    $stdin = StringIO.new("a\n")
+    assert (not game.get_input)
+  end
+
 end

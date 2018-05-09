@@ -1,6 +1,6 @@
 module ConnectFour
-  def self.start_game
-    game = Game.new
+  def self.start_game(dim=8, player=1)
+    game = Game.new(dim, player)
     game.start
   end
 
@@ -175,7 +175,20 @@ module ConnectFour
     def start
       # self.print_board
       while not game_over?
+        # player x
+        if @player == 1
+          print "player x> "
+        # player o
+        else
+          print "player o> "
+        end
+
         col = get_input
+        if not col
+          p "Please enter number between 1 - #{@game_board.dim}"
+          next
+        end
+
         is_put = false
         # player x
         if @player == 1
@@ -204,26 +217,16 @@ module ConnectFour
     end
 
     def get_input
-      # player x
-      if @player == 1
-        print "player x> "
-      # player o
-      else
-        print "player o> "
-      end
-
       col = gets.chomp.to_i
 
       if col > @game_board.dim or col < 1
-        p "Please enter number between 1 - #{@game_board.dim}"
-        get_input
+        return false
       else
         col = col.to_i - 1
         return col
       end
       rescue
-        p "Please enter number between 1 - #{@game_board.dim}"
-        get_input
+        return false
     end
 
     def switch_turn
