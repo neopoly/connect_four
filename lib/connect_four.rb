@@ -27,7 +27,6 @@ module ConnectFour
       if @board[@dim-1][col] == '.'
         @board[@dim-1][col] = mark
         @mark_pos = [@dim-1, col]
-        # self.switch_turn
         return true
       end
 
@@ -35,7 +34,6 @@ module ConnectFour
         if @board[row][col] != '.'
           @board[row-1][col] = mark
           @mark_pos = [row-1, col]
-          # self.switch_turn
           return true
         end
       end
@@ -87,7 +85,6 @@ module ConnectFour
       up = down = row = @mark_pos[0]  # row of mark_pos
 
       if @board[row][col] == '.' or @board[row][col] == nil
-        # p 'Mark should be put before checking connect'
         return false
       end
 
@@ -113,7 +110,6 @@ module ConnectFour
       col = @mark_pos[1]
 
       if @board[row][col] == '.' or @board[row][col] == nil
-        # p 'Mark should be put before checking connect'
         return false
       end
 
@@ -173,7 +169,6 @@ module ConnectFour
     end
 
     def start
-      # self.print_board
       while not game_over?
         # player x
         if @player == 1
@@ -259,5 +254,3 @@ module ConnectFour
     end
   end
 end
-
-# ConnectFour.start_game
