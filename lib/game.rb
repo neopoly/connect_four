@@ -49,6 +49,21 @@ class Game
     true
   end
 
+  def check_winner
+    if @game_board.game_over?
+      if @game_board.full_board?
+        # Draw
+        return 0
+      else
+        return @player
+      end
+    # not yet end
+    else
+      return -1
+    end
+  end
+
+  private
   def get_input
     col = gets.chomp.to_i
 
@@ -72,19 +87,4 @@ class Game
     end
     true
   end
-
-  def check_winner
-    if @game_board.game_over?
-      if @game_board.full_board?
-        # Draw
-        return 0
-      else
-        return @player
-      end
-    # not yet end
-    else
-      return -1
-    end
-  end
-
 end
