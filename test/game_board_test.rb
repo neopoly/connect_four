@@ -21,6 +21,7 @@ class GameBoardTest < ConnectFourSpec
 
     assert_equal board, GameBoard.new(dim=5).board
   end
+
   def test_put_mark
     game_board = GameBoard.new
     board = [%w[. . . . . . . .],
@@ -55,7 +56,7 @@ class GameBoardTest < ConnectFourSpec
     game_board.put_mark('x', 1)
     game_board.put_mark('x', 2)
     game_board.put_mark('x', 3)
-    assert (not game_board.full_board?)
+    refute game_board.full_board?
     assert game_board.connect_row?
     assert game_board.game_over?
   end
@@ -89,9 +90,9 @@ class GameBoardTest < ConnectFourSpec
   def test_full_board
     game_board = GameBoard.new
     # fill the board
-    for row in 0..7
-      for col in (0..7).step(4)
-        if row % 2 == 0
+    0.upto(7) do |row|
+      0.step(7,4) do |col|
+        if row.even?
           game_board.put_mark('x', col)
           game_board.put_mark('x', col+1)
           game_board.put_mark('o', col+2)

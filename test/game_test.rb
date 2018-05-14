@@ -23,13 +23,11 @@ class GameTest < ConnectFourSpec
       # player 1
       if game.player == 1
         game.game_board.put_mark('x', 0)
-        game.send(:switch_turn)
-
       # player 2
       elsif game.player == 2
         game.game_board.put_mark('o', 1)
-        game.send(:switch_turn)
       end
+      game.send(:switch_turn)
     end
     game.game_board.put_mark('x', 0)
     assert game.game_board.game_over?
