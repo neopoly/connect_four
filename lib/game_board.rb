@@ -1,6 +1,7 @@
 class GameBoard
   attr_reader :dim, :board, :mark_pos
-  # attr_accessor :dim, :board, :mark_pos
+
+  EMPTY_MARK = '.'.freeze
 
   def initialize(dim=8)
     @dim = dim
@@ -8,25 +9,25 @@ class GameBoard
     @mark_pos = [-1,-1]   #row,col
 
     dim.times do
-      board.push(Array.new(dim,'.'))
+      board.push(Array.new(dim,EMPTY_MARK))
     end
     board
   end
 
   def put_mark(mark, col)
-    if board[0][col] != '.'
+    if board[0][col] != EMPTY_MARK
       p 'This column is full or out of range. Pleaes put mark in other columns.'
       return false
     end
 
-    if board[dim-1][col] == '.'
+    if board[dim-1][col] == EMPTY_MARK
       board[dim-1][col] = mark
       @mark_pos = [dim-1, col]
       return true
     end
 
     for row in 0..dim-1
-      if board[row][col] != '.'
+      if board[row][col] != EMPTY_MARK
         board[row-1][col] = mark
         @mark_pos = [row-1, col]
         return true
@@ -55,7 +56,7 @@ class GameBoard
     row = mark_pos[0]
     left = right = col = mark_pos[1]   # col of mark_pos
 
-    if board[row][col] == '.' or board[row][col] == nil
+    if board[row][col] == EMPTY_MARK or board[row][col] == nil
       return false
     end
 
@@ -79,7 +80,7 @@ class GameBoard
     col = mark_pos[1]
     up = down = row = mark_pos[0]  # row of mark_pos
 
-    if board[row][col] == '.' or board[row][col] == nil
+    if board[row][col] == EMPTY_MARK or board[row][col] == nil
       return false
     end
 
@@ -104,7 +105,7 @@ class GameBoard
     row = mark_pos[0]
     col = mark_pos[1]
 
-    if board[row][col] == '.' or board[row][col] == nil
+    if board[row][col] == EMPTY_MARK or board[row][col] == nil
       return false
     end
 
@@ -146,7 +147,7 @@ class GameBoard
   def full_board?
     for row in 0..dim-1
       for col in 0..dim-1
-        if board[row][col] == "."
+        if board[row][col] == EMPTY_MARK
           return false
         end
       end

@@ -1,6 +1,9 @@
 class Game
   attr_reader :player, :game_board
 
+  PLAYER_MARK_1 = 'x'.freeze
+  PLAYER_MARK_2 = 'o'.freeze
+
   def initialize(dim=8, player=1)
     @player = player
     @game_board = GameBoard.new(dim)
@@ -10,10 +13,10 @@ class Game
     while not game_board.game_over?
       # player x
       if player == 1
-        print "player x> "
+        print "player #{PLAYER_MARK_1}> "
       # player o
       else
-        print "player o> "
+        print "player #{PLAYER_MARK_2}> "
       end
 
       col = get_input
@@ -25,10 +28,10 @@ class Game
       is_put = false
       # player x
       if player == 1
-        is_put = game_board.put_mark('x', col)
+        is_put = game_board.put_mark(PLAYER_MARK_1, col)
       # player o
       else
-        is_put = game_board.put_mark('o', col)
+        is_put = game_board.put_mark(PLAYER_MARK_2, col)
       end
 
       if is_put
