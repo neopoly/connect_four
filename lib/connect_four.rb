@@ -7,3 +7,5 @@ module ConnectFour
     game.start
   end
 end
+
+ConnectFour.start_game

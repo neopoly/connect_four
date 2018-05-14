@@ -11,6 +11,8 @@ class Game
   end
 
   def start
+    print_start_message
+
     until game_board.game_over?
       player_mark = player == 1? PLAYER_MARK1 : PLAYER_MARK2
 
@@ -35,6 +37,30 @@ class Game
       end
     end
     true
+  end
+
+  def print_start_message
+    msgs = ["Welcome to Connect Four!\n",
+            "Do you need the rules? (y/n) ",
+            "Here are some simple rules:\n",
+            "1. Enter the column you want to put the mark in.\n",
+            "2. When four same marks are connected in a row or column or diagonal,\n" +
+            "   the owner of the mark wins.\n",
+            "OK! Game Start!\n"]
+
+    slow_print(msgs[0..1])
+
+    ans = gets.chomp
+    if ans == 'y'
+      puts
+      slow_print(msgs[2..4], 0.05)
+    end
+
+    sleep(0.5)
+    puts
+    puts msgs[-1]
+    sleep(0.5)
+    game_board.print_board
   end
 
   def check_winner
@@ -66,5 +92,15 @@ class Game
 
   def switch_turn
     @player = player == 1? 2:1
+  end
+
+  def slow_print(msgs, char_time=0.02, line_time=0.3)
+    msgs.each do |msg|
+      msg.each_char do |char|
+        print char
+        sleep(char_time)
+      end
+        sleep(line_time)
+    end
   end
 end

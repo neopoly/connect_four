@@ -8,6 +8,9 @@ Console based "Vier gewinnt".
 
 $ connect_four
 
+Use the command to start the game
+ ruby lib/connect_four.rb
+
 player x> 3
  12345678
  ........
