@@ -16,7 +16,7 @@ class GameBoard
 
   def put_mark(mark, col)
     if board[0][col] != EMPTY_MARK
-      puts 'This column is full or out of range. Pleaes put mark in other columns.'
+      puts 'This column is full or out of range. Please put the mark in other columns.'
       return false
     end
 

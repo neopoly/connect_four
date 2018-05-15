@@ -50,8 +50,7 @@ class Game
 
     slow_print(msgs[0..1])
 
-    ans = gets.chomp
-    if ans == 'y'
+    if get_rule_or_not
       puts
       slow_print(msgs[2..4], 0.05)
     end
@@ -92,6 +91,18 @@ class Game
 
   def switch_turn
     @player = player == 1? 2:1
+  end
+
+  def get_rule_or_not
+    ans = gets.chomp
+    if ans == 'y'
+      return true
+    elsif ans =='n'
+      return false
+    else
+      puts "Please enter y or n.\nDo you need the rules? (y/n)"
+      get_rule_or_not
+    end
   end
 
   def slow_print(msgs, char_time=0.02, line_time=0.3)
