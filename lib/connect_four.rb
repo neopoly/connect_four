@@ -1,4 +1,4 @@
-require "connect_four/board"
+require "connect_four/game"
 
 module ConnectFour
   def self.hello_world
