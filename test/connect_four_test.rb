@@ -22,4 +22,17 @@ class ConnectFourTest < ConnectFourSpec
 		end
 		assert_equal [["x"]]*8, @board.columns
 	end
+
+	def test_representation
+		test_string = ("."*8 + "\n") * 8
+		assert_equal test_string, @board.to_s
+
+		test_string = ("."*8 + "\n") * 7 + ".x.x.x.x\n"
+		(2..8).step(2).each {|i| @board.put_piece "x", i}
+		assert_equal test_string, @board.to_s
+
+		test_string = ("."*8 + "\n") * 6 + "...x....\n.x.x.x.x\n"
+		@board.put_piece "x", 4
+		assert_equal test_string, @board.to_s
+	end
 end
