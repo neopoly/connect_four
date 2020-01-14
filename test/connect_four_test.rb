@@ -48,7 +48,7 @@ class ConnectFourTest < ConnectFourSpec
       ]
     
     refute_test = [
-      "xxx",
+      "xxx", "...xxx..\n...x.x..\n",
       "........\n.x......\n..x.....\n...x....\n",
       ".......x\nx.......\n.x......\n..x.....\n",
       "x.x.x.x."
