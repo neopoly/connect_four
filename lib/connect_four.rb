@@ -1,7 +1,7 @@
 require "connect_four/game"
 
 module ConnectFour
-  def self.main
+  def self.start
     puts "Welcome to Connect Four!"
     puts "Who wants to play?"
     puts "Player 1: "
@@ -12,6 +12,7 @@ module ConnectFour
     player1 = Player.new name1, "x"
     player2 = Player.new name2, "o"
     board = Board.new
-    Game.new board, player1, player2
+    game = Game.new board, player1, player2
+    game.start
   end
 end

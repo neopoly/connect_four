@@ -70,11 +70,11 @@ class ConnectFourTest < ConnectFourSpec
     assert @game.win?
   end
 
-  def test_main
+  def test_start
     $stdout = StringIO.new
     $stdin = StringIO.new
     $stdin.string = "Kevin\nSchmevin\n"
-    game = ConnectFour::main
+    game = ConnectFour.start
     player1 = game.current_player
     game.pass_turn
     player2 = game.current_player

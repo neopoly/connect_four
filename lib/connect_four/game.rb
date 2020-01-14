@@ -24,5 +24,9 @@ module ConnectFour
     def current_player
       @players[@turn]
     end
+
+    def start
+      self
+    end
   end
 end

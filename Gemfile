@@ -1,4 +1,6 @@
-source :rubygems
+source "https://rubygems.org"
 
-gem 'rake'
-gem 'minitest', '~> 5.10'
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+# Specify your gem's dependencies in connect_four.gemspec
+gemspec
