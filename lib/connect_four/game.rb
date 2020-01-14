@@ -20,5 +20,9 @@ module ConnectFour
     def win?
       @board.to_s.match?(WIN_STATES)
     end
+
+    def current_player
+      @players[@turn]
+    end
   end
 end

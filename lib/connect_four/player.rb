@@ -6,5 +6,9 @@ module ConnectFour
       @name = name
       @symbol = symbol
     end
+
+    def ==(other)
+      @name == other.name and @symbol == other.symbol
+    end
   end
 end

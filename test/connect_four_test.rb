@@ -69,4 +69,18 @@ class ConnectFourTest < ConnectFourSpec
     @board.put_piece("x", 4)
     assert @game.win?
   end
+
+  def test_main
+    $stdout = StringIO.new
+    $stdin = StringIO.new
+    $stdin.string = "Kevin\nSchmevin\n"
+    game = ConnectFour::main
+    player1 = game.current_player
+    game.pass_turn
+    player2 = game.current_player
+    test_player = ConnectFour::Player.new "Kevin", "x"
+    assert_equal test_player, player1
+    assert_equal "Kevin", player1.name
+    assert_equal "Schmevin", player2.name
+  end
 end
