@@ -7,13 +7,10 @@ class ConnectFourTest < ConnectFourSpec
     @game = ConnectFour::Game.new @board, nil, nil
   end
 
-  def test_board
-    assert_equal @test, @board.columns
-    @board.put_piece "x", 5
-    @test[4] << "x"
-    assert_equal @test, @board.columns
+  def test_version
+    assert ConnectFour::VERSION
   end
-
+  
   def test_put_piece
     assert_nil @board.put_piece "x", 9
     assert_nil @board.put_piece "x", 0

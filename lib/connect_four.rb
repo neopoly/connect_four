@@ -14,5 +14,12 @@ module ConnectFour
     board = Board.new
     game = Game.new board, player1, player2
     game.start
+
+    while game.playing
+      game.render
+      game.read_input
+      game.update
+      game.pass_turn
+    end
   end
 end
