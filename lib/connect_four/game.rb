@@ -11,8 +11,9 @@ module ConnectFour
       @turn = 0
       @playing = false
       @input_column = nil
-      
-      @logger = Logger.new "logfile.log"
+      @pieces_to_win = 4
+
+      @logger = Logger.new("logfile.log")
     end
 
     private
@@ -79,6 +80,12 @@ module ConnectFour
       print player_move_line
     end
 
+    def match_four_in_a_row(row)
+      four_in_a_row_regex = /#{current_player.piece}{4}/
+      row_string = row.join
+      row_string.match?(four_in_a_row_regex)
+    end
+
     public
 
     def playing?
@@ -90,19 +97,17 @@ module ConnectFour
     end
 
     def won?
+
       # checking four in a column
-      check_col = @board.state("cols").any? {|col| col.length > 3 and col.reverse[0..3].all? {|piece| piece == current_player.piece}}
+      check_col = @board.each_column.any? {|column| match_four_in_a_row(column) } 
       
       # checking four in a row
-      check_row = @board.state("rows").any? {|row| row.join.match?(/#{current_player.piece}{4}/)}
+      check_row = @board.each_column.any? {|row| match_four_in_a_row(row) }
       
-      # checking four in top-left to bottom-right diagonals
-      check_tl_br = false
+      # checking four in diagonals
+      check_diagonals = @board.each_diagonal.any? {|diagonal| match_four_in_a_row(diagonal) }
 
-      # checking four in top-right to bottom-left diagonals
-      check_tr_bl = false
-
-      check_col or check_row or check_tl_br or check_tr_bl
+      check_col or check_row or check_diagonals
     end
 
     def current_player
@@ -152,6 +157,7 @@ module ConnectFour
         puts @board
         puts
         puts color_green + "#{current_player.name} has won!" + reset_graphics
+        clear_line
         @playing = false
       end
     end
