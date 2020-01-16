@@ -5,15 +5,6 @@ require "logger"
 module ConnectFour
   class Game
 
-    attr_reader :playing
-
-    WIN_STATES = [
-      /.*x{4}.*/,
-      /.*(x[.\n]{8}){3}x.*/,
-      /.*(x[.\n]{7}){3}x.*/,
-      /.*(x[.\n]{9}){3}x.*/
-      ]
-
     def initialize(board, *players)
       @board = board
       @players = players
@@ -33,10 +24,6 @@ module ConnectFour
       print "\e[#{num}F"
     end
 
-    def move_this_line
-      print "\e[G"
-    end
-
     def clear_line
       print "\e[K"
     end
@@ -54,7 +41,7 @@ module ConnectFour
     end
 
     def to_interface_origin
-      print "\e[u"
+      print "\e[#{@board.string_height + 2}F"
     end
 
     def player_move_line
@@ -62,8 +49,7 @@ module ConnectFour
     end
 
     def draw_interface
-      puts @board.column_numbers
-      puts @board.to_s
+      puts @board
       puts
       puts
       clear_line
@@ -82,17 +68,41 @@ module ConnectFour
       print player_move_line
     end
 
+    def quit_message
+      move_prev_line
+      clear_line
+      print color_green + "Do you want to quit? (y/n) " + reset_graphics
+      input_string = gets.strip
+      exit if input_string == "y"
+      move_prev_line
+      clear_line
+      print player_move_line
+    end
+
     public
+
+    def playing?
+      @playing
+    end
 
     def pass_turn
       @turn = (@turn + 1) % @players.length
     end
 
-    def is_win?
-      board_state = @board.inspect
-      win = WIN_STATES.map {|state| board_state.match? state} .one?
-      @logger.info("win? #{win}")
-      win
+    def won?
+      # checking four in a column
+      check_col = @board.state("cols").any? {|col| col.length > 3 and col.reverse[0..3].all? {|piece| piece == current_player.piece}}
+      
+      # checking four in a row
+      check_row = @board.state("rows").any? {|row| row.join.match?(/#{current_player.piece}{4}/)}
+      
+      # checking four in top-left to bottom-right diagonals
+      check_tl_br = false
+
+      # checking four in top-right to bottom-left diagonals
+      check_tr_bl = false
+
+      check_col or check_row or check_tl_br or check_tr_bl
     end
 
     def current_player
@@ -101,10 +111,10 @@ module ConnectFour
 
     def start
       @playing = true
+      puts
     end
 
     def render
-      #to_interface_origin
       draw_interface
     end
 
@@ -115,7 +125,7 @@ module ConnectFour
         if input_string.match? /[0-9]+/
           input_column_number = input_string.to_i
           if @board.in_range? input_column_number
-            if not @board.is_full? input_column_number
+            if not @board.column_full? input_column_number
               valid = true
             else
               error_message "This column is already full!"
@@ -124,7 +134,11 @@ module ConnectFour
             error_message "This column number is out of range!"
           end
         else
-          error_message "Your input is not a valid column number!"
+          if input_string == "exit" or input_string == "quit"
+            quit_message
+          else
+            error_message "Your input is not a valid column number!"
+          end
         end
       end
       @input_column = input_column_number
@@ -133,8 +147,11 @@ module ConnectFour
     def update
       @board.put_piece current_player.piece, @input_column
       @input_column = nil
-      if is_win?
-        puts color_green + "#{current_player} has won!" + reset_graphics
+      to_interface_origin
+      if won?
+        puts @board
+        puts
+        puts color_green + "#{current_player.name} has won!" + reset_graphics
         @playing = false
       end
     end
