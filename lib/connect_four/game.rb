@@ -102,7 +102,7 @@ module ConnectFour
       check_col = @board.each_column.any? {|column| match_four_in_a_row(column) } 
       
       # checking four in a row
-      check_row = @board.each_column.any? {|row| match_four_in_a_row(row) }
+      check_row = @board.each_row.any? {|row| match_four_in_a_row(row) }
       
       # checking four in diagonals
       check_diagonals = @board.each_diagonal.any? {|diagonal| match_four_in_a_row(diagonal) }
