@@ -45,6 +45,10 @@ module ConnectFour
       end
     end
 
+    def full?
+      each_column.all? {|column| column.length >= @num_rows}
+    end
+
     def string_height
       # number of rows + column numbers row (1)
       @num_rows + 1

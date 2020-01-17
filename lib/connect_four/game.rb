@@ -37,6 +37,10 @@ module ConnectFour
       "\e[32m"
     end
 
+    def color_yellow
+      "\e[33m"
+    end
+
     def reset_graphics
       "\e[0m"
     end
@@ -158,6 +162,13 @@ module ConnectFour
         puts
         puts color_green + "#{current_player.name} has won!" + reset_graphics
         clear_line
+        @playing = false
+      end
+      if @board.full?
+        puts @board
+        puts
+        puts
+        puts color_yellow + "The board is full. It is a draw!" + reset_graphics
         @playing = false
       end
     end
