@@ -1,83 +1,55 @@
 require 'test_helper'
+require "minitest/autorun"
 
 class ConnectFourTest < ConnectFourSpec
+
+  describe CLI do
+    it "reads input" do
+      input = StringIO.new("test 1 2 3")
+      cli = CLI.new(input, nil)
+
+      value = cli.readInput
+
+      expect("test 1 2 3").must_equal value
+    end
+    it "prints to stdout" do
+      output = StringIO.new
+      cli = CLI.new(nil, output)
+
+      cli.printOut("test 1 2 3")
+
+      expect("test 1 2 3").must_equal output.string
+    end
+  end
+  
   def setup
     @board = ConnectFour::Board.new
     @test = (1..8).inject([]) {|a,i| a << []}
-    @game = ConnectFour::Game.new @board, nil, nil
+    @player1 = ConnectFour::Player.new("Kevin", "x")
+    @player2 = ConnectFour::Player.new("Schmevin", "o")
+    @game = ConnectFour::Game.new @board, @player1, @player2
   end
 
   def test_version
     assert ConnectFour::VERSION
   end
   
-  def test_put_piece
-    assert_nil @board.put_piece "x", 9
-    assert_nil @board.put_piece "x", 0
-
-    (1..8).each do |i|
-      refute_nil @board.put_piece "x", i
-    end
-    assert_equal [["x"]]*8, @board.columns
-  end
-
-  def test_representation
-    test_string = ("."*8 + "\n") * 8
-    assert_equal test_string, @board.to_s
-
-    test_string = ("."*8 + "\n") * 7 + ".x.x.x.x\n"
-    (2..8).step(2).each {|i| @board.put_piece "x", i}
-    assert_equal test_string, @board.to_s
-
-    test_string = ("."*8 + "\n") * 6 + "...x....\n.x.x.x.x\n"
-    @board.put_piece "x", 4
-    assert_equal test_string, @board.to_s
-  end
-
-  def test_win_condition
-    win = ConnectFour::Game::WIN_STATES
-    
-    assert_test = [
-      "xxxx", # four in a row
-      "x.......\n.x......\n..x.....\n...x....\n", # diagonally NW -> SE
-      "...x....\n..x.....\n.x......\nx.......\n", # diagonally NE -> SW
-      ("x" * 4).gsub(/x/, "...x....\n") # four in a column
-      ]
-    
-    refute_test = [
-      "xxx", "...xxx..\n...x.x..\n",
-      "........\n.x......\n..x.....\n...x....\n",
-      ".......x\nx.......\n.x......\n..x.....\n",
-      "x.x.x.x."
-      ] # negative tests
-
-    assert_test.each do |test_string|
-      assert_match win, test_string
-    end
-
-    refute_test.each do |test_string|
-      refute_match win, test_string
-    end
-  end
-
   def test_win
-    3.times {@board.put_piece("x", 4)}
-    refute @game.win?
-    @board.put_piece("x", 4)
-    assert @game.win?
+    populate_board [
+      [1, "x", 1],
+      [2, "x", 2],
+      [3, "x", 3],
+      [3, "o", 4],
+      [1, "x", 4]
+    ]
+    assert @game.won?
   end
 
-  def test_start
-    $stdout = StringIO.new
-    $stdin = StringIO.new
-    $stdin.string = "Kevin\nSchmevin\n"
-    game = ConnectFour.start
-    player1 = game.current_player
-    game.pass_turn
-    player2 = game.current_player
-    test_player = ConnectFour::Player.new "Kevin", "x"
-    assert_equal test_player, player1
-    assert_equal "Kevin", player1.name
-    assert_equal "Schmevin", player2.name
+  private
+
+  def populate_board(ary)
+    ary.each do |times, piece, column|
+      times.times {@board.put_piece piece, column}
+    end
   end
 end

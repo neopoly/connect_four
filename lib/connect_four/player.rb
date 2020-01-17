@@ -1,7 +1,7 @@
 module ConnectFour
   class Player
+
     attr_reader :piece
-    attr_reader :name
 
     def initialize(name, piece)
       @name = name
@@ -10,6 +10,10 @@ module ConnectFour
 
     def ==(other)
       @name == other.name and @piece == other.piece
+    end
+
+    def to_s
+      @name
     end
   end
 end

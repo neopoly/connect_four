@@ -1,11 +1,13 @@
 require "connect_four/player"
 require "connect_four/board"
+require "connect_four/cli"
 require "logger"
 
 module ConnectFour
   class Game
 
-    def initialize(board, *players)
+    def initialize(cli, board, *players)
+      @cli = cli
       @board = board
       @players = players
       @turn = 0
@@ -20,68 +22,8 @@ module ConnectFour
 
     ## Graphics Functions ##
 
-    # moves cursor to beginning of previous line and clears it
-    def move_prev_line(num=1)
-      print "\e[#{num}F"
-    end
-
-    def clear_line
-      print "\e[K"
-    end
-
-    def color_red
-      "\e[31m"
-    end
-
-    def color_green
-      "\e[32m"
-    end
-
-    def color_yellow
-      "\e[33m"
-    end
-
-    def reset_graphics
-      "\e[0m"
-    end
-
     def to_interface_origin
       print "\e[#{@board.string_height + 2}F"
-    end
-
-    def player_move_line
-      "#{current_player.name}: "
-    end
-
-    def draw_interface
-      puts @board
-      puts
-      puts
-      clear_line
-      move_prev_line
-      clear_line
-      print player_move_line
-    end
-
-    ## error messages ##
-
-    def error_message(string)
-      clear_line
-      print color_red + string + reset_graphics
-      move_prev_line
-      clear_line
-      print player_move_line
-    end
-
-    def quit_message
-      move_prev_line
-      clear_line
-      print color_green + "Do you want to quit? (y/n) " + reset_graphics
-      input_string = gets.strip
-      exit if input_string == "y"
-      move_prev_line
-      clear_line
-      print player_move_line
     end
 
     def match_four_in_a_row(row)
@@ -124,7 +66,7 @@ module ConnectFour
     end
 
     def render
-      draw_interface
+      @cli.draw_interface @board, current_player
     end
 
     def read_input
@@ -137,16 +79,16 @@ module ConnectFour
             if not @board.column_full? input_column_number
               valid = true
             else
-              error_message "This column is already full!"
+              @cli.error_message "This column is already full!"
             end
           else
-            error_message "This column number is out of range!"
+            @cli.error_message "This column number is out of range!"
           end
         else
           if input_string == "exit" or input_string == "quit"
-            quit_message
+            @cli.quit_message
           else
-            error_message "Your input is not a valid column number!"
+            @cli.error_message "Your input is not a valid column number!"
           end
         end
       end
@@ -158,17 +100,10 @@ module ConnectFour
       @input_column = nil
       to_interface_origin
       if won?
-        puts @board
-        puts
-        puts color_green + "#{current_player.name} has won!" + reset_graphics
-        clear_line
+        @cli.win_message
         @playing = false
-      end
-      if @board.full?
-        puts @board
-        puts
-        puts
-        puts color_yellow + "The board is full. It is a draw!" + reset_graphics
+      elsif @board.full?
+        @cli.full_message
         @playing = false
       end
     end
