@@ -22,7 +22,7 @@ module ConnectFour
 
     def start_screen
       print_line "Welcome to Connect Four!"
-      print_line "Who wants to play? (name, color, piece)"
+      print_line "Who wants to play? (name color piece)"
       print_line "Player 1: "
       print      "Player 2: \e[A"
       name1, color1, piece1 = read.split(" ")
