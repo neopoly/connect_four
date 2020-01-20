@@ -5,7 +5,7 @@ module ConnectFour
 
     def initialize(name, piece)
       @name = name
-      @piece = piece
+      @piece = piece 
     end
 
     def ==(other)

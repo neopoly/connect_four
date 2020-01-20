@@ -4,11 +4,13 @@ require "connect_four/cli"
 module ConnectFour
   def self.start
     cli = CLI.new
-    names = cli.start_screen
-    player1 = Player.new names[0], "x"
-    player2 = Player.new names[1], "o"
+    player_strings = cli.start_screen
+    players = player_strings.inject([]) do |players, p|
+      name, piece = *p
+      players << Player.new(name, piece)
+    end
     board = Board.new
-    game = Game.new cli, board, player1, player2
+    game = Game.new cli, board, *players
     game.start
 
     while game.playing?

@@ -6,8 +6,8 @@ require "logger"
 module ConnectFour
   class Game
 
-    def initialize(cli, board, *players)
-      @cli = cli
+    def initialize(interface, board, *players)
+      @interface = interface
       @board = board
       @players = players
       @turn = 0
@@ -27,7 +27,8 @@ module ConnectFour
     end
 
     def match_four_in_a_row(row)
-      four_in_a_row_regex = /#{current_player.piece}{4}/
+      escaped_player_piece_string = Regexp.escape(current_player.piece)
+      four_in_a_row_regex = /#{escaped_player_piece_string}{4}/
       row_string = row.join
       row_string.match?(four_in_a_row_regex)
     end
@@ -66,30 +67,21 @@ module ConnectFour
     end
 
     def render
-      @cli.draw_interface @board, current_player
+      @interface.draw_interface @board, current_player
     end
 
     def read_input
       valid = false
       until valid
-        input_string = gets.strip
-        if input_string.match? /[0-9]+/
-          input_column_number = input_string.to_i
-          if @board.in_range? input_column_number
-            if not @board.column_full? input_column_number
-              valid = true
-            else
-              @cli.error_message "This column is already full!"
-            end
+        input_column_number = @interface.get_input_column
+        if @board.in_range? input_column_number
+          if not @board.column_full? input_column_number
+            valid = true
           else
-            @cli.error_message "This column number is out of range!"
+            @interface.error_message "This column is already full!"
           end
         else
-          if input_string == "exit" or input_string == "quit"
-            @cli.quit_message
-          else
-            @cli.error_message "Your input is not a valid column number!"
-          end
+          @interface.error_message "This column number is out of range!"
         end
       end
       @input_column = input_column_number
@@ -100,10 +92,10 @@ module ConnectFour
       @input_column = nil
       to_interface_origin
       if won?
-        @cli.win_message
+        @interface.win_message
         @playing = false
       elsif @board.full?
-        @cli.full_message
+        @interface.full_message
         @playing = false
       end
     end

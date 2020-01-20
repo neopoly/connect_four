@@ -22,14 +22,14 @@ module ConnectFour
 
     def start_screen
       print_line "Welcome to Connect Four!"
-      print_line "Who wants to play?"
+      print_line "Who wants to play? (name, color, piece)"
       print_line "Player 1: "
       print      "Player 2: \e[A"
-      name1 = read
+      name1, color1, piece1 = read.split(" ")
       print "Player 2: "
-      name2 = read
+      name2, color2, piece2 = read.split(" ")
       print_line "Enter \e[1m\e[3mexit\e[0m or \e[1m\e[3mquit\e[0m to leave."
-      [name1, name2]
+      [[name1, color(color1, piece1)], [name2, color(color2, piece2)]]
     end
 
     def draw_interface(board, current_player)
@@ -45,11 +45,24 @@ module ConnectFour
       player_move_line
     end
 
+    def get_input_column
+      valid = false
+      until valid
+        input_string = read
+        if input_string.match? /[0-9]+/
+          valid = true
+        elsif input_string == "exit" or input_string == "quit"
+          quit_message
+        else
+          error_message "Your input is not a valid column number!"
+        end
+      end
+      input_string.to_i
+    end
+
     def error_message(string)
       clear_line
-      color("red")
-      print string
-      reset
+      print(color "red",string)
       move_prev_line
       clear_line
       player_move_line
@@ -58,9 +71,7 @@ module ConnectFour
     def quit_message
       move_prev_line
       clear_line
-      color("green")
-      print QUIT_MESSAGE
-      reset
+      print(color "green",QUIT_MESSAGE)
       input_string = read
       exit if input_string == "y"
       move_prev_line
@@ -71,25 +82,23 @@ module ConnectFour
     def win_message
       print_line @board
       blank_line
-      color("green")
-      print_line "#{@current_player} has won!"
-      reset
+      print_line(color "green","#{@current_player} has won!")
       clear_line
     end
 
     def full_message
       print_line @board
       blank_line
-      color("yellow")
-      print_line FULL_MESSAGE
-      reset
+      pritn_line(color "yellow",FULL_MESSAGE)
       clear_line
     end
 
     private
 
     def player_move_line
-      print "#{@current_player}: "
+      player_piece = @current_player.piece
+      print @current_player
+      print " (#{player_piece}): "
     end
 
     def print(string)
@@ -108,12 +117,8 @@ module ConnectFour
       @input.gets.strip
     end
 
-    def color(color)
-      @output.print "\e[3#{COLOR[color]}m"
-    end
-
-    def reset
-      @output.print "\e[0m"
+    def color(color, string)
+      "\e[3#{COLOR[color]}m#{string}\e[0m"
     end
 
     def move_prev_line(num=1)
