@@ -28,7 +28,7 @@ module ConnectFour
 
     def match_four_in_a_row(row)
       escaped_player_piece_string = Regexp.escape(current_player.piece)
-      four_in_a_row_regex = /#{escaped_player_piece_string}{4}/
+      four_in_a_row_regex = /(#{escaped_player_piece_string}){4}/
       row_string = row.join
       row_string.match?(four_in_a_row_regex)
     end
