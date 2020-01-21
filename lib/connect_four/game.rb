@@ -1,6 +1,5 @@
 require "connect_four/player"
 require "connect_four/board"
-require "connect_four/cli"
 require "logger"
 
 module ConnectFour
@@ -66,8 +65,8 @@ module ConnectFour
       puts
     end
 
-    def render
-      @interface.draw_interface @board, current_player
+    def game_state
+      [@board, current_player]
     end
 
     def read_input

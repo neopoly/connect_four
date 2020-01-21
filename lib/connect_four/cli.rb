@@ -22,21 +22,28 @@ module ConnectFour
 
     def start_screen
       print_line "Welcome to Connect Four!"
+      num_players = ask_player_number
       print_line "Who wants to play? (name color piece)"
-      print_line "Player 1: "
-      print      "Player 2: \e[A"
-      name1, color1, piece1 = read.split(" ")
-      print "Player 2: "
-      name2, color2, piece2 = read.split(" ")
-      print_line "Enter \e[1m\e[3mexit\e[0m or \e[1m\e[3mquit\e[0m to leave."
-      [[name1, color(color1, piece1)], [name2, color(color2, piece2)]]
+      player_data = (1..num_players).map {|i| ask_player_data i}
+      print_line "Enter #{em "exit"} or #{em "quit"} to leave."
+      player_data
     end
 
-    def draw_interface(board, current_player)
-      @board = board
-      @current_player = current_player
+    def ask_player_number
+      2 # player number constant as of yet
+    end
 
-      print_line board
+    def ask_player_data(i)
+      print "Player #{i}: "
+      name, color_string, piece = read.split(" ")
+      [name, color(color_string, piece)] 
+    end
+
+    def draw_interface(game_state)
+      @board = game_state[0]
+      @current_player = game_state[1]
+
+      print_line @board
       blank_line
       blank_line
       clear_line
@@ -127,6 +134,10 @@ module ConnectFour
 
     def clear_line
       @output.print "\e[K"
+    end
+
+    def em(string)
+      "\e[1m\e[3m#{string}\e[0m"
     end
   end
 end

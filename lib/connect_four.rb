@@ -14,7 +14,7 @@ module ConnectFour
     game.start
 
     while game.playing?
-      game.render
+      cli.draw_interface game.game_state
       game.read_input
       game.update
       game.pass_turn
