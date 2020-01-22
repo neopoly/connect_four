@@ -4,7 +4,6 @@ require "logger"
 
 module ConnectFour
   class Game
-
     def initialize(interface, board, *players)
       @interface = interface
       @board = board
@@ -15,21 +14,6 @@ module ConnectFour
       @pieces_to_win = 4
 
       @logger = Logger.new("logfile.log")
-    end
-
-    private
-
-    ## Graphics Functions ##
-
-    def to_interface_origin
-      print "\e[#{@board.string_height + 2}F"
-    end
-
-    def match_four_in_a_row(row)
-      escaped_player_piece_string = Regexp.escape(current_player.piece)
-      four_in_a_row_regex = /(#{escaped_player_piece_string}){4}/
-      row_string = row.join
-      row_string.match?(four_in_a_row_regex)
     end
 
     public
@@ -45,13 +29,13 @@ module ConnectFour
     def won?
 
       # checking four in a column
-      check_col = @board.each_column.any? {|column| match_four_in_a_row(column) } 
-      
+      check_col = @board.each_column.any? { |column| match_four_in_a_row(column) }
+
       # checking four in a row
-      check_row = @board.each_row.any? {|row| match_four_in_a_row(row) }
-      
+      check_row = @board.each_row.any? { |row| match_four_in_a_row(row) }
+
       # checking four in diagonals
-      check_diagonals = @board.each_diagonal.any? {|diagonal| match_four_in_a_row(diagonal) }
+      check_diagonals = @board.each_diagonal.any? { |diagonal| match_four_in_a_row(diagonal) }
 
       check_col or check_row or check_diagonals
     end
@@ -62,11 +46,10 @@ module ConnectFour
 
     def start
       @playing = true
-      puts
     end
 
     def game_state
-      [@board, current_player]
+      [@board.state, current_player]
     end
 
     def read_input
@@ -89,7 +72,6 @@ module ConnectFour
     def update
       @board.put_piece current_player.piece, @input_column
       @input_column = nil
-      to_interface_origin
       if won?
         @interface.win_message
         @playing = false
@@ -97,6 +79,15 @@ module ConnectFour
         @interface.full_message
         @playing = false
       end
+    end
+
+    private
+
+    def match_four_in_a_row(row)
+      escaped_player_piece_string = Regexp.escape(current_player.piece)
+      four_in_a_row_regex = /(#{escaped_player_piece_string}){4}/
+      row_string = row.join
+      row_string.match?(four_in_a_row_regex)
     end
   end
 end

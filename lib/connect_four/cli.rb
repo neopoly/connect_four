@@ -1,8 +1,9 @@
 module ConnectFour
   class CLI
-
     QUIT_MESSAGE = "Do you want to quit? (y/n) "
     FULL_MESSAGE = "The board is full. It is a draw!"
+
+    COLUMN_DIVIDER = "|"
 
     COLOR = {
       "black" => 0,
@@ -12,10 +13,10 @@ module ConnectFour
       "blue" => 4,
       "magenta" => 5,
       "cyan" => 6,
-      "white" => 7
+      "white" => 7,
     }
 
-    def initialize(input=$stdin, output=$stdout)
+    def initialize(input = $stdin, output = $stdout)
       @input = input
       @output = output
     end
@@ -24,7 +25,7 @@ module ConnectFour
       print_line "Welcome to Connect Four!"
       num_players = ask_player_number
       print_line "Who wants to play? (name color piece)"
-      player_data = (1..num_players).map {|i| ask_player_data i}
+      player_data = (1..num_players).map { |i| ask_player_data i }
       print_line "Enter #{em "exit"} or #{em "quit"} to leave."
       player_data
     end
@@ -36,14 +37,15 @@ module ConnectFour
     def ask_player_data(i)
       print "Player #{i}: "
       name, color_string, piece = read.split(" ")
-      [name, color(color_string, piece)] 
+      [name, color(color_string, piece)]
     end
 
     def draw_interface(game_state)
-      @board = game_state[0]
+      @board_state = game_state[0]
       @current_player = game_state[1]
 
-      print_line @board
+      print column_numbers
+      print board_string
       blank_line
       blank_line
       clear_line
@@ -67,9 +69,13 @@ module ConnectFour
       input_string.to_i
     end
 
+    def to_interface_origin
+      print "\e[#{@board_state.length + 3}F"
+    end
+
     def error_message(string)
       clear_line
-      print(color "red",string)
+      print(color "red", string)
       move_prev_line
       clear_line
       player_move_line
@@ -78,7 +84,7 @@ module ConnectFour
     def quit_message
       move_prev_line
       clear_line
-      print(color "green",QUIT_MESSAGE)
+      print(color "green", QUIT_MESSAGE)
       input_string = read
       exit if input_string == "y"
       move_prev_line
@@ -87,20 +93,33 @@ module ConnectFour
     end
 
     def win_message
-      print_line @board
+      print column_numbers
+      print board_string
       blank_line
-      print_line(color "green","#{@current_player} has won!")
+      print_line(color "green", "#{@current_player} has won!")
       clear_line
     end
 
     def full_message
-      print_line @board
+      print_line board_string
       blank_line
-      pritn_line(color "yellow",FULL_MESSAGE)
+      pritn_line(color "yellow", FULL_MESSAGE)
       clear_line
     end
 
     private
+
+    def board_string
+      @board_state.map do |row|
+        row.map do |piece|
+          piece or "."
+        end.join(COLUMN_DIVIDER) << "\n"
+      end.join
+    end
+
+    def column_numbers
+      (1..@board_state.length).to_a.join(COLUMN_DIVIDER) << "\n"
+    end
 
     def player_move_line
       player_piece = @current_player.piece
@@ -128,7 +147,7 @@ module ConnectFour
       "\e[3#{COLOR[color]}m#{string}\e[0m"
     end
 
-    def move_prev_line(num=1)
+    def move_prev_line(num = 1)
       @output.print "\e[#{num}F"
     end
 
