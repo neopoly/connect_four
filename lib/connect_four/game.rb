@@ -4,9 +4,8 @@ require "logger"
 
 module ConnectFour
   class Game
-    def initialize(interface, board, *players)
-      @interface = interface
-      @board = board
+    def initialize(*players)
+      @board = Board.new
       @players = players
       @turn = 0
       @playing = false
@@ -44,41 +43,32 @@ module ConnectFour
       @players[@turn]
     end
 
-    def start
-      @playing = true
-    end
-
     def game_state
       [@board.state, current_player]
     end
 
-    def read_input
-      valid = false
-      until valid
-        input_column_number = @interface.get_input_column
-        if @board.in_range? input_column_number
-          if not @board.column_full? input_column_number
-            valid = true
-          else
-            @interface.error_message "This column is already full!"
-          end
+    def read_input(input_column_number)
+      if @board.in_range? input_column_number
+        if not @board.column_full? input_column_number
+          @input_column = input_column_number
+          error = nil
         else
-          @interface.error_message "This column number is out of range!"
+          error = 1
         end
+      else
+        error = 2
       end
-      @input_column = input_column_number
     end
 
     def update
       @board.put_piece current_player.piece, @input_column
       @input_column = nil
       if won?
-        @interface.win_message
-        @playing = false
+        return 1
       elsif @board.full?
-        @interface.full_message
-        @playing = false
+        return 2
       end
+      return false
     end
 
     private

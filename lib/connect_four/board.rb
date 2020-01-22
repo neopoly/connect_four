@@ -2,8 +2,6 @@ require "logger"
 
 module ConnectFour
   class Board
-    COLUMN_DIVIDER = "|"
-
     def initialize(num_columns = 8, num_rows = 8)
       @columns = (1..num_columns).inject([]) { |a, i| a << [] }
       @num_rows = num_rows

@@ -4,7 +4,7 @@ include ConnectFour
 
 class ConnectFourTest < ConnectFourSpec
   describe CLI do
-    def setup
+    before do
       @input = StringIO.new "Kevin red x\nSchmevin blue o\n"
       @output = StringIO.new
       @cli = CLI.new @input, @output
@@ -21,6 +21,7 @@ class ConnectFourTest < ConnectFourSpec
         Welcome to Connect Four!
         Who wants to play? (name color piece)
         Player 1: Player 2: Enter \e[1m\e[3mexit\e[0m or \e[1m\e[3mquit\e[0m to leave.
+
       END
 
       assert_equal assumed_output, @output.string
@@ -57,7 +58,7 @@ class ConnectFourTest < ConnectFourSpec
   end
 
   describe Game do
-    def setup
+    before do
       @input = StringIO.new "Kevin red x\nSchmevin blue o\n"
       @output = StringIO.new
       @cli = CLI.new @input, @output
@@ -94,6 +95,10 @@ class ConnectFourTest < ConnectFourSpec
 
       # negative tests
       setup
+
+      refute @game.won?
+
+      populate_board (1..3).map { |i| [3, "x", i] }
 
       refute @game.won?
     end

@@ -2,6 +2,8 @@ module ConnectFour
   class CLI
     QUIT_MESSAGE = "Do you want to quit? (y/n) "
     FULL_MESSAGE = "The board is full. It is a draw!"
+    RANGE_ERROR = "The column number is out of range."
+    FULL_ERROR = "This column is full."
 
     COLUMN_DIVIDER = "|"
 
@@ -21,13 +23,20 @@ module ConnectFour
       @output = output
     end
 
-    def start_screen
+    def welcome
       print_line "Welcome to Connect Four!"
+      blank_line
+    end
+
+    def ask_for_player_data
       num_players = ask_player_number
       print_line "Who wants to play? (name color piece)"
-      player_data = (1..num_players).map { |i| ask_player_data i }
+      (1..num_players).map { |i| ask_player_data i }
+    end
+
+    def exit_info
       print_line "Enter #{em "exit"} or #{em "quit"} to leave."
-      player_data
+      blank_line
     end
 
     def ask_player_number
@@ -69,7 +78,7 @@ module ConnectFour
       input_string.to_i
     end
 
-    def to_interface_origin
+    def reset
       print "\e[#{@board_state.length + 3}F"
     end
 
@@ -92,11 +101,13 @@ module ConnectFour
       player_move_line
     end
 
-    def win_message
+    def win_message(game_state)
+      @board_state = game_state[0]
+      winner = game_state[1]
       print column_numbers
       print board_string
       blank_line
-      print_line(color "green", "#{@current_player} has won!")
+      print_line(color "green", "#{winner} has won!")
       clear_line
     end
 
