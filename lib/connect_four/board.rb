@@ -41,6 +41,16 @@ module ConnectFour
       end
     end
 
+    def play_moves(piece, moves)
+      moves.each do |column|
+        put_piece piece, column
+      end
+    end
+
+    def reset
+      @columns = (1..@num_columns).inject([]) { |a, i| a << [] }
+    end
+
     def state
       full_cols.transpose.reverse
     end

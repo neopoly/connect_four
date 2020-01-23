@@ -6,14 +6,10 @@ module ConnectFour
     @interface = CLI.new
 
     @interface.welcome
-    player_strings = @interface.ask_for_player_data
+    player_data = @interface.ask_for_player_data
     @interface.exit_info
+    @game = Game.new player_data
 
-    players = player_strings.inject([]) do |players, p|
-      name, piece = *p
-      players << Player.new(name, piece)
-    end
-    @game = Game.new *players
     @game_over = false
 
     until @game_over
@@ -38,9 +34,9 @@ module ConnectFour
       error = @game.read_input column_number
 
       if error == 1
-        @interface.error_message "RANGE_ERROR"
+        @interface.full_error
       elsif error == 2
-        @interface.error_message "FULL_ERROR"
+        @interface.range_error
       end
     end
   end

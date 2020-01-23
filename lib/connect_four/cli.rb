@@ -4,8 +4,11 @@ module ConnectFour
     FULL_MESSAGE = "The board is full. It is a draw!"
     RANGE_ERROR = "The column number is out of range."
     FULL_ERROR = "This column is full."
+    NOT_VALID_ERROR = "Your input is not a valid column number!"
+    NO_VALID_PLAYER_ERROR = "The player info you entered is not valid."
 
     COLUMN_DIVIDER = "|"
+    DEFAULT_COLOR = "white"
 
     COLOR = {
       "black" => 0,
@@ -25,7 +28,6 @@ module ConnectFour
 
     def welcome
       print_line "Welcome to Connect Four!"
-      blank_line
     end
 
     def ask_for_player_data
@@ -45,8 +47,30 @@ module ConnectFour
 
     def ask_player_data(i)
       print "Player #{i}: "
-      name, color_string, piece = read.split(" ")
-      [name, color(color_string, piece)]
+      valid = false
+      until valid
+        args = read.split(" ")
+        valid, name, piece, color_string = check_number_of_arguments args
+        # check color string
+        # check piece string
+      end
+      piece = color(color_string, piece)
+      [name, piece]
+    end
+
+    def check_number_of_arguments(args)
+      valid = false
+      if args.length >= 2
+        if args.length == 2
+          name, piece = args[0..1]
+        else
+          name, color_string, piece = args
+        end
+        valid = true
+      else
+        error_message NO_VALID_PLAYER_ERROR, "Player #{i}: "
+      end
+      [valid, name, piece, color_string]
     end
 
     def draw_interface(game_state)
@@ -60,7 +84,7 @@ module ConnectFour
       clear_line
       move_prev_line
       clear_line
-      player_move_line
+      print player_move_line
     end
 
     def get_input_column
@@ -72,7 +96,7 @@ module ConnectFour
         elsif input_string == "exit" or input_string == "quit"
           quit_message
         else
-          error_message "Your input is not a valid column number!"
+          error_message NOT_VALID_ERROR
         end
       end
       input_string.to_i
@@ -82,12 +106,20 @@ module ConnectFour
       print "\e[#{@board_state.length + 3}F"
     end
 
-    def error_message(string)
+    def error_message(string, line_start = player_move_line)
       clear_line
       print(color "red", string)
       move_prev_line
       clear_line
-      player_move_line
+      print line_start
+    end
+
+    def range_error
+      error_message RANGE_ERROR
+    end
+
+    def full_error
+      error_message FULL_ERROR
     end
 
     def quit_message
@@ -98,7 +130,7 @@ module ConnectFour
       exit if input_string == "y"
       move_prev_line
       clear_line
-      player_move_line
+      print player_move_line
     end
 
     def win_message(game_state)
@@ -134,8 +166,7 @@ module ConnectFour
 
     def player_move_line
       player_piece = @current_player.piece
-      print @current_player
-      print " (#{player_piece}): "
+      "#{@current_player} (#{player_piece}): "
     end
 
     def print(string)

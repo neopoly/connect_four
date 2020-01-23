@@ -1,24 +1,15 @@
 require "connect_four/player"
 require "connect_four/board"
-require "logger"
 
 module ConnectFour
   class Game
-    def initialize(*players)
-      @board = Board.new
-      @players = players
+    def initialize(player_data)
+      @board = Board.new 8, 8
+      @players = create_players_from player_data
       @turn = 0
       @playing = false
       @input_column = nil
       @pieces_to_win = 4
-
-      @logger = Logger.new("logfile.log")
-    end
-
-    public
-
-    def playing?
-      @playing
     end
 
     def pass_turn
@@ -26,14 +17,10 @@ module ConnectFour
     end
 
     def won?
-
-      # checking four in a column
       check_col = @board.each_column.any? { |column| match_four_in_a_row(column) }
 
-      # checking four in a row
       check_row = @board.each_row.any? { |row| match_four_in_a_row(row) }
 
-      # checking four in diagonals
       check_diagonals = @board.each_diagonal.any? { |diagonal| match_four_in_a_row(diagonal) }
 
       check_col or check_row or check_diagonals
@@ -41,6 +28,14 @@ module ConnectFour
 
     def current_player
       @players[@turn]
+    end
+
+    def reset
+      @board.reset
+    end
+
+    def play_moves(piece, moves)
+      @board.play_moves(piece, moves)
     end
 
     def game_state
@@ -72,6 +67,13 @@ module ConnectFour
     end
 
     private
+
+    def create_players_from(player_data)
+      player_data.inject([]) do |players, data|
+        name, piece = *data
+        players << Player.new(name, piece)
+      end
+    end
 
     def match_four_in_a_row(row)
       escaped_player_piece_string = Regexp.escape(current_player.piece)
