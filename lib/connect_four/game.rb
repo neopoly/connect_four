@@ -3,9 +3,9 @@ require "connect_four/board"
 
 module ConnectFour
   class Game
-    def initialize(player_data)
+    def initialize(players)
       @board = Board.new 8, 8
-      @players = create_players_from player_data
+      @players = players
       @turn = 0
       @playing = false
       @input_column = nil
@@ -67,13 +67,6 @@ module ConnectFour
     end
 
     private
-
-    def create_players_from(player_data)
-      player_data.inject([]) do |players, data|
-        name, piece = *data
-        players << Player.new(name, piece)
-      end
-    end
 
     def match_four_in_a_row(row)
       escaped_player_piece_string = Regexp.escape(current_player.piece)

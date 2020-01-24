@@ -6,9 +6,8 @@ module ConnectFour
     @interface = CLI.new
 
     @interface.welcome
-    player_data = @interface.ask_for_player_data
-    @interface.exit_info
-    @game = Game.new player_data
+    players = @interface.ask_for_player_data
+    @game = Game.new players
 
     @game_over = false
 
