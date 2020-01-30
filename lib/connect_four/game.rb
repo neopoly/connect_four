@@ -7,9 +7,7 @@ module ConnectFour
       @board = Board.new 8, 8
       @players = players
       @turn = 0
-      @playing = false
       @input_column = nil
-      @pieces_to_win = 4
     end
 
     def pass_turn
@@ -24,10 +22,6 @@ module ConnectFour
       check_diagonals = @board.each_diagonal.any? { |diagonal| match_four_in_a_row(diagonal) }
 
       check_col or check_row or check_diagonals
-    end
-
-    def current_player
-      @players[@turn]
     end
 
     def reset
@@ -67,6 +61,10 @@ module ConnectFour
     end
 
     private
+
+    def current_player
+      @players[@turn]
+    end
 
     def match_four_in_a_row(row)
       escaped_player_piece_string = Regexp.escape(current_player.piece)
