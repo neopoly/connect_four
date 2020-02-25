@@ -22,7 +22,7 @@ module ConnectFour
     if @game_over == 1
       @interface.win_message @game.game_state
     elsif @game_over == 2
-      @interface.full_message
+      @interface.full_message @game.game_state
     end
   end
 

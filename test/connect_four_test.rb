@@ -12,6 +12,7 @@ class ConnectFourTest < ConnectFourSpec
     end
 
     it "prints start screen" do
+      skip
       @cli.welcome
       @cli.ask_for_player_data
       @cli.exit_info
@@ -27,6 +28,7 @@ class ConnectFourTest < ConnectFourSpec
     end
 
     it "reads starting input" do
+      skip
       output = @cli.ask_for_player_data
 
       assumed_output = [["Kevin", "\e[31mx\e[0m"], ["Schmevin", "\e[34mo\e[0m"]]
@@ -35,6 +37,7 @@ class ConnectFourTest < ConnectFourSpec
     end
 
     it "draws the interface" do
+      skip
       @cli.draw_interface @game.game_state
 
       assumed_output = <<~END.chomp

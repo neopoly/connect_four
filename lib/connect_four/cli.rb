@@ -186,7 +186,10 @@ module ConnectFour
       clear_line
     end
 
-    def full_message
+    def full_message(game_state)
+      @board_state = game_state[0]
+      winner = game_state[1]
+      print column_numbers
       print_line board_string
       blank_line
       print_line color("yellow", FULL_MESSAGE)
